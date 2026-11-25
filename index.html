@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P3 Science · Classification</title>
+<style>
+:root{
+  --bg:#f3f6fa;--card:#fff;--ink:#1f2a37;--mute:#64748b;--line:#94a3b8;
+  --brand:#0f766e;--brand2:#14b8a6;--ok:#15803d;--okbg:#dcfce7;--bad:#b91c1c;--badbg:#fee2e2;
+  --warn:#92400e;--warnbg:#fef3c7;--ga:#dbeafe;--gb:#fce7f3;--gc:#fef3c7;--gd:#dcfce7
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB",sans-serif}
+header{background:linear-gradient(135deg,#0f766e,#0e7490);color:#fff;padding:18px 16px 14px}
+header .in{max-width:860px;margin:0 auto}
+header h1{margin:0;font-size:22px;letter-spacing:.2px}
+header p{margin:4px 0 0;opacity:.92;font-size:14px}
+nav{background:#fff;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:5}
+nav .in{max-width:860px;margin:0 auto;display:flex;gap:6px;flex-wrap:wrap;padding:10px 16px}
+nav button{border:1px solid #cbd5e1;background:#fff;border-radius:999px;padding:7px 12px;font:inherit;font-size:14px;cursor:pointer;color:var(--ink)}
+nav button.on{background:var(--brand);border-color:var(--brand);color:#fff}
+main{max-width:860px;margin:0 auto;padding:16px}
+.card{background:var(--card);border-radius:14px;padding:16px;margin:0 0 14px;box-shadow:0 1px 3px rgba(15,23,42,.08)}
+h2{font-size:19px;margin:0 0 8px}
+h3{font-size:16px;margin:0 0 6px}
+p{margin:6px 0}
+ul.facts{margin:6px 0 0;padding-left:20px}
+ul.facts li{margin:3px 0}
+.zh{color:var(--mute);font-size:14px}
+.trap{margin-top:8px;padding:8px 10px;border-radius:10px;background:var(--warnbg);color:var(--warn);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.pick{display:block;width:100%;text-align:left;border:1px solid #e2e8f0;background:#fff;border-radius:14px;padding:14px;cursor:pointer;font:inherit;color:inherit;box-shadow:0 1px 3px rgba(15,23,42,.06)}
+.pick:hover{border-color:var(--brand2)}
+.pick h3{margin:2px 0}
+.pill{display:inline-block;font-size:12px;padding:2px 9px;border-radius:999px;background:#e0f2f1;color:var(--brand);font-weight:600}
+.pill.done{background:var(--okbg);color:var(--ok)}
+.btn{border:0;background:var(--brand);color:#fff;border-radius:10px;padding:9px 14px;font:inherit;font-size:15px;cursor:pointer}
+.btn.ghost{background:#fff;color:var(--brand);border:1px solid var(--brand)}
+.btn.small{padding:5px 10px;font-size:13px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.say{border:1px solid #cbd5e1;background:#fff;border-radius:999px;padding:3px 10px;font-size:13px;cursor:pointer}
+.qtext{font-size:17px;font-weight:600;margin:10px 0 4px;white-space:pre-line}
+.opt{display:block;width:100%;text-align:left;margin:8px 0;padding:12px 14px;border:2px solid #e2e8f0;border-radius:12px;background:#fff;font:inherit;cursor:pointer;color:inherit}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--ok);background:var(--okbg)}
+.opt.wrong{border-color:var(--bad);background:var(--badbg)}
+.explain{margin-top:10px;padding:10px 12px;border-radius:10px;background:#f1f5f9}
+.progress{height:8px;background:#e2e8f0;border-radius:99px;overflow:hidden;margin:6px 0 2px}
+.progress i{display:block;height:100%;background:var(--brand2)}
+textarea{width:100%;min-height:84px;border:2px solid #cbd5e1;border-radius:12px;padding:10px 12px;font:inherit;resize:vertical;margin:8px 0}
+textarea:focus{outline:none;border-color:var(--brand2)}
+.checks{list-style:none;padding:0;margin:8px 0}
+.checks li{margin:4px 0;font-size:15px}
+.model{margin-top:8px;padding:10px 12px;border-radius:10px;background:var(--okbg)}
+.marks{margin-top:10px}
+.marks button{border:2px solid #cbd5e1;background:#fff;border-radius:10px;padding:6px 10px;font:inherit;font-size:14px;cursor:pointer;color:inherit}
+.marks button.on.full{border-color:var(--ok);background:var(--okbg)}
+.marks button.on.part{border-color:#ca8a04;background:var(--warnbg)}
+.marks button.on.wrong{border-color:var(--bad);background:var(--badbg)}
+details.peek{margin:6px 0}
+details.peek summary{cursor:pointer;color:var(--brand);font-size:14px}
+.chart-title{font-weight:700;margin-bottom:6px}
+/* flowchart */
+.tree{overflow-x:auto;padding-bottom:4px}
+.tree ul{position:relative;padding:18px 0 0;margin:0;display:flex;justify-content:center}
+.tree>ul{padding-top:0}
+.tree li{list-style:none;position:relative;padding:18px 3px 0;text-align:center;flex:1 1 0;min-width:0}
+.tree li::before,.tree li::after{content:"";position:absolute;top:0;right:50%;border-top:2px solid var(--line);width:50%;height:18px}
+.tree li::after{right:auto;left:50%;border-left:2px solid var(--line)}
+.tree li:only-child::before,.tree li:only-child::after{display:none}
+.tree li:only-child{padding-top:0}
+.tree li:first-child::before,.tree li:last-child::after{border:0 none}
+.tree li:last-child::before{border-right:2px solid var(--line);border-radius:0 6px 0 0}
+.tree li:first-child::after{border-radius:6px 0 0 0}
+.tree ul ul::before{content:"";position:absolute;top:0;left:50%;border-left:2px solid var(--line);width:0;height:18px}
+.node{display:inline-block;border:2px solid #475569;border-radius:10px;padding:5px 7px;font-size:13px;line-height:1.3;background:#fff;max-width:100%}
+.node.root{font-weight:700;font-size:15px;padding:6px 14px}
+.grp{display:inline-block;border-radius:10px;padding:6px 6px;font-size:13px;line-height:1.35;min-width:64px;max-width:100%}
+.grp b{display:block;font-size:15px}
+.grp.A{background:var(--ga)}.grp.B{background:var(--gb)}.grp.C{background:var(--gc)}.grp.D{background:var(--gd)}
+/* tables */
+table.ct{border-collapse:collapse;width:100%;font-size:14px}
+table.ct th,table.ct td{border:1.5px solid #94a3b8;padding:6px 6px;text-align:center}
+table.ct th{background:#f1f5f9}
+table.ct td:first-child{font-weight:700}
+.tick{color:var(--ok);font-weight:700}.cross{color:var(--bad);font-weight:700}
+.muted{color:var(--mute)}
+footer{max-width:860px;margin:0 auto;padding:4px 16px 28px;color:var(--mute);font-size:12px;text-align:center}
+@media (max-width:480px){
+  .node,.grp{font-size:11.5px}.grp{min-width:0;padding:6px 3px}
+  .tree li{padding-left:1px;padding-right:1px}
+  .card.chart{padding:12px 8px}
+  nav .in{flex-wrap:nowrap;overflow-x:auto;padding:8px 12px}
+  nav button{white-space:nowrap;padding:6px 10px}
+  nav .en{display:none}
+}
+</style>
+</head>
+<body>
+<header><div class="in">
+  <h1>🔬 P3 Science · Classification</h1>
+  <p>Living things, plants, fungi, bacteria and animal groups · 分类单元练习</p>
+</div></header>
+<nav><div class="in" id="tabs"></div></nav>
+<main id="app"></main>
+<footer>Made for Ji Dam's home practice · v2026-11-25-1</footer>
+
+<script>
+"use strict";
+
+/* ---------------- content ---------------- */
+
+const LEARN = [
+  {t:"Living things 生物", facts:[
+    "Need <b>air, food and water</b> to stay alive.",
+    "Can <b>grow</b>.",
+    "Can <b>reproduce</b> (have young or make new plants).",
+    "<b>Respond to changes</b> around them, e.g. mimosa leaves close when touched."],
+   zh:"生物的四个特点：需要空气、食物和水；会长大；会繁殖；会对周围变化作出反应。",
+   trap:"⚠️ Moving is NOT a sign of life. A car moves but is non-living. A plant cannot move from place to place but is living."},
+  {t:"Plants 植物", facts:[
+    "Can <b>make their own food</b> (using sunlight).",
+    "<b>Flowering plants</b> bear flowers and reproduce by seeds, e.g. hibiscus, sunflower, mango tree.",
+    "<b>Non-flowering plants</b> do not bear flowers. Ferns and mosses reproduce by <b>spores</b>."],
+   zh:"植物自己制造食物。开花植物靠种子繁殖；蕨类、苔藓不开花，靠孢子繁殖。"},
+  {t:"Fungi 真菌", facts:[
+    "<b>Cannot make their own food.</b>",
+    "Get food from <b>dead or decaying</b> things.",
+    "Reproduce by <b>spores</b>.",
+    "Examples: mushroom, bread mould."],
+   zh:"真菌不能自己制造食物，靠腐烂的东西获得食物，用孢子繁殖。",
+   trap:"⚠️ A mushroom is NOT a plant. It cannot make its own food."},
+  {t:"Bacteria 细菌", facts:[
+    "So tiny that we need a <b>microscope</b> to see them.",
+    "Some are <b>useful</b>, e.g. used to make yoghurt.",
+    "Some are <b>harmful</b>, e.g. cause food poisoning and illness."],
+   zh:"细菌非常小，要用显微镜才看得到；有的有用（做酸奶），有的有害（让人生病）。"},
+  {t:"Mammals 哺乳类", facts:[
+    "Body covered with <b>hair or fur</b>.",
+    "Most <b>give birth to young alive</b>.",
+    "Young feed on <b>mother's milk</b>.",
+    "Breathe through <b>lungs</b>.",
+    "Examples: dog, cat, cow, human."],
+   zh:"有毛发，大多直接生小宝宝，喂奶，用肺呼吸。",
+   trap:"⚠️ Bat (flies) and whale / dolphin (live in water) are mammals."},
+  {t:"Birds 鸟类", facts:[
+    "Body covered with <b>feathers</b>.",
+    "Have a <b>beak</b>, two wings and two legs.",
+    "<b>Lay eggs</b> with hard shells.",
+    "Examples: eagle, sparrow, chicken."],
+   zh:"有羽毛、喙、两只翅膀、两条腿，下硬壳蛋。",
+   trap:"⚠️ Penguin and ostrich cannot fly, but they are birds (they have feathers)."},
+  {t:"Fish 鱼类", facts:[
+    "Live in water and breathe through <b>gills</b>.",
+    "Have <b>fins</b>; most have <b>scales</b>.",
+    "Most lay eggs.",
+    "Examples: guppy, shark, seahorse."],
+   zh:"住在水里，用鳃呼吸，有鳍，大多有鳞。",
+   trap:"⚠️ A whale lives in the sea but is NOT a fish. It breathes through lungs."},
+  {t:"Amphibians 两栖类", facts:[
+    "<b>Moist, smooth skin</b> without scales.",
+    "Lay jelly-like eggs in water.",
+    "Young live in water and breathe through gills; adults live on land and in water.",
+    "Examples: frog, toad."],
+   zh:"皮肤湿润光滑没有鳞；小时候在水里用鳃呼吸，长大后水陆两栖。"},
+  {t:"Reptiles 爬行类", facts:[
+    "<b>Dry, scaly skin</b>.",
+    "Lay eggs with <b>leathery shells</b>.",
+    "Breathe through lungs.",
+    "Examples: snake, lizard, turtle, crocodile."],
+   zh:"皮肤干燥有鳞片，下皮革一样的软壳蛋，用肺呼吸。"},
+  {t:"Insects 昆虫", facts:[
+    "<b>3 body parts</b>: head, thorax, abdomen.",
+    "<b>6 legs</b> and a pair of feelers.",
+    "Most have wings.",
+    "Examples: ant, butterfly, grasshopper."],
+   zh:"三段身体（头、胸、腹）、六条腿、一对触角，大多有翅膀。",
+   trap:"⚠️ A spider is NOT an insect: it has 8 legs and 2 body parts."}
+];
+
+const MCQ_SETS = [
+ {id:"m1", title:"Living things", zh:"生物与非生物", qs:[
+  {id:"m1-1", q:"Which one is a living thing?", o:["rock","car","mushroom","chair"], a:2,
+   e:"A mushroom needs food, water and air, grows and reproduces. 蘑菇是生物（真菌）。"},
+  {id:"m1-2", q:"What do ALL living things need to stay alive?", o:["sunlight only","air, food and water","soil","toys"], a:1,
+   e:"All living things need air, food and water. 所有生物都需要空气、食物和水。"},
+  {id:"m1-3", q:"Which of these is NOT true of all living things?", o:["They can grow.","They can reproduce.","They respond to changes.","They can move from place to place."], a:3,
+   e:"Plants are living but cannot move from place to place. 会不会走动不是判断生物的标准。"},
+  {id:"m1-4", q:"The leaves of a mimosa plant close when they are touched. This shows that living things can ____.", o:["grow","reproduce","respond to changes","make food"], a:2,
+   e:"Closing its leaves when touched is a response to a change. 含羞草被碰就合上，是对变化的反应。"},
+  {id:"m1-5", q:"A puppy becomes a big dog. This shows that living things can ____.", o:["grow","reproduce","respond to changes","move"], a:0,
+   e:"Getting bigger is growing. 小狗长成大狗 = 生长。"},
+  {id:"m1-6", q:"A hen lays eggs which hatch into chicks. This shows that living things can ____.", o:["grow","reproduce","respond to changes","breathe"], a:1,
+   e:"Having young is reproducing. 母鸡下蛋孵出小鸡 = 繁殖。"},
+  {id:"m1-7", q:"A toy robot can move and make sounds. Why is it a non-living thing?", o:["It is small.","It cannot grow or reproduce.","It can move.","It uses batteries."], a:1,
+   e:"Moving does not make something living. The robot cannot grow or reproduce. 机器人会动，但不会长大也不会繁殖。"},
+  {id:"m1-8", q:"Which group has ONLY living things?", o:["rock, fern, cat","mushroom, bacteria, tree","water, ant, sand","chair, bird, cloud"], a:1,
+   e:"Mushroom (fungus), bacteria and tree are all living. 每一组都要看清楚每一个。"},
+  {id:"m1-9", q:"Bacteria are very small. How can we see them?", o:["with our eyes","with a magnifying glass","with a microscope","with a mirror"], a:2,
+   e:"Bacteria are so tiny that we need a microscope. 细菌要用显微镜才看得到。"},
+  {id:"m1-10", q:"A plant on the window ledge bends towards the light. This shows that the plant ____.", o:["is growing taller","responds to changes","reproduces","needs water"], a:1,
+   e:"Bending towards light is a response to a change. 植物朝光弯 = 对变化的反应。"}
+ ]},
+ {id:"m2", title:"Animal groups", zh:"动物分类", qs:[
+  {id:"m2-1", q:"A bat can fly. Which group does it belong to?", o:["birds","insects","mammals","reptiles"], a:2,
+   e:"A bat has fur, gives birth to young alive and feeds its young with milk. 蝙蝠会飞，但它是哺乳类。"},
+  {id:"m2-2", q:"A whale lives in the sea. Which group does it belong to?", o:["fish","mammals","amphibians","reptiles"], a:1,
+   e:"A whale breathes through lungs and feeds its young with milk. 鲸鱼是哺乳类，不是鱼。"},
+  {id:"m2-3", q:"A penguin cannot fly. Which group does it belong to?", o:["mammals","birds","fish","reptiles"], a:1,
+   e:"A penguin has feathers and a beak, and lays eggs. 企鹅不会飞，但有羽毛，是鸟类。"},
+  {id:"m2-4", q:"Which animal is an insect?", o:["spider","ant","centipede","snail"], a:1,
+   e:"An ant has 6 legs and 3 body parts. 蚂蚁是昆虫；蜘蛛、蜈蚣、蜗牛都不是。"},
+  {id:"m2-5", q:"A spider is NOT an insect because it has ____.", o:["wings","8 legs","6 legs","feathers"], a:1,
+   e:"Insects have 6 legs and 3 body parts. A spider has 8 legs and 2 body parts. 蜘蛛 8 条腿。"},
+  {id:"m2-6", q:"A frog has moist skin. Its young live in water. Which group does it belong to?", o:["fish","reptiles","amphibians","mammals"], a:2,
+   e:"Frogs are amphibians: moist skin, young (tadpoles) live in water. 青蛙是两栖类。"},
+  {id:"m2-7", q:"Which animal is a reptile?", o:["frog","crocodile","whale","salamander"], a:1,
+   e:"A crocodile has dry, scaly skin and lays eggs with leathery shells. 鳄鱼是爬行类。"},
+  {id:"m2-8", q:"Fish breathe through their ____.", o:["lungs","gills","skin","fins"], a:1,
+   e:"Fish breathe through gills. 鱼用鳃呼吸。"},
+  {id:"m2-9", q:"Which characteristic do ALL birds have?", o:["They can fly.","They have feathers.","They live in trees.","They eat worms."], a:1,
+   e:"Not all birds can fly (penguin, ostrich), but all birds have feathers. 所有鸟都有羽毛。"},
+  {id:"m2-10", q:"Which characteristic do ALL mammals have?", o:["They lay eggs.","They have hair or fur.","They live on land.","They can swim."], a:1,
+   e:"All mammals have hair or fur. 所有哺乳类都有毛发。"}
+ ]},
+ {id:"m3", title:"Plants, fungi & bacteria", zh:"植物、真菌、细菌", qs:[
+  {id:"m3-1", q:"A fern does not have flowers. How does it reproduce?", o:["by seeds","by spores","by eggs","by fruits"], a:1,
+   e:"Ferns are non-flowering plants. They reproduce by spores. 蕨类靠孢子繁殖。"},
+  {id:"m3-2", q:"Which one is a non-flowering plant?", o:["hibiscus","sunflower","mango tree","moss"], a:3,
+   e:"Moss does not bear flowers. It reproduces by spores. 苔藓不开花。"},
+  {id:"m3-3", q:"Which group does a mushroom belong to?", o:["plants","animals","fungi","bacteria"], a:2,
+   e:"A mushroom is a fungus. 蘑菇是真菌。"},
+  {id:"m3-4", q:"Why is a mushroom NOT a plant?", o:["It cannot make its own food.","It is small.","It has no smell.","It grows in the garden."], a:0,
+   e:"Plants make their own food. Fungi cannot. 植物自己做食物，蘑菇不能。"},
+  {id:"m3-5", q:"Bread mould is a type of ____.", o:["plant","fungus","bacteria","insect"], a:1,
+   e:"Bread mould is a fungus. 面包上的霉是真菌。"},
+  {id:"m3-6", q:"Fungi reproduce by ____.", o:["seeds","spores","eggs","flowers"], a:1,
+   e:"Fungi reproduce by spores. 真菌用孢子繁殖。"},
+  {id:"m3-7", q:"Where do fungi get their food from?", o:["sunlight","dead or decaying things","rocks","air"], a:1,
+   e:"Fungi feed on dead or decaying things. 真菌靠腐烂的东西获得食物。"},
+  {id:"m3-8", q:"Which shows that some bacteria are useful?", o:["They are used to make yoghurt.","They cause food poisoning.","They make us sick.","They make food go bad."], a:0,
+   e:"Some bacteria help to make yoghurt. 有些细菌可以做酸奶。"},
+  {id:"m3-9", q:"Which can make their own food?", o:["fungi","plants","animals","mushrooms"], a:1,
+   e:"Plants make their own food using sunlight. 只有植物自己制造食物。"},
+  {id:"m3-10", q:"A plant that bears flowers is called a ____.", o:["flowering plant","non-flowering plant","fungus","fern"], a:0,
+   e:"Plants that bear flowers are flowering plants. 会开花的叫开花植物。"}
+ ]}
+];
+
+const CHARTS = {
+  c1:{title:"Chart 1", type:"tree", root:{t:"Animals", kids:[
+    {t:"can fly", kids:[
+      {t:"lays eggs", g:"A", m:["eagle","butterfly"]},
+      {t:"does not lay eggs", g:"B", m:["bat"]}]},
+    {t:"cannot fly", kids:[
+      {t:"lays eggs", g:"C", m:["penguin","crocodile"]},
+      {t:"does not lay eggs", g:"D", m:["dog","whale"]}]}]}},
+  c2:{title:"Chart 2", type:"tree", root:{t:"Living things", kids:[
+    {t:"can make its own food", kids:[
+      {t:"bears flowers", g:"A", m:["hibiscus","sunflower"]},
+      {t:"does not bear flowers", g:"B", m:["fern","moss"]}]},
+    {t:"cannot make its own food", kids:[
+      {t:"reproduces by spores", g:"C", m:["mushroom"]},
+      {t:"does not reproduce by spores", g:"D", m:["cat","grasshopper"]}]}]}},
+  t1:{title:"Table 1", type:"table", cols:["Animal","Has fur","Has feathers","Lays eggs","Breathes through gills"],
+    rows:[["P",1,0,0,0],["Q",0,1,1,0],["R",0,0,1,1],["S",0,0,1,0]]},
+  t2:{title:"Table 2", type:"table", cols:["Animal","Number of legs","Number of body parts","Has wings"],
+    rows:[["W","6","3",1],["X","8","2",0],["Y","6","3",0]]}
+};
+
+/* answer checks: re must match; minus is removed first (so "does not lay eggs" is not read as "lays eggs") */
+const K = {
+  LAY:{t:"写了 lays eggs", re:/\blays? eggs/, minus:/\bnot lays? eggs/g},
+  NOLAY:{t:"写了 does not lay eggs", re:/\bnot lays? eggs/},
+  FLY:{t:"写了 can fly", re:/\bcan fly/},
+  NOFLY:{t:"写了 cannot fly", re:/\bcannot fly|\bnot able to fly|\bunable to fly/},
+  FOOD:{t:"写了 can make its own food", re:/\bmakes? (its |their )?own food/, minus:/\b(cannot|not|unable to) make (its |their )?own food/g},
+  NOFOOD:{t:"写了 cannot make its own food", re:/\b(cannot|not|unable to) make (its |their )?own food/},
+  FLOWERS:{t:"写了 bears flowers", re:/\b(bears?|has|have|produces?|grows?) flowers/, minus:/\bnot (bear|have|produce|grow) flowers/g},
+  NOFLOWERS:{t:"写了 does not bear flowers", re:/\bnot (bear|have|produce|grow) flowers|\bno flowers|\bnon flowering/},
+  SPORES:{t:"写了 reproduces by spores", re:/\bspores/, minus:/\bnot reproduce by spores/g},
+  WINGS:{t:"写了 has wings", re:/\b(has|have) wings/, minus:/\bnot have wings/g},
+  NOWINGS:{t:"写了 does not have wings", re:/\bnot have wings|\bno wings|\bwithout wings/}
+};
+const name = (w, zh) => ({t:"写到了 " + w + (zh ? "（" + zh + "）" : ""), re:new RegExp("\\b" + w + "\\b")});
+const both = {t:"用了 both 或者把两种都写出来", re:/\bboth\b|\band\b/};
+
+const OEQ_SETS = [
+ {id:"o1", title:"Flowchart: animals", zh:"看流程图：动物", charts:["c1"], qs:[
+  {id:"o1-1", chart:"c1", q:"Using Chart 1, state two characteristics of the bat.",
+   model:"The bat can fly and it does not lay eggs.",
+   keys:[K.FLY, K.NOLAY]},
+  {id:"o1-2", chart:"c1", q:"Using Chart 1, state two differences between the eagle and the dog.",
+   model:"The eagle can fly but the dog cannot fly. The eagle lays eggs but the dog does not lay eggs.",
+   keys:[name("eagle"), name("dog"), K.FLY, K.NOFLY, K.LAY, K.NOLAY]},
+  {id:"o1-3", chart:"c1", q:"Using Chart 1, state one similarity between the butterfly and the penguin.",
+   model:"Both the butterfly and the penguin lay eggs.",
+   keys:[name("butterfly"), name("penguin"), both, K.LAY]},
+  {id:"o1-4", chart:"c1", q:"Using Chart 1, state one similarity between the bat and the eagle.",
+   model:"Both the bat and the eagle can fly.",
+   keys:[name("bat"), name("eagle"), both, K.FLY]},
+  {id:"o1-5", chart:"c1", q:"A pigeon can fly and lays eggs. Which group in Chart 1 should it be placed in? Explain your answer.",
+   model:"Group A. Like the animals in Group A, the pigeon can fly and lays eggs.",
+   keys:[{t:"写了组别 Group A", re:/\bgroup a\b/}, K.FLY, K.LAY]},
+  {id:"o1-6", chart:"c1", q:"Ali wrote: \"The eagle can fly but the dog has four legs.\"\nWhy is Ali's answer wrong? Write the correct answer.",
+   model:"Ali compared two different characteristics (flying and legs). He must compare the same characteristic: \"The eagle can fly but the dog cannot fly.\" Also, the number of legs is not shown in Chart 1.",
+   keys:[{t:"说出要比同一项特征 (same characteristic)", re:/\bsame\b|\bdifferent (characteristic|thing)/}, K.NOFLY]}
+ ]},
+ {id:"o2", title:"Flowchart: plants & fungi", zh:"看流程图：植物和真菌", charts:["c2"], qs:[
+  {id:"o2-1", chart:"c2", q:"Using Chart 2, state two characteristics of the fern.",
+   model:"The fern can make its own food and it does not bear flowers.",
+   keys:[K.FOOD, K.NOFLOWERS]},
+  {id:"o2-2", chart:"c2", q:"Using Chart 2, state one difference between the mushroom and the moss.",
+   model:"The moss can make its own food but the mushroom cannot make its own food.",
+   keys:[name("mushroom"), name("moss"), K.FOOD, K.NOFOOD]},
+  {id:"o2-3", chart:"c2", q:"Using Chart 2, state one similarity between the hibiscus and the fern.",
+   model:"Both the hibiscus and the fern can make their own food.",
+   keys:[name("hibiscus"), name("fern"), both, K.FOOD]},
+  {id:"o2-4", chart:"c2", q:"A rain tree bears flowers and can make its own food. Which group in Chart 2 does it belong to? Explain your answer.",
+   model:"Group A. Like the plants in Group A, the rain tree can make its own food and bears flowers.",
+   keys:[{t:"写了组别 Group A", re:/\bgroup a\b/}, K.FOOD, K.FLOWERS]},
+  {id:"o2-5", chart:"c2", q:"Bread mould cannot make its own food and reproduces by spores. Which group in Chart 2 does it belong to? Explain your answer.",
+   model:"Group C. Like the mushroom in Group C, bread mould cannot make its own food and reproduces by spores.",
+   keys:[{t:"写了组别 Group C", re:/\bgroup c\b/}, K.NOFOOD, K.SPORES]},
+  {id:"o2-6", chart:"c2", q:"Jane says that a mushroom is a plant. Using Chart 2, explain why she is wrong.",
+   model:"Chart 2 shows that the mushroom cannot make its own food, but the plants in Groups A and B can make their own food.",
+   keys:[name("mushroom"), K.NOFOOD, {t:"说了植物 (Groups A and B) can make their own food", re:/\b(plants?|group a|group b|groups a and b)\b.*\bmakes? (its |their )?own food/, minus:/\b(cannot|not|unable to) make (its |their )?own food/g}]}
+ ]},
+ {id:"o3", title:"Tables", zh:"看表格答题", charts:["t1","t2"], qs:[
+  {id:"o3-1", chart:"t1", q:"Look at Table 1. Which animal, P, Q, R or S, is most likely a bird? Explain your answer.",
+   model:"Q. It has feathers.",
+   keys:[{t:"选了 Q", re:/\bq\b/}, {t:"理由写了 has feathers", re:/\bfeathers\b/}]},
+  {id:"o3-2", chart:"t1", q:"Look at Table 1. Which animal is most likely a fish? Explain your answer.",
+   model:"R. It breathes through gills.",
+   keys:[{t:"选了 R", re:/\br\b/}, {t:"理由写了 breathes through gills", re:/\bgills\b/}]},
+  {id:"o3-3", chart:"t1", q:"Using Table 1, state one similarity between Q and R.",
+   model:"Both Q and R lay eggs.",
+   keys:[{t:"写到了 Q", re:/\bq\b/}, {t:"写到了 R", re:/\br\b/}, both, K.LAY]},
+  {id:"o3-4", chart:"t1", q:"Using Table 1, state two differences between P and Q.",
+   model:"P has fur but Q does not have fur. P does not lay eggs but Q lays eggs. (Or: Q has feathers but P does not have feathers.)",
+   keys:[{t:"写到了 P", re:/\bp\b/}, {t:"写到了 Q", re:/\bq\b/},
+         {t:"比了两项特征（fur / feathers / eggs 里任意两项）", any:[/\bfur\b/,/\bfeathers\b/,/\beggs\b/], min:2}]},
+  {id:"o3-5", chart:"t2", q:"Look at Table 2. Which animals are insects? Explain your answer.",
+   model:"W and Y. They have six legs and three body parts.",
+   keys:[{t:"选了 W", re:/\bw\b/}, {t:"选了 Y", re:/\by\b/}, {t:"写了 six legs", re:/\bsix legs\b/}, {t:"写了 three body parts", re:/\bthree (main )?body parts\b/}]},
+  {id:"o3-6", chart:"t2", q:"Look at Table 2. Is X an insect? Explain your answer.",
+   model:"No. X has eight legs and two body parts, but an insect has six legs and three body parts.",
+   keys:[{t:"回答了 No", re:/\bno\b|\bnot an insect\b/}, {t:"写了 eight legs", re:/\beight legs\b/}, {t:"写了 two body parts", re:/\btwo (main )?body parts\b/}]},
+  {id:"o3-7", chart:"t2", q:"Using Table 2, state one difference between W and Y.",
+   model:"W has wings but Y does not have wings.",
+   keys:[{t:"写到了 W", re:/\bw\b/}, {t:"写到了 Y", re:/\by\b/}, K.WINGS, K.NOWINGS]}
+ ]}
+];
+
+/* ---------------- storage ---------------- */
+const store = {
+  get(k, d){ try { const v = JSON.parse(localStorage.getItem("sci3-" + k)); return v == null ? d : v; } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem("sci3-" + k, JSON.stringify(v)); } catch(e){} }
+};
+let wrongMcq = store.get("wrong", {});      // id -> true
+let marks = store.get("marks", {});         // oeq id -> full|part|wrong
+let drafts = store.get("drafts", {});       // oeq id -> text
+let best = store.get("best", {});           // mcq set id -> best score
+
+/* ---------------- helpers ---------------- */
+const app = document.getElementById("app");
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+const allMcq = {}; MCQ_SETS.forEach(s => s.qs.forEach(q => allMcq[q.id] = q));
+const allOeq = {}; OEQ_SETS.forEach(s => s.qs.forEach(q => allOeq[q.id] = {...q, set:s.id}));
+
+function norm(s){
+  return " " + s.toLowerCase()
+    .replace(/[’‘]/g, "'")
+    .replace(/can't|can not/g, "cannot").replace(/doesn't/g, "does not").replace(/don't/g, "do not").replace(/isn't/g, "is not")
+    .replace(/\b6\b/g, "six").replace(/\b2\b/g, "two").replace(/\b8\b/g, "eight").replace(/\b3\b/g, "three").replace(/\b4\b/g, "four")
+    .replace(/[^a-z' ]+/g, " ").replace(/\s+/g, " ") + " ";
+}
+function keyOk(k, text){
+  if (k.any) return k.any.filter(r => r.test(text)).length >= k.min;
+  const t = k.minus ? text.replace(k.minus, " ") : text;
+  return k.re.test(t);
+}
+
+let voice = null;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voice = vs.find(v => /en-GB|en_GB/.test(v.lang)) || vs.find(v => /en-SG|en-AU/.test(v.lang)) || vs.find(v => /^en/.test(v.lang)) || null;
+}
+if (window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function say(text){
+  if (!window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text.replace(/____/g, "blank"));
+  u.lang = "en-GB"; u.rate = 0.9; if (voice) u.voice = voice;
+  speechSynthesis.speak(u);
+}
+
+function treeHTML(n){
+  if (n.g) return `<li><div class="node">${esc(n.t)}</div><ul><li><div class="grp ${n.g}"><b>${n.g}</b>${n.m.map(esc).join("<br>")}</div></li></ul></li>`;
+  return `<li><div class="node${n.root ? " root" : ""}">${esc(n.t)}</div><ul>${n.kids.map(treeHTML).join("")}</ul></li>`;
+}
+function chartHTML(id){
+  const c = CHARTS[id];
+  if (c.type === "tree") return `<div class="chart-title">${c.title}</div><div class="tree"><ul>${treeHTML({...c.root, root:true})}</ul></div>`;
+  const cell = v => v === 1 ? '<span class="tick">✓</span>' : v === 0 ? '<span class="cross">✗</span>' : esc(v);
+  return `<div class="chart-title">${c.title}</div><table class="ct"><tr>${c.cols.map(h => `<th>${esc(h)}</th>`).join("")}</tr>` +
+    c.rows.map(r => `<tr>${r.map((v,i) => `<td>${i ? cell(v) : esc(v)}</td>`).join("")}</tr>`).join("") + `</table>`;
+}
+
+/* ---------------- tabs ---------------- */
+const TABS = [["learn","📘 <span class=en>Learn </span>学"],["quiz","✅ <span class=en>Quiz </span>选择题"],["charts","🗺️ <span class=en>Charts </span>看图题"],["mistakes","📒 <span class=en>Mistakes </span>错题本"],["parent","👪 家长看"]];
+let view = store.get("view", "learn");
+function renderTabs(){
+  const n = Object.keys(wrongMcq).length + Object.values(marks).filter(m => m !== "full").length;
+  document.getElementById("tabs").innerHTML = TABS.map(([k, label]) =>
+    `<button data-tab="${k}" class="${view === k ? "on" : ""}">${label}${k === "mistakes" && n ? " (" + n + ")" : ""}</button>`).join("");
+}
+document.getElementById("tabs").addEventListener("click", e => {
+  const b = e.target.closest("button[data-tab]"); if (!b) return;
+  go(b.dataset.tab);
+});
+function go(v){ view = v; store.set("view", v); quiz = null; oeqSet = null; render(); window.scrollTo(0, 0); }
+
+/* ---------------- views ---------------- */
+function render(){
+  renderTabs();
+  if (view === "learn") return renderLearn();
+  if (view === "quiz") return quiz ? renderQuiz() : renderQuizMenu();
+  if (view === "charts") return oeqSet ? renderOeq() : renderOeqMenu();
+  if (view === "mistakes") return renderMistakes();
+  return renderParent();
+}
+
+function renderLearn(){
+  app.innerHTML = `<div class="card"><h2>Key facts 知识卡片</h2><p class="zh">先读一遍，再去做选择题。点 🔊 可以听英文。</p></div>` +
+    LEARN.map((c, i) => `<div class="card"><div class="row" style="justify-content:space-between"><h3>${c.t}</h3>
+      <button class="say" data-say="${i}">🔊</button></div>
+      <ul class="facts">${c.facts.map(f => `<li>${f}</li>`).join("")}</ul>
+      <p class="zh">${c.zh}</p>${c.trap ? `<div class="trap">${c.trap}</div>` : ""}</div>`).join("");
+  app.querySelectorAll("[data-say]").forEach(b => b.onclick = () => {
+    const c = LEARN[+b.dataset.say];
+    say(c.t.replace(/[^\x00-\x7F]/g, "") + ". " + c.facts.map(f => f.replace(/<[^>]+>/g, "")).join(" ") + (c.trap ? " " + c.trap.replace(/⚠️/g, "") : ""));
+  });
+}
+
+/* ----- MCQ ----- */
+let quiz = null;
+function renderQuizMenu(){
+  app.innerHTML = `<div class="card"><h2>Quiz 选择题</h2><p class="zh">每套 10 题。选错的会自动进错题本。</p></div><div class="grid">` +
+    MCQ_SETS.map(s => `<button class="pick" data-set="${s.id}"><span class="pill${best[s.id] === s.qs.length ? " done" : ""}">${s.qs.length} questions${best[s.id] != null ? " · best " + best[s.id] + "/" + s.qs.length : ""}</span>
+      <h3>${s.title}</h3><div class="zh">${s.zh}</div></button>`).join("") + `</div>`;
+  app.querySelectorAll("[data-set]").forEach(b => b.onclick = () => {
+    const s = MCQ_SETS.find(x => x.id === b.dataset.set);
+    startQuiz(s.title, s.qs, s.id);
+  });
+}
+function startQuiz(title, qs, setId){
+  quiz = {title, setId, qs: qs.map(q => ({...q, order: shuffle([0,1,2,3])})), i:0, score:0, picked:null};
+  render(); window.scrollTo(0, 0);
+}
+function shuffle(a){ for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function renderQuiz(){
+  const z = quiz, n = z.qs.length;
+  if (z.i >= n){
+    if (z.setId && (best[z.setId] == null || z.score > best[z.setId])){ best[z.setId] = z.score; store.set("best", best); }
+    app.innerHTML = `<div class="card"><h2>${esc(z.title)} · Done!</h2>
+      <p style="font-size:22px;font-weight:700">${z.score} / ${n}</p>
+      <p class="zh">${z.score === n ? "全对！🎉" : "错的题已经放进错题本，明天再做一次。"}</p>
+      <div class="row"><button class="btn" id="again">Try again 再做一次</button><button class="btn ghost" id="back">Back 返回</button></div></div>`;
+    document.getElementById("again").onclick = () => startQuiz(z.title, z.qs, z.setId);
+    document.getElementById("back").onclick = () => { quiz = null; render(); };
+    return;
+  }
+  const q = z.qs[z.i];
+  app.innerHTML = `<div class="card"><div class="row" style="justify-content:space-between"><b>${esc(z.title)}</b><span class="muted">Question ${z.i + 1} / ${n} · ✓ ${z.score}</span></div>
+    <div class="progress"><i style="width:${z.i / n * 100}%"></i></div>
+    <div class="row" style="justify-content:space-between;align-items:flex-start"><p class="qtext">${esc(q.q)}</p><button class="say" id="sayq">🔊</button></div>
+    ${q.order.map((oi, k) => `<button class="opt" data-o="${oi}">${"ABCD"[k]}. ${esc(q.o[oi])}</button>`).join("")}
+    <div id="after"></div></div>
+    <div class="row"><button class="btn ghost small" id="quit">Stop 结束</button></div>`;
+  document.getElementById("sayq").onclick = () => say(q.q + " " + q.order.map((oi, k) => "ABCD"[k] + ", " + q.o[oi]).join(". "));
+  document.getElementById("quit").onclick = () => { quiz = null; render(); };
+  app.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+    if (z.picked != null) return;
+    const oi = +b.dataset.o; z.picked = oi;
+    const right = oi === q.a;
+    if (right){ z.score++; delete wrongMcq[q.id]; }
+    else wrongMcq[q.id] = true;
+    store.set("wrong", wrongMcq);
+    app.querySelectorAll(".opt").forEach(x => { x.disabled = true; const v = +x.dataset.o; if (v === q.a) x.classList.add("right"); else if (v === oi) x.classList.add("wrong"); });
+    document.getElementById("after").innerHTML = `<div class="explain"><b>${right ? "✓ Correct!" : "✗ Not quite."}</b> ${esc(q.e)}</div>
+      <div class="row" style="margin-top:10px"><button class="btn" id="next">${z.i + 1 < n ? "Next 下一题" : "Finish 完成"}</button></div>`;
+    renderTabs();
+    document.getElementById("next").onclick = () => { z.i++; z.picked = null; render(); window.scrollTo(0, 0); };
+  });
+}
+
+/* ----- chart questions ----- */
+let oeqSet = null;
+function setMarks(s){ return s.qs.filter(q => marks[q.id] === "full").length; }
+function renderOeqMenu(){
+  app.innerHTML = `<div class="card"><h2>Charts 看图答题</h2><p class="zh">用完整句子写答案，写完点「Check 检查」，再和家长一起对照标准答案打分。</p></div><div class="grid">` +
+    OEQ_SETS.map(s => `<button class="pick" data-oset="${s.id}"><span class="pill${setMarks(s) === s.qs.length ? " done" : ""}">${s.qs.length} questions · 全对 ${setMarks(s)}</span>
+      <h3>${s.title}</h3><div class="zh">${s.zh}</div></button>`).join("") + `</div>`;
+  app.querySelectorAll("[data-oset]").forEach(b => b.onclick = () => { oeqSet = b.dataset.oset; render(); window.scrollTo(0, 0); });
+}
+function renderOeq(){
+  const s = OEQ_SETS.find(x => x.id === oeqSet);
+  const qs = s.qs;
+  app.innerHTML = `<div class="card"><div class="row" style="justify-content:space-between"><h2 style="margin:0">${s.title}</h2><button class="btn ghost small" id="back">Back 返回</button></div>
+      <p class="zh">${s.zh} · 先看图，按四步答题：找到 → 往上读特征 → 挑同一项特征 → 写完整句子。</p></div>` +
+    s.charts.map(c => `<div class="card chart">${chartHTML(c)}</div>`).join("") +
+    qs.map(q => `<div class="card" data-q="${q.id}">
+      <div class="row" style="justify-content:space-between"><span class="pill">Q${s.qs.indexOf(q) + 1}</span><button class="say" data-sayq="${q.id}">🔊</button></div>
+      <p class="qtext">${esc(q.q)}</p>
+      <details class="peek"><summary>📊 Show ${CHARTS[q.chart].title} 看图</summary>${chartHTML(q.chart)}</details>
+      <textarea placeholder="Write your answer in full sentences…" data-ta="${q.id}"></textarea>
+      <div class="row"><button class="btn" data-check="${q.id}">Check 检查</button></div>
+      <div class="fb" id="fb-${q.id}"></div></div>`).join("") +
+    `<div class="card" id="sum"></div>`;
+  document.getElementById("back").onclick = () => { oeqSet = null; render(); window.scrollTo(0, 0); };
+  app.querySelectorAll("[data-ta]").forEach(t => {
+    t.value = drafts[t.dataset.ta] || "";
+    t.oninput = () => { drafts[t.dataset.ta] = t.value; store.set("drafts", drafts); };
+  });
+  app.querySelectorAll("[data-sayq]").forEach(b => b.onclick = () => say(allOeq[b.dataset.sayq].q));
+  app.querySelectorAll("[data-check]").forEach(b => b.onclick = () => showFeedback(b.dataset.check));
+  qs.forEach(q => { if (marks[q.id]) showFeedback(q.id); });
+  renderSum(s);
+}
+function showFeedback(id){
+  const q = allOeq[id];
+  const text = norm(drafts[id] || "");
+  const empty = !(drafts[id] || "").trim();
+  const items = q.keys.map(k => `<li>${!empty && keyOk(k, text) ? "✅" : "⬜"} ${esc(k.t)}</li>`).join("");
+  const m = marks[id];
+  document.getElementById("fb-" + id).innerHTML = `
+    ${empty ? `<p class="zh">还没写答案，也可以先看标准答案。</p>` : `<p class="zh" style="margin-top:10px">自动检查（只看关键词，最后以家长判断为准）：</p><ul class="checks">${items}</ul>`}
+    <div class="model"><b>Model answer 标准答案：</b><br>${esc(q.model)}</div>
+    <div class="marks row"><span class="zh">家长打分：</span>
+      <button data-mark="full" class="full${m === "full" ? " on" : ""}">✓ 全对</button>
+      <button data-mark="part" class="part${m === "part" ? " on" : ""}">½ 部分对</button>
+      <button data-mark="wrong" class="wrong${m === "wrong" ? " on" : ""}">✗ 不对</button></div>`;
+  document.querySelectorAll(`#fb-${id} [data-mark]`).forEach(b => b.onclick = () => {
+    marks[id] = b.dataset.mark; store.set("marks", marks);
+    showFeedback(id); renderTabs();
+    const s = OEQ_SETS.find(x => x.id === q.set); if (document.getElementById("sum")) renderSum(s);
+  });
+}
+function renderSum(s){
+  const el = document.getElementById("sum"); if (!el) return;
+  const c = {full:0, part:0, wrong:0}; s.qs.forEach(q => { if (marks[q.id]) c[marks[q.id]]++; });
+  el.innerHTML = `<b>这一套：</b> ✓ 全对 ${c.full} · ½ 部分对 ${c.part} · ✗ 不对 ${c.wrong} · 未打分 ${s.qs.length - c.full - c.part - c.wrong}
+    <div class="row" style="margin-top:10px"><button class="btn ghost small" id="reset">清空这一套重新写</button></div>`;
+  document.getElementById("reset").onclick = () => {
+    if (!confirm("清空这一套的答案和打分？")) return;
+    s.qs.forEach(q => { delete marks[q.id]; delete drafts[q.id]; });
+    store.set("marks", marks); store.set("drafts", drafts); render();
+  };
+}
+
+/* ----- mistakes ----- */
+function renderMistakes(){
+  const mc = Object.keys(wrongMcq).filter(id => allMcq[id]);
+  const oe = Object.keys(marks).filter(id => marks[id] !== "full" && allOeq[id]);
+  app.innerHTML = `<div class="card"><h2>Mistakes 错题本</h2><p class="zh">选择题做对了会自动移走；看图题重新写，打「全对」就移走。</p>
+      ${mc.length ? `<button class="btn" id="redo">Redo ${mc.length} quiz mistakes 重做选错的题</button>` : `<p>选择题没有错题 🎉</p>`}</div>` +
+    mc.map(id => { const q = allMcq[id]; return `<div class="card"><p class="qtext" style="margin-top:0">${esc(q.q)}</p>
+      <p>Answer 答案：<b>${esc(q.o[q.a])}</b></p><p class="zh">${esc(q.e)}</p>
+      <button class="btn ghost small" data-clear="${id}">我会了，移走</button></div>`; }).join("") +
+    (oe.length ? `<div class="card"><h3>看图题</h3>` + oe.map(id => { const q = allOeq[id]; return `<div style="border-top:1px solid #e2e8f0;padding:10px 0">
+      <p style="margin:0"><b>${marks[id] === "part" ? "½" : "✗"}</b> ${esc(q.q)}</p>
+      <p class="zh" style="margin:4px 0">标准答案：${esc(q.model)}</p>
+      <button class="btn ghost small" data-open="${id}">再写一次</button></div>`; }).join("") + `</div>` : "");
+  const r = document.getElementById("redo");
+  if (r) r.onclick = () => { view = "quiz"; startQuiz("Mistakes 错题", mc.map(id => allMcq[id]), null); };
+  app.querySelectorAll("[data-clear]").forEach(b => b.onclick = () => { delete wrongMcq[b.dataset.clear]; store.set("wrong", wrongMcq); render(); });
+  app.querySelectorAll("[data-open]").forEach(b => b.onclick = () => {
+    const q = allOeq[b.dataset.open]; view = "charts"; store.set("view", "charts"); oeqSet = q.set;
+    delete marks[q.id]; store.set("marks", marks); render();
+    const card = document.querySelector(`[data-q="${q.id}"]`); if (card) card.scrollIntoView({block:"start"});
+  });
+}
+
+/* ----- parent guide ----- */
+function renderParent(){
+  app.innerHTML = `<div class="card"><h2>家长看：怎么用这个页面</h2>
+    <ul class="facts">
+      <li><b>每天 10 分钟</b>：一套选择题，或者一套看图题，不用多。</li>
+      <li><b>先学再做</b>：第一次先读「Learn 学」的卡片，特别是黄色的 ⚠️ 陷阱。</li>
+      <li><b>看图题</b>：让他自己写完再点「Check 检查」。自动检查只看关键词，最后由您对照标准答案打「全对 / 部分对 / 不对」。</li>
+      <li><b>错题本</b>：每周清一次，选错的题可以一键重做。</li>
+    </ul></div>
+    <div class="card"><h2>看图题四步法</h2>
+    <ol class="facts">
+      <li>在图上<b>找到</b>题目里的生物（或字母 P、Q…）。</li>
+      <li>从它<b>往上沿线读</b>，把经过的每个特征都列出来。</li>
+      <li>比较时挑<b>同一项特征</b>：蝙蝠 can fly，狗 cannot fly。</li>
+      <li>写<b>完整句子</b>，两边都写：The eagle can fly but the dog cannot fly.</li>
+    </ol></div>
+    <div class="card"><h2>最常见的扣分</h2>
+    <ul class="facts">
+      <li>比的不是同一项特征：“The eagle can fly but the dog has four legs.” ✗</li>
+      <li>只写一边：“The dog cannot.” ✗（要写清楚 cannot 什么）</li>
+      <li>题目说 <i>Using the chart</i>，却写图上没有的知识：“A penguin is a bird.” ✗</li>
+      <li>“Which group… Explain” 只写组名，不写理由。要写：Group A. Like the animals in Group A, it can fly and lays eggs.</li>
+      <li>分类陷阱：蝙蝠、鲸鱼是哺乳类；企鹅是鸟；蜘蛛不是昆虫；蘑菇不是植物；蕨类不开花、靠孢子繁殖。</li>
+    </ul></div>
+    <div class="card"><h2>重新开始</h2><p class="zh">清空这台设备上的所有成绩、错题和答案。</p>
+    <button class="btn ghost small" id="wipe">全部清空</button></div>`;
+  document.getElementById("wipe").onclick = () => {
+    if (!confirm("清空所有成绩、错题和答案？")) return;
+    wrongMcq = {}; marks = {}; drafts = {}; best = {};
+    ["wrong","marks","drafts","best"].forEach(k => store.set(k, {}));
+    render();
+  };
+}
+
+render();
+</script>
+</body>
+</html>
