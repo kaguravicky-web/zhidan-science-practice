@@ -1,0 +1,300 @@
+/* Topic: Matter (P4 Cycles). Data only - see tools/AUTHORING.md for the format. */
+(function(){
+const PICS = {
+  gradcyl:["c/c5/Different_types_of_graduated_cylinder-_10ml%2C_25ml%2C_50ml_and_100_ml_graduated_cylinder.jpg/330px-Different_types_of_graduated_cylinder-_10ml%2C_25ml%2C_50ml_and_100_ml_graduated_cylinder.jpg","measuring cylinders","量筒","🧪"],
+  kitchenscale:["4/4f/Escali_digital_kitchen_scale.jpg/330px-Escali_digital_kitchen_scale.jpg","electronic weighing scale","电子秤","⚖️"],
+  labsyringes:["f/f2/Laboratory_syringes.jpg/330px-Laboratory_syringes.jpg","syringes","注射筒","💉"],
+  kitchensponge:["7/75/%C3%89ponge_type_3_%281%29.jpg/330px-%C3%89ponge_type_3_%281%29.jpg","sponge","海绵","🧽"],
+  cottonwool:["b/b6/Vatta2.jpg/330px-Vatta2.jpg","cotton wool","棉花","☁️"],
+  sandgrains:["1/12/Closeup_of_sand.jpg/330px-Closeup_of_sand.jpg","sand (close up)","沙子（近看）","🏖️"],
+  sugargrains:["3/3c/Sucre_blanc_cassonade_complet_rapadura.jpg/330px-Sucre_blanc_cassonade_complet_rapadura.jpg","sugar","糖","🍬"],
+  tablesalt:["a/ad/Table_salt_with_salt_shaker_V1.jpg/330px-Table_salt_with_salt_shaker_V1.jpg","salt","盐","🧂"],
+  icecubes:["9/9e/Ice_cubes_openphoto.jpg/330px-Ice_cubes_openphoto.jpg","ice cubes","冰块","🧊"],
+  honeydrip:["c/cc/Runny_hunny.jpg/330px-Runny_hunny.jpg","honey","蜂蜜","🍯"],
+  cookingoil:["4/49/Olive_oil_from_Oneglia.jpg/330px-Olive_oil_from_Oneglia.jpg","cooking oil","食用油","🫒"],
+  bikepump:["f/f0/Bike_pump.jpg/330px-Bike_pump.jpg","bicycle pump","打气筒","🚲"]
+};
+// emoji-only things (no photo needed). "water", "stone" and "chair" come from classification.js.
+const EMO = {
+  balloons:["🎈","balloons","气球"],
+  air:["💨","air","空气"], milk:["🥛","milk","牛奶"], helium:["🎈","helium gas in a floating balloon","飘浮气球里的氦气"],
+  tyreair:["🛞","air in a bicycle tyre","自行车轮胎里的空气"], fizzco2:["🫧","carbon dioxide (in the bubbles of a fizzy drink)","汽水气泡里的二氧化碳"],
+  sunlight:["☀️","sunlight","阳光"], sound:["🔊","sound","声音"], heat:["🌡️","heat","热"], shadow:["👤","shadow","影子"],
+  rainbow:["🌈","rainbow","彩虹"], football:["⚽","football","足球"], coin:["🪙","coin","硬币"]
+};
+
+/* ---------------- charts ---------------- */
+const CHARTS = {
+ cyl:{type:"svg", title:"A stone was put into a measuring cylinder of water.", svg:"<svg viewBox='0 0 320 290' xmlns='http://www.w3.org/2000/svg' font-family='Arial,sans-serif'><rect width='320' height='290' fill='#fff'/><rect x='71' y='150' width='48' height='100' fill='#bfdbfe'/><line x1='71' y1='150' x2='119' y2='150' stroke='#2563eb' stroke-width='2'/><path d='M70,36 V250 H120 V36' fill='none' stroke='#475569' stroke-width='2.5'/><rect x='60' y='250' width='70' height='8' fill='#475569'/><line x1='70' y1='230' x2='78' y2='230' stroke='#1e293b' stroke-width='1.5'/><line x1='70' y1='210' x2='82' y2='210' stroke='#1e293b' stroke-width='1.5'/><line x1='70' y1='190' x2='78' y2='190' stroke='#1e293b' stroke-width='1.5'/><line x1='70' y1='170' x2='82' y2='170' stroke='#1e293b' stroke-width='1.5'/><line x1='70' y1='150' x2='78' y2='150' stroke='#1e293b' stroke-width='1.5'/><line x1='70' y1='130' x2='82' y2='130' stroke='#1e293b' stroke-width='1.5'/><line x1='70' y1='110' x2='78' y2='110' stroke='#1e293b' stroke-width='1.5'/><line x1='70' y1='90' x2='82' y2='90' stroke='#1e293b' stroke-width='1.5'/><line x1='70' y1='70' x2='78' y2='70' stroke='#1e293b' stroke-width='1.5'/><line x1='70' y1='50' x2='82' y2='50' stroke='#1e293b' stroke-width='1.5'/><g font-size='13' fill='#1e293b' text-anchor='end'><text x='65' y='234'>10</text><text x='65' y='214'>20</text><text x='65' y='194'>30</text><text x='65' y='174'>40</text><text x='65' y='154'>50</text><text x='65' y='134'>60</text><text x='65' y='114'>70</text><text x='65' y='94'>80</text><text x='65' y='74'>90</text><text x='65' y='54'>100</text><text x='65' y='28'>ml</text></g><rect x='221' y='90' width='48' height='160' fill='#bfdbfe'/><line x1='221' y1='90' x2='269' y2='90' stroke='#2563eb' stroke-width='2'/><path d='M230,250 L228,238 L236,228 L250,226 L260,234 L261,250 Z' fill='#78716c' stroke='#44403c' stroke-width='2'/><path d='M220,36 V250 H270 V36' fill='none' stroke='#475569' stroke-width='2.5'/><rect x='210' y='250' width='70' height='8' fill='#475569'/><line x1='220' y1='230' x2='228' y2='230' stroke='#1e293b' stroke-width='1.5'/><line x1='220' y1='210' x2='232' y2='210' stroke='#1e293b' stroke-width='1.5'/><line x1='220' y1='190' x2='228' y2='190' stroke='#1e293b' stroke-width='1.5'/><line x1='220' y1='170' x2='232' y2='170' stroke='#1e293b' stroke-width='1.5'/><line x1='220' y1='150' x2='228' y2='150' stroke='#1e293b' stroke-width='1.5'/><line x1='220' y1='130' x2='232' y2='130' stroke='#1e293b' stroke-width='1.5'/><line x1='220' y1='110' x2='228' y2='110' stroke='#1e293b' stroke-width='1.5'/><line x1='220' y1='90' x2='232' y2='90' stroke='#1e293b' stroke-width='1.5'/><line x1='220' y1='70' x2='228' y2='70' stroke='#1e293b' stroke-width='1.5'/><line x1='220' y1='50' x2='232' y2='50' stroke='#1e293b' stroke-width='1.5'/><g font-size='13' fill='#1e293b' text-anchor='end'><text x='215' y='234'>10</text><text x='215' y='214'>20</text><text x='215' y='194'>30</text><text x='215' y='174'>40</text><text x='215' y='154'>50</text><text x='215' y='134'>60</text><text x='215' y='114'>70</text><text x='215' y='94'>80</text><text x='215' y='74'>90</text><text x='215' y='54'>100</text><text x='215' y='28'>ml</text></g><g font-size='15' font-weight='bold' fill='#1e293b' text-anchor='middle'><text x='95' y='280'>Before</text><text x='245' y='280'>After</text></g></svg>"},
+ menisc:{type:"svg", title:"Close-up of the water in a measuring cylinder, seen from three eye positions X, Y and Z", svg:"<svg viewBox='0 0 320 230' xmlns='http://www.w3.org/2000/svg' font-family='Arial,sans-serif'><rect width='320' height='230' fill='#fff'/><path d='M150,104 Q190,136 230,104 V218 H150 Z' fill='#bfdbfe'/><path d='M150,104 Q190,136 230,104' fill='none' stroke='#2563eb' stroke-width='2'/><path d='M150,12 V218 M230,12 V218' stroke='#475569' stroke-width='2.5'/><line x1='212' y1='200' x2='230' y2='200' stroke='#1e293b' stroke-width='1.5'/><line x1='221' y1='184' x2='230' y2='184' stroke='#1e293b' stroke-width='1.5'/><line x1='221' y1='168' x2='230' y2='168' stroke='#1e293b' stroke-width='1.5'/><line x1='221' y1='152' x2='230' y2='152' stroke='#1e293b' stroke-width='1.5'/><line x1='221' y1='136' x2='230' y2='136' stroke='#1e293b' stroke-width='1.5'/><line x1='212' y1='120' x2='230' y2='120' stroke='#1e293b' stroke-width='1.5'/><line x1='221' y1='104' x2='230' y2='104' stroke='#1e293b' stroke-width='1.5'/><line x1='221' y1='88' x2='230' y2='88' stroke='#1e293b' stroke-width='1.5'/><line x1='221' y1='72' x2='230' y2='72' stroke='#1e293b' stroke-width='1.5'/><line x1='221' y1='56' x2='230' y2='56' stroke='#1e293b' stroke-width='1.5'/><line x1='212' y1='40' x2='230' y2='40' stroke='#1e293b' stroke-width='1.5'/><g font-size='14' fill='#1e293b'><text x='238' y='45'>50 ml</text><text x='238' y='125'>45 ml</text><text x='238' y='205'>40 ml</text></g><ellipse cx='56' cy='60' rx='14' ry='8' fill='#fff' stroke='#1e293b' stroke-width='2'/><circle cx='60' cy='60' r='4' fill='#1e293b'/><ellipse cx='56' cy='120' rx='14' ry='8' fill='#fff' stroke='#1e293b' stroke-width='2'/><circle cx='60' cy='120' r='4' fill='#1e293b'/><ellipse cx='56' cy='180' rx='14' ry='8' fill='#fff' stroke='#1e293b' stroke-width='2'/><circle cx='60' cy='180' r='4' fill='#1e293b'/><g stroke='#64748b' stroke-width='1.5' stroke-dasharray='5 4'><path d='M72,60 L150,120 M72,120 H150 M72,180 L150,120'/></g><g font-size='17' font-weight='bold' fill='#1e293b' text-anchor='middle'><text x='22' y='66'>X</text><text x='22' y='126'>Y</text><text x='22' y='186'>Z</text></g></svg>"},
+ syr:{type:"svg", title:"Syringe P contains air. Syringe Q contains water. Both nozzles are sealed with rubber caps.", svg:"<svg viewBox='0 0 340 200' xmlns='http://www.w3.org/2000/svg' font-family='Arial,sans-serif'><rect width='340' height='200' fill='#fff'/><circle cx='85' cy='46' r='2' fill='#94a3b8'/><circle cx='102' cy='61' r='2' fill='#94a3b8'/><circle cx='120' cy='51' r='2' fill='#94a3b8'/><circle cx='140' cy='64' r='2' fill='#94a3b8'/><circle cx='160' cy='47' r='2' fill='#94a3b8'/><circle cx='178' cy='59' r='2' fill='#94a3b8'/><circle cx='95' cy='65' r='2' fill='#94a3b8'/><circle cx='130' cy='44' r='2' fill='#94a3b8'/><circle cx='170' cy='66' r='2' fill='#94a3b8'/><circle cx='188' cy='52' r='2' fill='#94a3b8'/><rect x='70' y='37' width='180' height='36' fill='none' stroke='#475569' stroke-width='2.5'/><rect x='50' y='50' width='20' height='10' fill='none' stroke='#475569' stroke-width='2'/><rect x='34' y='44' width='16' height='22' rx='3' fill='#1e293b'/><rect x='198' y='38' width='10' height='34' fill='#334155'/><rect x='208' y='51' width='92' height='8' fill='#94a3b8'/><rect x='300' y='35' width='9' height='40' fill='#334155'/><path d='M336,55 H316 M322,49 L315,55 L322,61' fill='none' stroke='#dc2626' stroke-width='2.5'/><text x='16' y='61' font-size='17' font-weight='bold' fill='#1e293b' text-anchor='middle'>P</text><text x='135' y='60' font-size='14' fill='#1e293b' text-anchor='middle'>air</text><rect x='71' y='128' width='127' height='34' fill='#bfdbfe'/><rect x='51' y='141' width='19' height='8' fill='#bfdbfe'/><rect x='70' y='127' width='180' height='36' fill='none' stroke='#475569' stroke-width='2.5'/><rect x='50' y='140' width='20' height='10' fill='none' stroke='#475569' stroke-width='2'/><rect x='34' y='134' width='16' height='22' rx='3' fill='#1e293b'/><rect x='198' y='128' width='10' height='34' fill='#334155'/><rect x='208' y='141' width='92' height='8' fill='#94a3b8'/><rect x='300' y='125' width='9' height='40' fill='#334155'/><path d='M336,145 H316 M322,139 L315,145 L322,151' fill='none' stroke='#dc2626' stroke-width='2.5'/><text x='16' y='151' font-size='17' font-weight='bold' fill='#1e293b' text-anchor='middle'>Q</text><text x='135' y='150' font-size='14' fill='#1e293b' text-anchor='middle'>water</text><text x='42' y='192' font-size='13' fill='#475569'>rubber caps</text><path d='M42,178 V158 M42,178 L42,170' stroke='#475569' stroke-width='1.5'/></svg>"},
+ cup:{type:"svg", title:"Ken stuck dry paper inside a glass, turned it upside down and pushed it straight down into a basin of water.", svg:"<svg viewBox='0 0 320 230' xmlns='http://www.w3.org/2000/svg' font-family='Arial,sans-serif'><rect width='320' height='230' fill='#fff'/><rect x='32' y='110' width='256' height='98' fill='#bfdbfe'/><line x1='32' y1='110' x2='118' y2='110' stroke='#2563eb' stroke-width='2'/><line x1='202' y1='110' x2='288' y2='110' stroke='#2563eb' stroke-width='2'/><rect x='122' y='42' width='76' height='118' fill='#fff'/><line x1='122' y1='160' x2='198' y2='160' stroke='#2563eb' stroke-width='2'/><path d='M30,80 V210 H290 V80' fill='none' stroke='#475569' stroke-width='3'/><path d='M120,170 V36 H200 V170' fill='none' stroke='#475569' stroke-width='3'/><rect x='118' y='32' width='84' height='8' fill='#94a3b8'/><path d='M126,42 H194 V58 Q186,68 176,60 Q166,70 156,61 Q146,70 136,60 Q130,66 126,58 Z' fill='#fff' stroke='#64748b' stroke-width='2'/><path d='M160,4 V24 M153,17 L160,25 L167,17' fill='none' stroke='#dc2626' stroke-width='2.5'/><g font-size='14' fill='#1e293b'><text x='160' y='112' text-anchor='middle'>air</text><text x='252' y='160' text-anchor='middle'>water</text><text x='222' y='56'>paper</text></g><path d='M196,52 H218' stroke='#1e293b' stroke-width='1.5'/></svg>"},
+ fun:{type:"svg", title:"Two identical bottles. Each funnel is sealed into the bottle's neck with plasticine. Bottle B also has a straw through the plasticine.", svg:"<svg viewBox='0 0 340 250' xmlns='http://www.w3.org/2000/svg' font-family='Arial,sans-serif'><rect width='340' height='250' fill='#fff'/><path d='M84,84 V104 L50,126 V224 H150 V126 L116,104 V84' fill='#fff' stroke='#475569' stroke-width='2.5'/><rect x='94' y='60' width='12' height='64' fill='#fff' stroke='#475569' stroke-width='2'/><rect x='95' y='62' width='10' height='30' fill='#bfdbfe'/><path d='M60,20 H140 L106,60 H94 Z' fill='#fff' stroke='#475569' stroke-width='2.5'/><path d='M69,30 H131 L106,59 H94 Z' fill='#bfdbfe'/><rect x='78' y='74' width='44' height='16' rx='4' fill='#a16207'/><path d='M234,84 V104 L200,126 V224 H300 V126 L266,104 V84' fill='#fff' stroke='#475569' stroke-width='2.5'/><rect x='244' y='60' width='12' height='64' fill='#fff' stroke='#475569' stroke-width='2'/><rect x='245' y='62' width='10' height='30' fill='#bfdbfe'/><path d='M210,20 H290 L256,60 H244 Z' fill='#fff' stroke='#475569' stroke-width='2.5'/><path d='M219,30 H281 L256,59 H244 Z' fill='#bfdbfe'/><rect x='228' y='74' width='44' height='16' rx='4' fill='#a16207'/><rect x='262' y='50' width='6' height='80' fill='#fde68a' stroke='#b45309' stroke-width='1.5'/><g font-size='14' fill='#1e293b'><text x='8' y='70'>plasticine</text><text x='274' y='46'>straw</text><text x='154' y='16'>water</text></g><path d='M50,74 L76,80 M272,42 L266,50 M152,12 L124,26 M192,12 L216,26' stroke='#1e293b' stroke-width='1.5'/><g font-size='17' font-weight='bold' fill='#1e293b' text-anchor='middle'><text x='100' y='245'>A</text><text x='250' y='245'>B</text></g></svg>"},
+ bal:{type:"svg", title:"Balloons X and Y were identical. The stick balanced when both were empty. Then only X was blown up and tied.", svg:"<svg viewBox='0 0 320 230' xmlns='http://www.w3.org/2000/svg' font-family='Arial,sans-serif'><rect width='320' height='230' fill='#fff'/><rect x='110' y='4' width='100' height='8' fill='#94a3b8'/><line x1='160' y1='12' x2='160' y2='60' stroke='#1e293b' stroke-width='1.5'/><line x1='58' y1='80' x2='262' y2='40' stroke='#92400e' stroke-width='6' stroke-linecap='round'/><line x1='64' y1='79' x2='64' y2='100' stroke='#1e293b' stroke-width='1.5'/><path d='M64,100 L59,108 H69 Z' fill='#dc2626'/><ellipse cx='64' cy='145' rx='31' ry='38' fill='#f87171' stroke='#b91c1c' stroke-width='2'/><line x1='256' y1='41' x2='256' y2='58' stroke='#1e293b' stroke-width='1.5'/><path d='M256,58 L251,64 Q246,74 252,84 Q256,90 260,84 Q266,74 261,64 Z' fill='#f87171' stroke='#b91c1c' stroke-width='2'/><g font-size='17' font-weight='bold' fill='#1e293b' text-anchor='middle'><text x='64' y='206'>X</text><text x='256' y='112'>Y</text></g></svg>"},
+ ovf:{type:"svg", title:"The overflow can was filled with water up to the spout. Then a stone was lowered into it.", svg:"<svg viewBox='0 0 320 250' xmlns='http://www.w3.org/2000/svg' font-family='Arial,sans-serif'><rect width='320' height='250' fill='#fff'/><rect x='42' y='80' width='106' height='128' fill='#bfdbfe'/><line x1='42' y1='80' x2='148' y2='80' stroke='#2563eb' stroke-width='2'/><path d='M150,74 L194,98 M150,86 L188,107' stroke='#475569' stroke-width='2.5'/><path d='M40,40 V210 H150 V40' fill='none' stroke='#475569' stroke-width='3'/><line x1='95' y1='8' x2='95' y2='158' stroke='#1e293b' stroke-width='1.5'/><path d='M76,180 L80,162 L96,156 L112,162 L116,180 L104,192 L84,190 Z' fill='#78716c' stroke='#44403c' stroke-width='2'/><circle cx='196' cy='114' r='3' fill='#3b82f6'/><circle cx='197' cy='126' r='3' fill='#3b82f6'/><rect x='181' y='157' width='38' height='63' fill='#bfdbfe'/><line x1='181' y1='157' x2='219' y2='157' stroke='#2563eb' stroke-width='2'/><path d='M180,124 V220 H220 V124' fill='none' stroke='#475569' stroke-width='2.5'/><rect x='172' y='220' width='56' height='7' fill='#475569'/><line x1='214' y1='211' x2='220' y2='211' stroke='#1e293b' stroke-width='1.5'/><line x1='210' y1='202' x2='220' y2='202' stroke='#1e293b' stroke-width='1.5'/><line x1='214' y1='193' x2='220' y2='193' stroke='#1e293b' stroke-width='1.5'/><line x1='210' y1='184' x2='220' y2='184' stroke='#1e293b' stroke-width='1.5'/><line x1='214' y1='175' x2='220' y2='175' stroke='#1e293b' stroke-width='1.5'/><line x1='210' y1='166' x2='220' y2='166' stroke='#1e293b' stroke-width='1.5'/><line x1='214' y1='157' x2='220' y2='157' stroke='#1e293b' stroke-width='1.5'/><line x1='210' y1='148' x2='220' y2='148' stroke='#1e293b' stroke-width='1.5'/><line x1='214' y1='139' x2='220' y2='139' stroke='#1e293b' stroke-width='1.5'/><line x1='210' y1='130' x2='220' y2='130' stroke='#1e293b' stroke-width='1.5'/><g font-size='13' fill='#1e293b'><text x='226' y='206'>10</text><text x='226' y='188'>20</text><text x='226' y='170'>30</text><text x='226' y='152'>40</text><text x='226' y='134'>50</text><text x='228' y='112'>ml</text></g><g font-size='14' fill='#1e293b' text-anchor='middle'><text x='95' y='232'>overflow can</text><text x='200' y='244'>measuring cylinder</text></g><text x='96' y='205' font-size='14' fill='#1e293b' text-anchor='middle'>stone</text></svg>"},
+ states:{type:"table", title:"The three states of matter. ✓ = yes, ✗ = no", cols:["State","definite shape","definite volume","can be compressed"],
+   rows:[["solid",1,1,0],["liquid",0,1,0],["gas",0,0,1]]},
+ mtab:{type:"table", title:"Properties of substances P, Q and R. ✓ = yes, ✗ = no", cols:["Substance","definite shape","definite volume","can be compressed"],
+   rows:[["P",0,1,0],["Q",0,0,1],["R",1,1,0]]},
+ mflow:{type:"flow", title:"Substances X, Y and Z are classified below.", start:"Substances X, Y and Z", steps:[
+   {q:"Does it have a definite volume?", side:"No → X", down:"Yes"},
+   {q:"Does it have a definite shape?", side:"No → Y", down:"Yes"}], end:"Z"},
+ ball:{type:"table", title:"Wei pumped more air into a football that was already round and firm. Its size did not change.", cols:["","mass of the football"],
+   rows:[["at the start","420 g"],["after 10 more pumps","422 g"],["after 20 more pumps","424 g"]]}
+};
+
+/* ---------------- learn cards ---------------- */
+const LEARN = [
+ {sec:"1 · What is matter? 什么是物质"},
+ {t:"Matter 物质", emo:["water","stone","air","sunlight","sound"], facts:[
+  "<b>Matter</b> is anything that <b>has mass</b> and <b>occupies space</b>.",
+  "Solids, liquids and gases are all matter: a stone, water, the air around us.",
+  "Living things are matter too — plants, animals and you.",
+  "<b>Not matter</b>: light, heat, sound and shadows. They have no mass and do not occupy space."],
+  zh:"物质 = 有质量、占据空间的东西。光、热、声音、影子不是物质。",
+  trap:"⚠️ Air is matter even though we cannot see it: it has mass and it occupies space."},
+ {t:"Mass 质量", pics:["kitchenscale"], facts:[
+  "<b>Mass</b> is the <b>amount of matter</b> in something.",
+  "Mass is measured in <b>grams (g)</b> and <b>kilograms (kg)</b>. 1 kg = 1000 g.",
+  "We measure mass with a <b>balance</b> (e.g. an electronic weighing scale).",
+  "A bigger thing does not always have a bigger mass: a big bag of cotton wool can have a smaller mass than a small iron ball."],
+  zh:"质量 = 物体里物质的多少，单位 g、kg，用秤（天平）量。体积大不一定质量大。",
+  trap:"⚠️ Do not mix up mass and volume. Mass = how much matter. Volume = how much space."},
+ {t:"Volume 体积", pics:["gradcyl"], ch:"menisc", facts:[
+  "<b>Volume</b> is the <b>amount of space</b> that something <b>occupies</b>.",
+  "Units: <b>cubic centimetres (cm³)</b>, <b>millilitres (ml)</b> and <b>litres (l)</b>. 1 ml = 1 cm³ and 1 l = 1000 ml.",
+  "We measure the volume of a liquid with a <b>measuring cylinder</b>, placed on a flat table.",
+  "Keep your <b>eye level</b> with the water surface and read at the <b>bottom of the curved surface</b> (the meniscus)."],
+  zh:"体积 = 占据空间的大小，单位 cm³、ml、l（1 ml = 1 cm³）。用量筒量，眼睛和水面平齐，读凹面最低处。",
+  trap:"⚠️ Reading from above or below the level of the water surface gives a wrong reading."},
+ {sec:"2 · Three states of matter 物质三态"},
+ {t:"Solids 固体", pics:["icecubes"], emo:["stone","coin"], facts:[
+  "A solid has a <b>definite shape</b> and a <b>definite volume</b>.",
+  "A solid <b>cannot be compressed</b> (squashed into a smaller volume).",
+  "When moved to another container, its shape and volume stay the same.",
+  "Some solids change shape when we apply a force (we can press plasticine or stretch a rubber band), but they are still solids."],
+  zh:"固体：有固定的形状，也有固定的体积，不能被压缩。",
+  trap:"⚠️ Plasticine can be pressed into a new shape, but it is still a solid: its volume does not change."},
+ {t:"Sand, sugar and salt 沙、糖、盐", pics:["sandgrains","sugargrains","tablesalt"], facts:[
+  "Sand, sugar and salt can be <b>poured</b>, and a heap of them takes the shape of the container.",
+  "But <b>each grain</b> has its own <b>definite shape and definite volume</b>. They are <b>solids</b>.",
+  "They only seem to take the shape of the container because the tiny grains move about separately.",
+  "There is <b>air</b> in the spaces between the grains."],
+  zh:"沙、糖、盐可以倒，但每一粒都有固定的形状和体积，所以是固体。颗粒之间有空气。",
+  trap:"⚠️ 'Sand can be poured, so it is a liquid' is WRONG."},
+ {t:"Liquids 液体", pics:["honeydrip","cookingoil"], emo:["water","milk"], facts:[
+  "A liquid has <b>no definite shape</b>: it <b>takes the shape of its container</b>.",
+  "A liquid has a <b>definite volume</b>: 200 ml of water poured into a wide bowl is still 200 ml.",
+  "A liquid <b>cannot be compressed</b>.",
+  "Liquids flow. Some flow slowly (honey), some quickly (water) — all of them are liquids."],
+  zh:"液体：没有固定形状（随容器改变），但有固定体积，不能被压缩。",
+  trap:"⚠️ Water poured into a wider container has a lower water level, but its volume is the SAME."},
+ {t:"Gases 气体", pics:["balloons","bikepump"], emo:["air"], facts:[
+  "A gas has <b>no definite shape</b> and <b>no definite volume</b>.",
+  "A gas <b>spreads out to fill the whole container</b> it is in, whatever its size and shape.",
+  "A gas <b>can be compressed</b>: more air can be pumped into a ball or tyre that already looks full.",
+  "Examples: air, oxygen, carbon dioxide, water vapour, helium (in floating balloons)."],
+  zh:"气体：没有固定形状，也没有固定体积，会充满整个容器，可以被压缩。",
+  trap:"⚠️ A gas does not fill only part of a container. It fills ALL the space it is given."},
+ {t:"Comparing the three states 三态比较", ch:"states", facts:[
+  "Solid: definite shape ✓, definite volume ✓, can be compressed ✗.",
+  "Liquid: definite shape ✗, definite volume ✓, can be compressed ✗.",
+  "Gas: definite shape ✗, definite volume ✗, can be compressed ✓.",
+  "To classify, ask: \"Does it have a <b>definite volume</b>?\" (No → gas). Then: \"Does it have a <b>definite shape</b>?\" (No → liquid; Yes → solid)."],
+  zh:"先问有没有固定体积（没有 → 气体），再问有没有固定形状（没有 → 液体，有 → 固体）。"},
+ {sec:"3 · Air is matter 空气是物质"},
+ {t:"Air has mass 空气有质量", ch:"bal", emo:["football"], facts:[
+  "Hang two identical empty balloons at the ends of a balanced stick. Blow up one balloon: that side <b>goes down</b>.",
+  "A football has a <b>greater mass</b> after more air is pumped into it.",
+  "Both show that <b>air has mass</b>."],
+  zh:"吹了气的气球那边往下沉；打了气的球更重。说明空气有质量。",
+  trap:"⚠️ A blown-up balloon getting BIGGER shows that air occupies space. The balance tipping shows that air has MASS."},
+ {t:"Air occupies space 空气占据空间", ch:"cup", facts:[
+  "Push an upside-down glass <b>straight down</b> into water: the paper inside stays <b>dry</b>. The <b>air</b> in the glass <b>occupies the space</b> and cannot escape, so the water cannot fill the glass.",
+  "Tilt the glass: <b>bubbles of air escape</b>, water enters and the paper gets wet.",
+  "Seal a funnel into a bottle with plasticine: most of the water stays in the funnel, because the air in the bottle cannot get out to make room. Add a straw to let the air out, and the water flows in.",
+  "An \"empty\" bottle is not really empty — it is <b>full of air</b>."],
+  zh:"倒扣的杯子竖直压进水里，纸不湿，因为杯里的空气占据了空间，又跑不出去。杯子一倾斜，气泡跑出，水才进去。",
+  trap:"⚠️ Write 'air occupies space' — not just 'there is air'. Then say why the water cannot enter: the air cannot escape."},
+ {t:"Squeezing and compressing 压缩", ch:"syr", pics:["labsyringes","kitchensponge","cottonwool"], facts:[
+  "Seal a syringe full of <b>air</b> and push the plunger: it moves in. <b>Air can be compressed</b>. Let go and the plunger moves back out.",
+  "With a syringe full of <b>water</b>, the plunger cannot be pushed in. <b>Water cannot be compressed</b>.",
+  "When air is compressed, its <b>volume decreases</b> but its <b>mass stays the same</b> (no air escapes).",
+  "A sponge or cotton wool gets smaller when squeezed because <b>air is pushed out of the spaces</b> in it. The solid part is <b>not</b> compressed."],
+  zh:"空气可以被压缩，水不能。海绵被压小，是因为空隙里的空气被挤出来了，固体本身没有被压缩。",
+  trap:"⚠️ 'A sponge shows that solids can be compressed' is WRONG."},
+ {sec:"4 · Measuring volume 测量体积"},
+ {t:"Volume of a stone (displacement) 用排水法测体积", ch:"cyl", facts:[
+  "A stone has an irregular shape, so we put it into a measuring cylinder of water.",
+  "<b>Rise in water level = volume of the stone</b>. e.g. 60 ml → 75 ml: the stone is 75 − 60 = <b>15 cm³</b>.",
+  "Or use an <b>overflow can</b>: fill it up to the spout, lower the stone in, and collect the water that flows out. That volume = the stone's volume.",
+  "The object must <b>sink completely</b> and must <b>not dissolve or absorb water</b> (not sugar, not a sponge).",
+  "Space left in a container = its volume − what is already in it. A closed 500 ml bottle with 200 ml of water has <b>300 ml of air</b> in it."],
+  zh:"排水法：水面升高多少，石头的体积就是多少。容器里没有被占的空间都充满空气。",
+  trap:"⚠️ The volume of the stone is the RISE in water level, not the new reading."}
+];
+
+/* ---------------- question sets ---------------- */
+const SETS = [
+ {id:"m1", lv:1, title:"Pictures and basics", zh:"看图和基础", qs:[
+  {pic:["kitchenscale"], q:"What can we measure with this?", o:["mass","volume","temperature","length"], a:0,
+   e:"A weighing scale (balance) measures mass, in grams or kilograms.", z:"秤用来量质量。"},
+  {pic:["gradcyl"], q:"What are these used to measure?", o:["the volume of a liquid","the mass of a liquid","the temperature of a liquid","the length of an object"], a:0,
+   e:"Measuring cylinders measure volume, in ml (cm³).", z:"量筒量体积。"},
+  {pic:["honeydrip"], q:"Honey flows slowly. What state of matter is it?", o:["liquid","solid","gas"], a:0,
+   e:"Honey takes the shape of its container and has a definite volume, so it is a liquid — a slow-flowing one.", z:"蜂蜜流得慢，但它是液体。"},
+  {pic:["sandgrains"], q:"Sand can be poured. What state of matter is it?", o:["solid","liquid","gas"], a:0,
+   e:"Each grain of sand has a definite shape and a definite volume, so sand is a solid.", z:"每一粒沙都有固定形状和体积 → 固体。"},
+  {pic:["balloons"], q:"What fills a blown-up balloon?", o:["air, which is a gas","nothing — it is empty","a liquid","a solid"], a:0,
+   e:"Air is a gas. It fills all the space inside the balloon.", z:"气球里充满空气（气体）。"},
+  {pic:["icecubes"], q:"Ice is a ___.", o:["solid","liquid","gas"], a:0,
+   e:"Ice has a definite shape and a definite volume: it is a solid.", z:"冰是固体。"},
+  {q:"Which is a unit of volume?", o:["cm³","kg","g","°C"], a:0,
+   e:"Volume is measured in cm³, ml or l. kg and g are units of mass.", z:"体积单位：cm³、ml、l。"},
+  {q:"Which is a unit of mass?", o:["kg","ml","cm³","l"], a:0,
+   e:"Mass is measured in g or kg.", z:"质量单位：g、kg。"},
+  {q:"Matter is anything that ___.", o:["has mass and occupies space","can be seen","can be touched","is alive"], a:0,
+   e:"Air cannot be seen and a stone is not alive, but both are matter: they have mass and occupy space.", z:"物质 = 有质量 + 占空间。"},
+  {q:"Which of these is NOT matter?", o:["light","air","water","sand"], a:0,
+   e:"Light has no mass and does not occupy space.", z:"光不是物质。"}
+ ]},
+ {id:"m2", lv:2, title:"States of matter", zh:"三态的特性", qs:[
+  {q:"Which state of matter has a definite shape AND a definite volume?", o:["solid","liquid","gas","liquid and gas"], a:0,
+   e:"Only solids have both a definite shape and a definite volume.", z:"只有固体两样都有。"},
+  {q:"A liquid ___.", o:["has a definite volume but no definite shape","has a definite shape but no definite volume","has a definite shape and a definite volume","has no definite shape and no definite volume"], a:0,
+   e:"A liquid takes the shape of its container, but its volume stays the same.", z:"液体：体积固定，形状不固定。"},
+  {q:"Which statements about gases are correct?", st:["They have no definite shape.","They have a definite volume.","They can be compressed.","They fill the whole container they are in."], o:["A and B only","A, C and D only","B, C and D only","A, B, C and D"], a:1,
+   e:"A gas has no definite volume — it spreads out to fill the whole container.", z:"气体没有固定体积。"},
+  {q:"Mei poured 250 ml of water from a tall glass into a wide bowl. What is the volume of water in the bowl?", o:["250 ml","less than 250 ml","more than 250 ml","It depends on the shape of the bowl."], a:0,
+   e:"A liquid has a definite volume. The water level is lower in the wide bowl, but the volume is still 250 ml.", z:"液体体积不变，还是 250 ml。"},
+  {pic:["sugargrains"], q:"Sugar can be poured. Why is sugar still a solid?", o:["Each grain has a definite shape and a definite volume.","It dissolves in water.","It is sweet.","It takes the shape of its container."], a:0,
+   e:"Look at ONE grain: it keeps its shape and volume. That makes sugar a solid.", z:"看一粒糖：形状和体积都固定。"},
+  {q:"Which of these can be compressed?", o:["air","water","cooking oil","a stone"], a:0,
+   e:"Gases can be compressed. Liquids (water, oil) and solids (stone) cannot.", z:"只有气体可以被压缩。"},
+  {q:"Kumar sprayed air freshener in one corner of a closed room. Soon it could be smelt everywhere in the room. What does this show about gases?", o:["Gases spread out to fill all the space they are in.","Gases have a definite volume.","Gases have a definite shape.","Gases have mass."], a:0,
+   e:"The gas from the spray spread out to fill the whole room: gases have no definite volume.", z:"气体会扩散，充满整个空间。"},
+  {q:"Which group contains only liquids?", o:["milk, cooking oil, honey","milk, sugar, honey","air, water, honey","ice, water, cooking oil"], a:0,
+   e:"Sugar and ice are solids; air is a gas.", z:"糖和冰是固体，空气是气体。"},
+  {q:"Plasticine can be pressed into different shapes. Which is correct?", o:["It is a solid. Its shape changes only when a force is applied, and its volume stays the same.","It is a liquid because its shape can change.","It is a gas because it can be squashed.","It is not matter."], a:0,
+   e:"A solid can change shape when we push it, but it keeps the new shape and its volume does not change.", z:"橡皮泥是固体：受力才变形，体积不变。"},
+  {pic:["cottonwool"], q:"A ball of cotton wool becomes smaller when squeezed. Which explanation is correct?", o:["Air in the spaces of the cotton wool is pushed out.","The solid cotton is compressed.","The cotton wool turns into a liquid.","The cotton wool loses most of its mass."], a:0,
+   e:"There is air between the cotton fibres. Squeezing pushes the air out; the cotton itself is not compressed.", z:"挤出的是空隙里的空气。"}
+ ]},
+ {id:"m3", lv:2, title:"Air is matter; mass and volume", zh:"空气是物质；质量和体积", qs:[
+  {q:"Which observation shows that air has MASS?", o:["A ball has a greater mass after more air is pumped into it.","A balloon gets bigger when we blow into it.","We cannot see air.","Air in a sealed syringe can be compressed."], a:0,
+   e:"More air → more mass. A balloon getting bigger shows that air occupies space, not that it has mass.", z:"打气后球更重 → 空气有质量。"},
+  {q:"Which observation shows that air OCCUPIES SPACE?", o:["A balloon gets bigger when air is blown into it.","A ball has a greater mass after it is pumped up.","Wind can move leaves.","We need air to breathe."], a:0,
+   e:"The air blown in takes up space, so the balloon becomes bigger.", z:"气球变大 → 空气占据空间。"},
+  {q:"An \"empty\" glass bottle has its cap on. What is inside it?", o:["air","nothing at all","air at the top and nothing at the bottom","only water vapour"], a:0,
+   e:"The bottle is full of air. A gas fills the whole container.", z:"空瓶子里充满空气。"},
+  {q:"Which statements about air are correct?", st:["Air has mass.","Air occupies space.","Air can be compressed.","Air has a definite volume."], o:["A and B only","A, B and C only","B, C and D only","A, B, C and D"], a:1,
+   e:"Air is a gas, so it has no definite volume.", z:"空气没有固定体积。"},
+  {q:"Ali has a 1 kg bag of cotton wool and a 1 kg iron ball. Which is correct?", o:["They have the same mass, but the cotton wool occupies more space.","The iron ball has a greater mass.","The cotton wool has a greater mass because it is bigger.","They have the same volume."], a:0,
+   e:"Both are 1 kg, so their masses are the same. The cotton wool has a much bigger volume.", z:"都是 1 kg → 质量相同；棉花体积大。"},
+  {q:"Which correctly describes mass and volume?", o:["Mass is the amount of matter; volume is the amount of space it occupies.","Mass is the amount of space; volume is the amount of matter.","Mass is measured in ml; volume is measured in kg.","Mass and volume mean the same thing."], a:0,
+   e:"Mass (g, kg) = amount of matter. Volume (cm³, ml) = amount of space.", z:"质量 = 物质多少；体积 = 空间大小。"},
+  {ch:"ball", q:"What is the mass of the air that Wei pumped in altogether?", o:["4 g","2 g","424 g","20 g"], a:0,
+   e:"424 g − 420 g = 4 g of air was added.", z:"424 − 420 = 4 g。"},
+  {ch:"ball", q:"The football did not get bigger. What happened to the air inside it?", o:["More air was compressed into the same space, so the mass of the air increased.","The air took up more space.","The mass of the air stayed the same.","Some air escaped, so the ball stayed the same size."], a:0,
+   e:"Air can be compressed: more air was squeezed into the same volume, so the mass of air inside increased.", z:"更多空气被压进同样的空间，质量增加。"},
+  {q:"Which is NOT matter?", o:["the shadow of a tree","the air in a tyre","the water in a pond","the sand on a beach"], a:0,
+   e:"A shadow is only an area where light is blocked. It has no mass and occupies no space.", z:"影子不是物质。"},
+  {q:"Which instrument is used to find the mass of a stone?", o:["an electronic balance","a measuring cylinder","a ruler","a thermometer"], a:0,
+   e:"A balance measures mass. A measuring cylinder measures volume.", z:"量质量用秤，量体积用量筒。"}
+ ]},
+ {id:"m4", lv:3, title:"Experiments", zh:"实验题", qs:[
+  {ch:"syr", q:"Juan pushed both plungers as hard as he could. What did he observe?", o:["Only the plunger of P could be pushed in.","Only the plunger of Q could be pushed in.","Both plungers could be pushed in.","Neither plunger could be pushed in."], a:0,
+   e:"P contains air, which can be compressed. Q contains water, which cannot.", z:"P 是空气，可以压；Q 是水，不能压。"},
+  {ch:"syr", q:"What does this experiment show?", o:["Air can be compressed, but water cannot.","Water can be compressed, but air cannot.","Air has a definite volume.","Water has no definite volume."], a:0,
+   e:"Only the air in P could be squeezed into a smaller volume.", z:"空气可以被压缩，水不能。"},
+  {ch:"syr", q:"Juan pushed the plunger of P halfway in, then let go. What happened?", o:["The plunger moved back out, pushed by the compressed air.","The plunger stayed where it was.","The plunger moved further in.","Air escaped through the rubber cap."], a:0,
+   e:"The compressed air pushes back on the plunger, so it moves back out.", z:"被压缩的空气把活塞推回去。"},
+  {ch:"cup", q:"Why did the paper stay dry?", o:["The air in the glass occupied the space and could not escape, so the water could not fill the glass.","The paper is waterproof.","The water was too cold to wet the paper.","Water cannot pass through glass."], a:0,
+   e:"The glass was full of air. The air occupied the space, so the water could not go up to the paper.", z:"杯里的空气占据了空间，水上不去。"},
+  {ch:"cup", q:"Ken then tilted the glass under the water. What happened?", o:["Bubbles of air escaped, water entered the glass and the paper got wet.","Nothing changed — the paper stayed dry.","Bubbles of water escaped from the glass.","The air in the glass turned into water."], a:0,
+   e:"When the glass is tilted, air can escape as bubbles, and water moves in to take its place.", z:"倾斜后空气跑出（气泡），水进去，纸湿了。"},
+  {ch:"fun", q:"The same amount of water was poured into both funnels. What was observed?", o:["Water flowed into bottle B, but most of the water stayed in funnel A.","Water flowed into bottle A, but most of the water stayed in funnel B.","Water flowed into both bottles equally fast.","Most of the water stayed in both funnels."], a:0,
+   e:"In bottle A the air could not get out, so little water could get in. In B the air escaped through the straw.", z:"A 的空气出不去，水进不去；B 的空气从吸管跑出，水流进去。"},
+  {ch:"fun", q:"Why did the straw make a difference?", o:["Air in bottle B could escape through the straw, making room for the water.","The straw sucked the water into the bottle.","The water flowed down through the straw.","The straw made bottle B bigger."], a:0,
+   e:"The water could enter only if the air already inside had a way out.", z:"吸管让空气跑出，腾出空间给水。"},
+  {ch:"bal", q:"What does this experiment show?", o:["Air has mass.","Air occupies space.","Air can be compressed.","Air has no mass."], a:0,
+   e:"The only difference is the air inside X, and that side went down. So air has mass.", z:"有空气的一边往下沉 → 空气有质量。"},
+  {ch:"mflow", q:"Which could X, Y and Z be?", o:["X: air, Y: milk, Z: ice","X: milk, Y: air, Z: ice","X: ice, Y: milk, Z: air","X: air, Y: ice, Z: milk"], a:0,
+   e:"X has no definite volume → gas (air). Y has a definite volume but no definite shape → liquid (milk). Z has both → solid (ice).", z:"X 气体，Y 液体，Z 固体。"},
+  {ch:"mtab", q:"Based on the table, which could P, Q and R be?", o:["P: cooking oil, Q: air, R: stone","P: air, Q: cooking oil, R: stone","P: stone, Q: air, R: cooking oil","P: cooking oil, Q: stone, R: air"], a:0,
+   e:"P: definite volume only → liquid. Q: can be compressed, no definite shape or volume → gas. R: definite shape and volume → solid.", z:"P 液体，Q 气体，R 固体。"}
+ ]},
+ {id:"m5", lv:3, title:"Measuring and calculating", zh:"测量和计算", qs:[
+  {ch:"cyl", q:"What is the volume of the stone?", o:["30 cm³","80 cm³","50 cm³","130 cm³"], a:0,
+   e:"The water level rose from 50 ml to 80 ml. 80 − 50 = 30 ml = 30 cm³.", z:"80 − 50 = 30 cm³。"},
+  {ch:"menisc", q:"Which eye position gives the correct reading?", o:["X","Y","Z"], a:1, fix:true,
+   e:"The eye must be level with the bottom of the curved water surface.", z:"眼睛要和凹面最低处平齐 → Y。"},
+  {ch:"menisc", q:"What is the volume of the water?", o:["45 ml","46 ml","44 ml","50 ml"], a:0,
+   e:"Read at the bottom of the curved surface: 45 ml. (46 ml is where the water touches the sides.)", z:"读凹面最低处：45 ml。"},
+  {ch:"ovf", q:"What is the volume of the stone?", o:["35 cm³","30 cm³","40 cm³","It cannot be found this way."], a:0,
+   e:"The stone pushed out (displaced) 35 ml of water, so its volume is 35 cm³.", z:"流出的水 = 石头的体积 = 35 cm³。"},
+  {q:"A measuring cylinder had 40 ml of water. Siti dropped in 3 identical marbles and the water level rose to 55 ml. What is the volume of ONE marble?", o:["5 cm³","15 cm³","45 cm³","55 cm³"], a:0,
+   e:"Rise = 55 − 40 = 15 cm³ for 3 marbles. 15 ÷ 3 = 5 cm³ each.", z:"(55 − 40) ÷ 3 = 5 cm³。"},
+  {q:"A container can hold 600 cm³. It has 250 cm³ of water in it. How much more water can be poured in?", o:["350 cm³","250 cm³","600 cm³","850 cm³"], a:0,
+   e:"600 − 250 = 350 cm³ of space is left.", z:"600 − 250 = 350 cm³。"},
+  {q:"A closed 600 cm³ container holds 220 cm³ of water and a stone of volume 130 cm³. What is the volume of air in the container?", o:["250 cm³","380 cm³","350 cm³","0 cm³"], a:0,
+   e:"Air fills all the space that is left: 600 − 220 − 130 = 250 cm³.", z:"600 − 220 − 130 = 250 cm³，剩下的空间都是空气。"},
+  {q:"A measuring cylinder was filled with dry sand up to the 100 cm³ mark. Then 50 cm³ of water was poured in. The water level reached the 130 cm³ mark. What was the volume of air in the sand?", o:["20 cm³","30 cm³","50 cm³","80 cm³"], a:0,
+   e:"Without air spaces the level would be 100 + 50 = 150 cm³. It reached only 130 cm³, so 150 − 130 = 20 cm³ of water went into the air spaces between the grains.", z:"100 + 50 − 130 = 20 cm³。"},
+  {q:"A bottle that can hold 1.5 l of water is \"empty\" and closed with its cap. What is the volume of air inside it?", o:["1500 ml","0 ml","150 ml","15 ml"], a:0,
+   e:"The bottle is full of air. 1.5 l = 1500 ml.", z:"1.5 l = 1500 ml，全是空气。"},
+  {q:"Lina sealed 60 cm³ of air in a syringe, then pushed the plunger in until the air took up 40 cm³. Which is correct?", o:["The volume of the air decreased, but its mass stayed the same.","Both the volume and the mass of the air decreased.","20 cm³ of air escaped from the syringe.","The volume of the air stayed at 60 cm³."], a:0,
+   e:"The syringe was sealed, so no air escaped. The same air was compressed into a smaller volume.", z:"密封的，没有空气跑出：体积变小，质量不变。"}
+ ]},
+ {id:"m6", lv:4, title:"Full-mark answers", zh:"选出能拿满分的答案", qs:[
+  {q:"What is matter? [1 mark]\nWhich answer gets the mark?", o:["Matter is anything that has mass and occupies space.","Matter is anything we can see.","Matter is anything that has mass.","Matter is anything that is solid."], a:0,
+   n:["✓ Both keywords.","✗ Air is matter but cannot be seen.","½ Only half — it must also occupy space.","✗ Liquids and gases are matter too."],
+   e:"Two keywords: has mass AND occupies space.", z:"两个关键词：有质量、占空间。"},
+  {ch:"cup", q:"Explain why the paper in the glass stayed dry. [1 mark]", o:["The air in the glass occupied the space and could not escape, so the water could not enter the glass.","There was air in the glass.","Water cannot touch paper.","The glass was pushed in very quickly."], a:0,
+   n:["✓ Keyword 'occupied the space' and why water could not enter.","½ True, but does not say that the air occupies space.","✗ Not scientific.","✗ Speed is not the reason."],
+   e:"Say what the air does (occupies space, cannot escape) and the result (water cannot enter).", z:"写：空气占据空间、出不去 → 水进不来。"},
+  {ch:"syr", q:"Explain why the plunger of P could be pushed in, but not the plunger of Q. [2 marks]", o:["P contains air, which can be compressed. Q contains water, which cannot be compressed.","Air can be compressed.","P is easier to push than Q.","Water is heavier than air."], a:0,
+   n:["✓ Both syringes explained — 2 marks.","½ Only P explained — 1 mark.","✗ Describes, but does not explain.","✗ Mass is not the reason."],
+   e:"Compare both: air can be compressed; water cannot.", z:"两个都要写：空气可压缩，水不可压缩。"},
+  {pic:["kitchensponge"], q:"A sponge becomes smaller when squeezed. Mei says this shows that solids can be compressed. Is she correct? Explain. [1 mark]", o:["No. Air in the holes of the sponge is pushed out; the solid part of the sponge is not compressed.","Yes. The sponge is a solid and it became smaller.","No. A sponge is a liquid.","Yes. A sponge has no mass."], a:0,
+   n:["✓ Gives the real reason.","✗ The common mistake.","✗ A sponge is a solid.","✗ A sponge has mass."],
+   e:"The sponge has many holes filled with air. Squeezing pushes the air out.", z:"海绵变小是因为空隙里的空气被挤出。"},
+  {pic:["sandgrains"], q:"Sand can be poured and takes the shape of its container. Explain why it is still a solid. [1 mark]", o:["Each grain of sand has a definite shape and a definite volume.","Sand is hard.","Sand is found on the beach.","Sand cannot flow."], a:0,
+   n:["✓ Uses the properties of each grain.","✗ Hardness is not how we decide the state.","✗ Not a property.","✗ Wrong — sand can be poured."],
+   e:"Use the properties of a solid: definite shape and definite volume (of each grain).", z:"用固体的特性：每粒都有固定形状和体积。"},
+  {ch:"ball", q:"What does Wei's experiment show? Use the results in your answer. [1 mark]", o:["Air has mass, because the mass of the football increased as more air was pumped in.","Air has mass.","Air occupies space, because the football got bigger.","The football became heavier."], a:0,
+   n:["✓ Conclusion + evidence from the results.","½ Correct conclusion, but no evidence from the results.","✗ The football did not get bigger.","✗ Only describes the result — no conclusion."],
+   e:"Give the conclusion AND the evidence from the table.", z:"结论 + 表格里的证据。"},
+  {ch:"fun", q:"Explain why water flowed into bottle B but not into bottle A. [2 marks]", o:["In A, the air in the bottle occupied the space and could not escape, so the water could not enter. In B, the air escaped through the straw, so the water could take its place.","The air in bottle A could not escape.","The straw sucked the water into bottle B.","Bottle A was smaller than bottle B."], a:0,
+   n:["✓ Both bottles explained — 2 marks.","½ Explains only bottle A, and without 'occupies space' — part marks only.","✗ A straw does not suck by itself.","✗ The bottles were identical."],
+   e:"Explain BOTH set-ups, using 'occupies space'.", z:"两个瓶子都要解释，用'占据空间'。"},
+  {q:"A measuring cylinder was filled with dry sand up to the 100 cm³ mark. 50 cm³ of water was added, but the level reached only 130 cm³. Explain why. [1 mark]", o:["There was air in the spaces between the sand grains. Some of the water filled these spaces as the air escaped.","The sand grains soaked up some of the water.","The water compressed the sand.","The water was compressed by the sand."], a:0,
+   n:["✓ Names the air spaces between the grains.","✗ Sand grains do not soak up water.","✗ Solids cannot be compressed.","✗ Liquids cannot be compressed."],
+   e:"The 'missing' 20 cm³ was the air between the grains; the water took its place.", z:"少了的 20 cm³ 是沙粒之间的空气。"},
+  {ch:"cyl", q:"Why must the stone be completely under the water? [1 mark]", o:["So that the rise in water level shows the volume of the WHOLE stone.","So that the stone gets wet.","So that the water does not overflow.","So that the stone has more mass."], a:0,
+   n:["✓ Only a fully covered stone pushes up the water by its full volume.","✗ Not the reason.","✗ Not the reason.","✗ The mass of the stone does not change."],
+   e:"If part of the stone is above the water, the rise shows only the part below.", z:"石头要完全浸没，水位上升才等于整块石头的体积。"},
+  {q:"Can the volume of a sugar cube be found by putting it into a measuring cylinder of water? Explain. [1 mark]", o:["No. The sugar dissolves in the water, so the rise in water level will not show its volume.","No. Sugar is not matter.","Yes. All solids can be measured this way.","Yes. Sugar sinks in water."], a:0,
+   n:["✓ Gives the reason it fails.","✗ Sugar is matter.","✗ Not if the solid dissolves or absorbs water.","✗ It sinks, but it dissolves."],
+   e:"The displacement method works only for objects that sink and do not dissolve or absorb water.", z:"糖会溶解，所以不能用排水法。"}
+ ]}
+];
+
+/* ---------------- sort games (tap to classify) ---------------- */
+const SORTS = [
+ {id:"ms1", title:"Solid, liquid or gas?", zh:"固体、液体还是气体", bins:[["S","Solid","固体"],["L","Liquid","液体"],["G","Gas","气体"]], items:[
+  ["icecubes","S","Definite shape and definite volume."],["sandgrains","S","Each grain has a definite shape and volume."],["sugargrains","S","It pours, but each grain keeps its shape."],
+  ["tablesalt","S","Each grain has a definite shape and volume."],["stone","S","Definite shape and definite volume."],["coin","S","Definite shape and definite volume."],
+  ["honeydrip","L","It flows slowly, but it takes the shape of its container."],["cookingoil","L","Takes the shape of its container; definite volume."],
+  ["milk","L","Takes the shape of its container; definite volume."],["water","L","Takes the shape of its container; definite volume."],
+  ["air","G","No definite shape or volume; it can be compressed."],["helium","G","Helium is a gas."],["tyreair","G","Air is a gas; more can be pumped in."],["fizzco2","G","The bubbles in a fizzy drink are carbon dioxide, a gas."]]},
+ {id:"ms2", title:"Matter or not matter?", zh:"是不是物质", bins:[["M","Matter","物质"],["N","Not matter","不是物质"]], items:[
+  ["air","M","Air has mass and occupies space."],["water","M","Water has mass and occupies space."],["sandgrains","M","Sand has mass and occupies space."],
+  ["cottonwool","M","Cotton wool has mass and occupies space."],["helium","M","A gas is matter."],["stone","M","A stone has mass and occupies space."],
+  ["sunlight","N","Light has no mass and does not occupy space."],["sound","N","Sound has no mass and does not occupy space."],["heat","N","Heat has no mass and does not occupy space."],
+  ["shadow","N","A shadow is where light is blocked — it has no mass."],["rainbow","N","A rainbow is light — it has no mass."],["milk","M","Milk has mass and occupies space."]]}
+];
+
+TOPIC({id:"matter", lv:"P4", icon:"🧊", title:"Matter", zh:"物质（三态）",
+  pics:PICS, emo:EMO, learn:LEARN, charts:CHARTS, sets:SETS, sorts:SORTS});
+})();

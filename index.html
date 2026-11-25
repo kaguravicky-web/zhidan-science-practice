@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>P3 Science · Classification</title>
+<title>P3–P4 Science Practice</title>
 <style>
 :root{
   --bg:#f3f6fa;--card:#fff;--ink:#1f2a37;--mute:#64748b;--line:#94a3b8;
@@ -12,13 +12,13 @@
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB",sans-serif}
-header{background:linear-gradient(135deg,#0f766e,#0e7490);color:#fff;padding:18px 16px 14px}
+header{background:linear-gradient(135deg,#0f766e,#0e7490);color:#fff;padding:16px 16px 12px}
 header .in{max-width:860px;margin:0 auto}
-header h1{margin:0;font-size:22px;letter-spacing:.2px}
-header p{margin:4px 0 0;opacity:.92;font-size:14px}
+header h1{margin:0;font-size:21px;letter-spacing:.2px}
+header p{margin:3px 0 0;opacity:.92;font-size:13.5px}
 nav{background:#fff;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:5}
-nav .in{max-width:860px;margin:0 auto;display:flex;gap:6px;flex-wrap:wrap;padding:10px 16px}
-nav button{border:1px solid #cbd5e1;background:#fff;border-radius:999px;padding:7px 12px;font:inherit;font-size:14px;cursor:pointer;color:var(--ink)}
+nav .in{max-width:860px;margin:0 auto;display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;padding:9px 16px}
+nav button{border:1px solid #cbd5e1;background:#fff;border-radius:999px;padding:7px 12px;font:inherit;font-size:14px;cursor:pointer;color:var(--ink);white-space:nowrap}
 nav button.on{background:var(--brand);border-color:var(--brand);color:#fff}
 main{max-width:860px;margin:0 auto;padding:16px}
 .card{background:var(--card);border-radius:14px;padding:16px;margin:0 0 14px;box-shadow:0 1px 3px rgba(15,23,42,.08)}
@@ -37,11 +37,22 @@ ul.facts li{margin:3px 0}
 .pill{display:inline-block;font-size:12px;padding:2px 9px;border-radius:999px;background:#e0f2f1;color:var(--brand);font-weight:600}
 .pill.done{background:var(--okbg);color:var(--ok)}
 .pill.lv{background:#ede9fe;color:#5b21b6}
+.pill.p4{background:#fee2e2;color:#9f1239}
 .btn{border:0;background:var(--brand);color:#fff;border-radius:10px;padding:9px 14px;font:inherit;font-size:15px;cursor:pointer}
 .btn.ghost{background:#fff;color:var(--brand);border:1px solid var(--brand)}
 .btn.small{padding:5px 10px;font-size:13px}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .say{border:1px solid #cbd5e1;background:#fff;border-radius:999px;padding:3px 10px;font-size:13px;cursor:pointer;flex:none}
+/* topic hub */
+.tcard{display:flex;gap:12px;align-items:center}
+.tcard .ic{font-size:34px;line-height:1;flex:none;width:44px;text-align:center}
+.tcard .tx{flex:1;min-width:0}
+.tbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.tbar h2{margin:0;flex:1;min-width:150px}
+.seg{display:flex;background:#e2e8f0;border-radius:12px;padding:3px;gap:3px;margin:0 0 14px}
+.seg button{flex:1;border:0;background:transparent;border-radius:9px;padding:8px 4px;font:inherit;font-size:14.5px;cursor:pointer;color:var(--ink)}
+.seg button.on{background:#fff;font-weight:700;color:var(--brand);box-shadow:0 1px 2px rgba(15,23,42,.12)}
+/* quiz */
 .qtext{font-size:17px;font-weight:600;margin:10px 0 4px;white-space:pre-line}
 .stl{list-style:none;padding:0;margin:6px 0 4px}
 .stl li{margin:4px 0;padding-left:26px;text-indent:-26px}
@@ -83,6 +94,14 @@ figure.ph figcaption{font-size:12.5px;padding:4px 4px 5px;line-height:1.25}
 /* charts */
 .chart{margin:8px 0;padding:10px;border:1px solid #e2e8f0;border-radius:12px;background:#fcfdfe}
 .chart-title{font-weight:700;margin-bottom:6px;font-size:14.5px}
+.svgwrap svg{display:block;width:100%;height:auto;max-height:340px;margin:0 auto}
+.bars{display:flex;flex-direction:column;gap:6px}
+.bar-row{display:flex;align-items:center;gap:8px;font-size:14px}
+.bar-row .bl{flex:0 0 32%;text-align:right;font-weight:600}
+.bar-row .bt{flex:1;background:#eef2f7;border-radius:6px;height:20px;overflow:hidden}
+.bar-row .bt i{display:block;height:100%;background:#38bdf8;border-radius:6px}
+.bar-row .bv{flex:0 0 auto;min-width:30px;font-weight:700}
+.unit{font-size:12.5px;color:var(--mute);text-align:right;margin-top:4px}
 .tree{overflow-x:auto;padding-bottom:4px}
 .tree ul{position:relative;padding:18px 0 0;margin:0;display:flex;justify-content:center}
 .tree>ul{padding-top:0}
@@ -122,620 +141,78 @@ footer{max-width:860px;margin:0 auto;padding:4px 16px 28px;color:var(--mute);fon
   .node,.grp{font-size:11.5px}.grp{min-width:0;padding:6px 3px}
   .tree li{padding-left:1px;padding-right:1px}
   .chart{padding:10px 6px}
-  nav .in{flex-wrap:nowrap;overflow-x:auto;padding:8px 12px}
-  nav button{white-space:nowrap;padding:6px 10px}
-  nav .en{display:none}
+  nav .in{padding:8px 12px}
+  nav button{padding:6px 10px}
   .strip{grid-template-columns:repeat(3,1fr)}
   figure.ph img,figure.ph .emo{height:84px}
   .credits{columns:1}
   table.ct{font-size:12.5px}
+  .bar-row .bl{flex-basis:36%;font-size:13px}
 }
 </style>
 </head>
 <body>
 <header><div class="in">
-  <h1>🔬 P3 Science · Classification</h1>
-  <p>Living things, plants, fungi, bacteria and animal groups · 分类单元 · 目标 AL1</p>
+  <h1>🔬 P3–P4 Science Practice</h1>
+  <p>每个单元：学 → 分一分 → 练习 · 全部点选，不用打字 · 目标 AL1</p>
 </div></header>
 <nav><div class="in" id="tabs"></div></nav>
 <main id="app"></main>
-<footer>Made for Ji Dam's home practice · v2026-11-25-2 · photos: Wikimedia Commons</footer>
+<footer>Made for Ji Dam's home practice · v2026-11-25-4 · photos: Wikimedia Commons</footer>
 
 <script>
 "use strict";
-
-/* ---------------- photos (Wikimedia Commons thumbnails) ---------------- */
+const TOPICS = [];
+function TOPIC(t){ TOPICS.push(t); }
+</script>
+<!-- one file per unit; a missing file is simply skipped -->
+<script src="topics/classification.js?v=2026-11-25-4"></script>
+<script src="topics/materials.js?v=2026-11-25-4"></script>
+<script src="topics/lifecycles.js?v=2026-11-25-4"></script>
+<script src="topics/plants.js?v=2026-11-25-4"></script>
+<script src="topics/digestive.js?v=2026-11-25-4"></script>
+<script src="topics/magnets.js?v=2026-11-25-4"></script>
+<script src="topics/light.js?v=2026-11-25-4"></script>
+<script src="topics/plantsystem.js?v=2026-11-25-4"></script>
+<script src="topics/matter.js?v=2026-11-25-4"></script>
+<script src="topics/heat.js?v=2026-11-25-4"></script>
+<script>
+"use strict";
+/* ---------------- data from the topic files ---------------- */
 const TH = "https://thumb.wikimedia.org/wikipedia/commons/thumb/";
-const PICS = {
-  moss:["4/45/Green_moss_growing_on_a_rock.jpg/330px-Green_moss_growing_on_a_rock.jpg","moss","苔藓","🌿"],
-  mosscap:["2/29/Polytrichum_commune.jpeg/330px-Polytrichum_commune.jpeg","moss with spore capsules","苔藓的孢子囊","🌿"],
-  fern:["f/f7/Nephrolepis_exaltata_indoor0705c.jpg/330px-Nephrolepis_exaltata_indoor0705c.jpg","fern","蕨","🌿"],
-  sori:["e/e4/Male_fern_%2851303139612%29.jpg/330px-Male_fern_%2851303139612%29.jpg","spore cases under a fern leaf","蕨叶背面的孢子囊","🌿"],
-  birdsnest:["8/84/Asplenium_nidus_%28Bukidnon%2C_Philippines%29_02.jpg/330px-Asplenium_nidus_%28Bukidnon%2C_Philippines%29_02.jpg","bird's nest fern","鸟巢蕨","🌿"],
-  pine:["3/3f/Pinus_jeffreyi_at_Lassen_Volcanic_National_Park.jpg/330px-Pinus_jeffreyi_at_Lassen_Volcanic_National_Park.jpg","pine tree","松树","🌲"],
-  pinecone:["1/1d/Pinus_coulteri_MHNT_Cone.jpg/330px-Pinus_coulteri_MHNT_Cone.jpg","pine cone (has seeds)","松果","🌲"],
-  hibiscus:["c/cb/Hibiscus_flower_TZ.jpg/330px-Hibiscus_flower_TZ.jpg","hibiscus","大红花","🌺"],
-  sunflower:["4/40/Sunflower_sky_backdrop.jpg/330px-Sunflower_sky_backdrop.jpg","sunflower","向日葵","🌻"],
-  bougainvillea:["4/4c/Bougainvillea_closeup.jpg/330px-Bougainvillea_closeup.jpg","bougainvillea","九重葛","🌸"],
-  rice:["0/0a/20201102.Hengnan.Hybrid_rice_Sanyou-1.6.jpg/330px-20201102.Hengnan.Hybrid_rice_Sanyou-1.6.jpg","rice plant","水稻","🌾"],
-  cactus:["4/47/Flowering_Cactus_-_geograph.org.uk_-_5095013.jpg/330px-Flowering_Cactus_-_geograph.org.uk_-_5095013.jpg","cactus with flowers","开花的仙人掌","🌵"],
-  pitcher:["1/12/N.macrophylla_x_lowii.jpg/330px-N.macrophylla_x_lowii.jpg","pitcher plant","猪笼草","🪴"],
-  mimosa:["2/26/Mimosa_pudica_in_September_month.jpg/330px-Mimosa_pudica_in_September_month.jpg","mimosa (touch-me-not)","含羞草","🌿"],
-  raintree:["6/62/Hitachi%27s_tree_%28cropped%29.jpg/330px-Hitachi%27s_tree_%28cropped%29.jpg","rain tree","雨树","🌳"],
-  mango:["e/e3/Mangoes_%28Magnifera_indica%29_from_India.jpg/330px-Mangoes_%28Magnifera_indica%29_from_India.jpg","mangoes (fruits)","芒果","🥭"],
-  moneyplant:["6/62/Money_Plant_%28Epipremnum_aureum%29_4.jpg/330px-Money_Plant_%28Epipremnum_aureum%29_4.jpg","money plant (weak stem)","绿萝","🪴"],
-  lotus:["e/ed/Sacred_lotus_Nelumbo_nucifera.jpg/330px-Sacred_lotus_Nelumbo_nucifera.jpg","lotus","荷花","🪷"],
-  duckweed:["7/72/Duckweeds.jpg/330px-Duckweeds.jpg","duckweed","浮萍","🌱"],
-  mangrove:["d/d0/Sonneratia_alba_-_Manado_%282%29.JPG/330px-Sonneratia_alba_-_Manado_%282%29.JPG","mangrove tree","红树","🌳"],
-  mushroom:["0/01/ChampignonMushroom.jpg/330px-ChampignonMushroom.jpg","button mushroom","蘑菇","🍄"],
-  shiitake:["6/64/Shiitakegrowing.jpg/330px-Shiitakegrowing.jpg","shiitake growing on a log","长在木头上的香菇","🍄"],
-  toadstool:["7/71/Amanita_muscaria_Aberystwyth_2023.jpg/330px-Amanita_muscaria_Aberystwyth_2023.jpg","toadstool (poisonous)","毒蘑菇","🍄"],
-  bracket:["d/d4/Fungi_in_Borneo.jpg/330px-Fungi_in_Borneo.jpg","bracket fungus","树上的真菌","🍄"],
-  woodear:["2/21/Jelly_Ear%2C_Auricularia_auricula-judae%2C_UK_2.jpg/330px-Jelly_Ear%2C_Auricularia_auricula-judae%2C_UK_2.jpg","wood ear fungus","木耳","🍄"],
-  mould:["4/45/A_Moldy_Loaf_of_Bread.jpg/330px-A_Moldy_Loaf_of_Bread.jpg","mouldy bread","发霉的面包","🍞"],
-  mouldclose:["8/8e/Rhizopus_stolonifer4.JPG/330px-Rhizopus_stolonifer4.JPG","bread mould up close (black dots = spore cases)","近看面包霉：黑点是孢子囊","🍞"],
-  yeast:["d/d9/S_cerevisiae_under_DIC_microscopy.jpg/330px-S_cerevisiae_under_DIC_microscopy.jpg","yeast (microscope)","显微镜下的酵母","🔬"],
-  bacteria:["3/3a/E._coli_Bacteria_%287316101966%29.jpg/330px-E._coli_Bacteria_%287316101966%29.jpg","bacteria (microscope)","显微镜下的细菌","🦠"],
-  yoghurt:["b/b8/Joghurt.jpg/330px-Joghurt.jpg","yoghurt (made with bacteria)","酸奶","🥛"],
-  bat:["5/50/Lesser_short-nosed_fruit_bat_%28Cynopterus_brachyotis%29.jpg/330px-Lesser_short-nosed_fruit_bat_%28Cynopterus_brachyotis%29.jpg","fruit bat","果蝠","🦇"],
-  whale:["d/d7/Humpback_whale_breaching_off_Cabo_San_Lucas.jpg/330px-Humpback_whale_breaching_off_Cabo_San_Lucas.jpg","whale","鲸","🐋"],
-  dolphin:["1/10/Tursiops_truncatus_01.jpg/330px-Tursiops_truncatus_01.jpg","dolphin","海豚","🐬"],
-  pangolin:["4/42/Pangolin_borneo.jpg/330px-Pangolin_borneo.jpg","pangolin","穿山甲","🦔"],
-  platypus:["1/1a/Duck-billed_platypus_%28Ornithorhynchus_anatinus%29_Scottsdale.jpg/330px-Duck-billed_platypus_%28Ornithorhynchus_anatinus%29_Scottsdale.jpg","platypus","鸭嘴兽","🦆"],
-  penguin:["0/08/South_Shetland-2016-Deception_Island%E2%80%93Chinstrap_penguin_%28Pygoscelis_antarctica%29_04.jpg/330px-South_Shetland-2016-Deception_Island%E2%80%93Chinstrap_penguin_%28Pygoscelis_antarctica%29_04.jpg","penguin","企鹅","🐧"],
-  ostrich:["9/9d/Struthio_camelus_-_Etosha_2014_%283%29.jpg/330px-Struthio_camelus_-_Etosha_2014_%283%29.jpg","ostrich","鸵鸟","🐦"],
-  kiwi:["8/82/TeTuatahianui.jpg/330px-TeTuatahianui.jpg","kiwi (bird)","几维鸟","🐦"],
-  seahorse:["2/25/Hippocampus_hippocampus_%28on_Ascophyllum_nodosum%29.jpg/330px-Hippocampus_hippocampus_%28on_Ascophyllum_nodosum%29.jpg","seahorse","海马","🐟"],
-  mudskipper:["e/e0/GambianMudskippers.jpg/330px-GambianMudskippers.jpg","mudskipper","弹涂鱼","🐟"],
-  guppy:["a/a2/Guppy_pho_0048.jpg/330px-Guppy_pho_0048.jpg","guppy","孔雀鱼","🐠"],
-  frog:["f/f5/Red-eyed_Leaf_Frog_%2849661076226%29.jpg/330px-Red-eyed_Leaf_Frog_%2849661076226%29.jpg","frog","青蛙","🐸"],
-  toad:["c/cf/Duttaphrynus_melanostictus_at_Niaosong_Wetland_Park%2C_Kaohsiung_2022-01-23_%28cropped%29.jpg/330px-Duttaphrynus_melanostictus_at_Niaosong_Wetland_Park%2C_Kaohsiung_2022-01-23_%28cropped%29.jpg","toad","蟾蜍","🐸"],
-  tadpole:["0/0e/RanaTemporariaLarva2.jpg/330px-RanaTemporariaLarva2.jpg","tadpole","蝌蚪","🐸"],
-  salamander:["b/b2/SpottedSalamander.jpg/330px-SpottedSalamander.jpg","salamander","蝾螈","🦎"],
-  crocodile:["b/bd/Nile_crocodile_head.jpg/330px-Nile_crocodile_head.jpg","crocodile","鳄鱼","🐊"],
-  turtle:["a/a3/Green_sea_turtle_%28Chelonia_mydas%29_Moorea.jpg/330px-Green_sea_turtle_%28Chelonia_mydas%29_Moorea.jpg","sea turtle","海龟","🐢"],
-  gecko:["8/85/Common_House_Gecko_with_open_mouth%2C_in_Laos.jpg/330px-Common_House_Gecko_with_open_mouth%2C_in_Laos.jpg","house gecko","壁虎","🦎"],
-  monitor:["3/39/Varanus_salvator_-_01.jpg/330px-Varanus_salvator_-_01.jpg","monitor lizard","巨蜥","🦎"],
-  dragonfly:["b/b4/Red_grasshawk_%28Neurothemis_fluctuans%29_male_Phuket_2.jpg/330px-Red_grasshawk_%28Neurothemis_fluctuans%29_male_Phuket_2.jpg","dragonfly","蜻蜓","🪰"],
-  grasshopper:["b/b7/American_Bird_Grasshopper.jpg/330px-American_Bird_Grasshopper.jpg","grasshopper","蚱蜢","🦗"],
-  butterfly:["3/3d/Fesoj_-_Papilio_machaon_%28by%29.jpg/330px-Fesoj_-_Papilio_machaon_%28by%29.jpg","butterfly","蝴蝶","🦋"],
-  ant:["d/db/Red_Ant_-_March_2025.jpg/330px-Red_Ant_-_March_2025.jpg","ant","蚂蚁","🐜"],
-  spider:["f/f3/Araneus_diadematus_%28Clerck%2C_1757%29.JPG/330px-Araneus_diadematus_%28Clerck%2C_1757%29.JPG","spider","蜘蛛","🕷️"],
-  scorpion:["f/fe/Scorpion_Photograph_By_Shantanu_Kuveskar.jpg/330px-Scorpion_Photograph_By_Shantanu_Kuveskar.jpg","scorpion","蝎子","🦂"],
-  centipede:["c/c1/Chilopoda_collage.png/330px-Chilopoda_collage.png","centipedes","蜈蚣","🐛"],
-  millipede:["b/bb/Millipede_collage.jpg/330px-Millipede_collage.jpg","millipedes","马陆","🐛"],
-  earthworm:["4/46/Eisenia_foetida_R.H._%288%29.JPG/330px-Eisenia_foetida_R.H._%288%29.JPG","earthworm","蚯蚓","🪱"],
-  snail:["c/cc/Snail.jpg/330px-Snail.jpg","snail","蜗牛","🐌"],
-  crab:["7/71/Cancer_pagurus.jpg/330px-Cancer_pagurus.jpg","crab","螃蟹","🦀"]
-};
-// emoji-only things (no photo needed)
-const EMO = {
-  stone:["🪨","stone","石头"], deadleaf:["🍂","dead leaf","枯叶"], chair:["🪑","wooden chair","木椅"], fire:["🔥","fire","火"],
-  robot:["🤖","robot","机器人"], car:["🚗","car","汽车"], cloud:["☁️","cloud","云"], shell:["🐚","empty seashell","空贝壳"],
-  seed:["🌰","seed","种子"], caterpillar:["🐛","caterpillar","毛毛虫"], snake:["🐍","snake","蛇"], mosquito:["🦟","mosquito","蚊子"],
-  cockroach:["🪳","cockroach","蟑螂"], beetle:["🪲","beetle","甲虫"], bee:["🐝","bee","蜜蜂"], ladybird:["🐞","ladybird","瓢虫"],
-  cat:["🐈","cat","猫"], eagle:["🦅","eagle","鹰"], shark:["🦈","shark","鲨鱼"], water:["💧","water","水"]
-};
-
-/* ---------------- learn cards ---------------- */
-const LEARN = [
- {sec:"1 · Living and non-living 生物与非生物"},
- {t:"Sorting into groups 分类是什么", pics:[], facts:[
-  "We classify things by looking for <b>similarities</b> (what is the same) and <b>differences</b>.",
-  "We can compare things by <b>size, shape, colour, texture</b> (how it feels) and <b>material</b>.",
-  "A good group heading names what the members <b>share</b>, e.g. \"has feathers\", \"reproduces by spores\", \"living things\"."],
-  zh:"分类 = 找相同点放一组，找不同点分开。小标题要写出这组共同的特征。",
-  trap:"⚠️ If a question says \"Do NOT compare shape, size or colour\", use other characteristics: body covering, number of legs, how it reproduces, how it gets food."},
- {t:"Living things 生物", pics:["mimosa","raintree"], facts:[
-  "All living things <b>need air, food and water</b> to survive.",
-  "They <b>grow</b>, <b>reproduce</b> (make young of their own kind) and <b>respond to changes</b> around them.",
-  "Responding: a mimosa's leaves fold when touched; a rain tree's leaves close in the evening; we sweat when it is hot; a dog pants on a hot day.",
-  "Animals move about to look for <b>food, water and shelter</b>, and to <b>escape from danger</b>.",
-  "Living things reproduce so that <b>their own kind will continue to survive</b>."],
-  zh:"所有生物：需要空气、食物和水；会生长、会繁殖、会对周围的变化作出反应。",
-  trap:"⚠️ \"Can move from place to place\" is NOT true for all living things — plants cannot. A seed is living: it can grow into a plant."},
- {t:"Non-living things 非生物", pics:[], emo:["stone","chair","deadleaf","fire","robot"], facts:[
-  "Non-living things do not need air, food and water, and they cannot grow or reproduce.",
-  "Some were never alive (stone, water, a plastic toy). Some were once part of a living thing (a wooden chair, a dead leaf, a cotton shirt) but are non-living now.",
-  "A car or a robot can move, and fire gets bigger, but none of them grows, reproduces or needs food."],
-  zh:"会动不代表有生命。木椅、枯叶以前是生物的一部分，现在是非生物。",
-  trap:"⚠️ Fire needs air and gets bigger, but it does not need food and water and cannot reproduce. Fire is non-living."},
- {sec:"2 · Plants 植物"},
- {t:"Plants 植物", pics:["hibiscus","moneyplant","lotus","duckweed","mangrove"], facts:[
-  "All plants <b>make their own food</b> (they need light to do it). They cannot move from place to place.",
-  "Most plants have roots, stems and leaves.",
-  "Ways to classify plants: <b>flowering or non-flowering</b>; <b>land or water</b> plants; <b>strong or weak stems</b>.",
-  "<b>Weak stems</b>: climbers (money plant, long bean) need a support such as a pole to grow upwards; creepers (sweet potato) grow along the ground.",
-  "Water plants: lotus, water lily, duckweed (floats on water). Mangrove trees grow in muddy water by the sea."],
-  zh:"植物会自己制造食物——这是植物和动物、真菌最大的不同。",
-  trap:"⚠️ \"Plants are green\" is not a good exam answer. Write: \"Plants can make their own food.\""},
- {t:"Flowering plants 开花植物", pics:["hibiscus","sunflower","bougainvillea","rice","cactus","pitcher"], facts:[
-  "Flowering plants <b>produce flowers</b>. Flowers become <b>fruits</b> with <b>seeds</b> inside. They reproduce by <b>seeds</b>.",
-  "Examples: hibiscus, sunflower, bougainvillea, mango tree, rain tree, rice, grass, cactus, pitcher plant, mimosa, lotus.",
-  "Some flowers are tiny and not colourful (rice, grass) — they are still flowers.",
-  "A young plant may have no flowers <b>yet</b>. It is still a flowering plant: it will flower when it is mature."],
-  zh:"开花植物用种子繁殖。草和水稻也会开花，只是花很小。",
-  trap:"⚠️ \"I can't see flowers now\" does NOT mean it is a non-flowering plant."},
- {t:"Non-flowering plants 不开花植物", pics:["moss","mosscap","fern","sori","birdsnest","pinecone"], facts:[
-  "Non-flowering plants <b>never produce flowers</b>.",
-  "<b>Ferns</b> and <b>mosses</b> reproduce by <b>spores</b>. Fern spores are in spore cases on the <b>underside of the leaves</b> (the brown dots). Moss spores are in capsules on thin stalks.",
-  "Moss is very small and grows in <b>damp, shady</b> places: walls, rocks, tree trunks.",
-  "The bird's nest fern grows on tree trunks all over Singapore.",
-  "<b>Pine trees</b> are non-flowering, but they reproduce by <b>seeds</b> found in <b>cones</b>."],
-  zh:"蕨和苔藓用孢子繁殖（蕨的孢子在叶子背面）。松树不开花，但用松果里的种子繁殖。",
-  trap:"⚠️ NOT all non-flowering plants reproduce by spores — pine trees use seeds in cones."},
- {sec:"3 · Fungi and bacteria 真菌与细菌"},
- {t:"Fungi 真菌", pics:["mushroom","shiitake","toadstool","woodear","bracket","mould","mouldclose","yeast"], facts:[
-  "Fungi are <b>not plants</b>. They <b>cannot make their own food</b>.",
-  "They get food from <b>dead or decaying things</b> (rotting logs, old bread, fallen leaves) or from other living things.",
-  "Most fungi reproduce by <b>spores</b>. A mushroom's spores are in the <b>gills under its cap</b>; bread mould's spores are in the black dots (spore cases).",
-  "Examples: mushroom, toadstool, bracket fungus, wood ear (木耳), bread mould, yeast.",
-  "Some fungi are big (mushrooms). Some are tiny: one yeast can only be seen under a microscope.",
-  "Fungi grow best in <b>warm, damp</b> places. Some can be eaten; some are <b>poisonous</b>; mould spoils food. Yeast is used to make bread.",
-  "Fungi help to break down dead plants and animals."],
-  zh:"真菌不能自己制造食物，靠死掉、腐烂的东西获得食物，用孢子繁殖。",
-  trap:"⚠️ A mushroom is NOT a plant, even though it grows from the ground and stays in one place."},
- {t:"Bacteria 细菌", pics:["bacteria","yoghurt"], facts:[
-  "Bacteria are living things so <b>small</b> that we need a <b>microscope</b> to see them.",
-  "They are almost everywhere: in air, water and soil, on our hands and inside our bodies.",
-  "<b>Useful</b>: making yoghurt and cheese; breaking down dead things; some in our gut help us.",
-  "<b>Harmful</b>: some cause diseases and food poisoning; they make food go bad.",
-  "Bacteria and fungi grow slowly in the cold — that is why we keep food in the fridge."],
-  zh:"细菌非常小，要用显微镜才看得见；有益（做酸奶）也有害（生病、食物变坏）。",
-  trap:"⚠️ Not all bacteria are harmful. Bacteria are NOT fungi."},
- {sec:"4 · Animals 动物"},
- {t:"Animals 动物", pics:[], facts:[
-  "Animals <b>cannot make their own food</b>; they eat plants or other animals. Most can move from place to place.",
-  "We classify animals by: <b>body covering</b> (fur/hair, feathers, scales, moist skin, hard outer covering); <b>how they reproduce</b> (lay eggs or give birth to young alive); <b>how they breathe</b> (lungs or gills); <b>body parts used to move</b> (legs, wings, fins); number of legs.",
-  "Six groups: <b>mammals, birds, fish, amphibians, reptiles, insects</b>."],
-  zh:"动物分六大类。分类看：身体覆盖物、怎样繁殖、怎样呼吸、靠什么移动。"},
- {t:"Mammals 哺乳动物", pics:["bat","whale","dolphin","pangolin","platypus"], facts:[
-  "Body covered with <b>hair or fur</b>.",
-  "Most <b>give birth to young alive</b>, and all <b>feed their young with milk</b>.",
-  "Breathe through <b>lungs</b>.",
-  "Tricky mammals: <b>bat</b> (flies); <b>whale</b> and <b>dolphin</b> (live in the sea, breathe air through a blowhole); <b>pangolin</b> (has scales, but also hair, and feeds its young with milk); <b>platypus</b> (lays eggs!). Humans are mammals too."],
-  zh:"哺乳动物：有毛发，大多胎生，用奶喂幼仔，用肺呼吸。",
-  trap:"⚠️ Living in water or flying does not decide the group. Check the body covering and how they feed their young."},
- {t:"Birds 鸟", pics:["penguin","ostrich","kiwi"], emo:["eagle"], facts:[
-  "Body covered with <b>feathers</b> — ONLY birds have feathers.",
-  "Have a <b>beak</b>, <b>two legs</b> and <b>a pair of wings</b>.",
-  "<b>Lay eggs with hard shells</b>. Breathe through lungs.",
-  "Not all birds can fly: <b>penguin, ostrich, kiwi</b>."],
-  zh:"只有鸟有羽毛。企鹅、鸵鸟、几维鸟不会飞，但都是鸟。",
-  trap:"⚠️ \"Can fly\" is not a bird characteristic — bats and many insects fly too."},
- {t:"Fish 鱼", pics:["seahorse","mudskipper","guppy"], emo:["shark"], facts:[
-  "Live in water, breathe through <b>gills</b>, use <b>fins</b> to swim.",
-  "Most have <b>scales</b>. Most lay eggs, but some (guppy) give birth to young alive.",
-  "The <b>seahorse</b> is a fish. The <b>mudskipper</b> (in Singapore's mangroves) is a fish that can stay out of water for some time."],
-  zh:"鱼用鳃呼吸、有鳍。孔雀鱼是胎生的鱼。弹涂鱼能上岸，但仍然是鱼。",
-  trap:"⚠️ Whales and dolphins are NOT fish — they breathe through lungs and feed their young with milk."},
- {t:"Amphibians 两栖动物", pics:["frog","toad","tadpole","salamander"], facts:[
-  "<b>Moist skin</b> with <b>no scales</b> (a toad's skin is drier and bumpy, but has no scales).",
-  "Lay eggs <b>without shells</b> (jelly-like) in water.",
-  "The young (tadpoles) live in water and breathe through <b>gills</b>. Adults live on land and in water and breathe through <b>lungs and skin</b>.",
-  "Examples: frog, toad, salamander."],
-  zh:"两栖动物：皮肤湿润、没有鳞片；幼体在水里用鳃呼吸，成体用肺和皮肤呼吸。"},
- {t:"Reptiles 爬行动物", pics:["crocodile","turtle","gecko","monitor"], emo:["snake"], facts:[
-  "<b>Dry, scaly skin</b>.",
-  "Most <b>lay eggs with tough, leathery shells on land</b>.",
-  "Breathe through <b>lungs</b> — turtles and crocodiles come up to the surface to breathe air.",
-  "Examples: crocodile, turtle, snake, house gecko (壁虎), monitor lizard."],
-  zh:"爬行动物：皮肤干燥有鳞片，用肺呼吸，在陆地上产蛋。",
-  trap:"⚠️ Living in water AND on land does not make an animal an amphibian. A crocodile has dry, scaly skin, so it is a reptile."},
- {t:"Insects 昆虫", pics:["dragonfly","grasshopper","butterfly","ant"], emo:["mosquito","ladybird"], facts:[
-  "<b>3 body parts</b>: head, thorax, abdomen.",
-  "<b>3 pairs of legs</b> (6 legs).",
-  "<b>1 pair of antennae</b> (feelers).",
-  "Most have one or two pairs of wings, but some have no wings (e.g. worker ants).",
-  "A hard outer covering."],
-  zh:"昆虫：身体分三部分、六条腿、一对触角。不是所有昆虫都有翅膀。"},
- {t:"Not insects 不是昆虫", pics:["spider","scorpion","centipede","millipede","earthworm","snail","crab"], facts:[
-  "<b>Spider</b>: 8 legs, 2 body parts, no antennae, no wings.",
-  "<b>Scorpion</b>: 8 legs.",
-  "<b>Centipede</b>: many body parts, <b>one pair</b> of legs on each part.",
-  "<b>Millipede</b>: many body parts, <b>two pairs</b> of legs on most parts.",
-  "<b>Earthworm</b>: no legs. <b>Snail</b>: soft body with a shell. <b>Crab</b>: 10 legs."],
-  zh:"蜘蛛 8 条腿、身体两部分，所以不是昆虫。蜈蚣每节一对腿，马陆每节两对腿。"},
- {sec:"5 · Exam skills 答题技巧"},
- {t:"Full-mark answers 怎样拿满分", pics:[], facts:[
-  "Use science keywords: \"cannot make its own food\", \"reproduces by spores\", \"has feathers\", \"breathes through gills\".",
-  "\"State a difference\": write BOTH sides — \"X has ___, but Y does not.\"",
-  "\"Explain why\": give the characteristic, not only the group name. (\"It is a fungus\" is not enough.)",
-  "Do not use shape, size or colour when the question says not to.",
-  "Experiments (fair test): change only ONE thing; keep everything else the same. Aim: \"to find out if ___ is needed / affects ___\".",
-  "With a chart or table, only say what it tells you — nothing more."],
-  zh:"写\"不同点\"要两边都写；\"解释\"要写特征，不能只写类别名称；实验题只改变一个条件。"}
-];
-
-/* ---------------- charts ---------------- */
-const CHARTS = {
- living:{type:"tree", title:"Classification chart", root:{t:"Living things", kids:[
-   {t:"can make its own food", kids:[{t:"bears flowers", g:"A"},{t:"does not bear flowers", g:"B"}]},
-   {t:"cannot make its own food", kids:[{t:"reproduces by spores", g:"C"},{t:"does not reproduce by spores", g:"D"}]}]}},
- breathe:{type:"tree", title:"Classification chart", root:{t:"Animals", kids:[
-   {t:"breathes through lungs", kids:[{t:"has feathers", g:"P"},{t:"has no feathers", g:"Q"}]},
-   {t:"breathes through gills", g:"R"}]}},
- plantflow:{type:"flow", title:"Plants J, K, L and M are classified below.", start:"Plants J, K, L and M", steps:[
-   {q:"Does it grow on land?", side:"No → J", down:"Yes"},
-   {q:"Does it bear flowers?", side:"No → K", down:"Yes"},
-   {q:"Does it have a weak stem?", side:"Yes → L", down:"No"}], end:"M"},
- key:{type:"key", title:"Some living things are classified below.", root:{q:"Can it make its own food?",
-   yes:{q:"Y", box:true, yes:"hibiscus", no:"fern"},
-   no:{q:"X", box:true, yes:"bread mould", no:"cat"}}},
- tlive:{type:"table", title:"✓ = has the characteristic, ✗ = does not", cols:["Thing","can grow","can reproduce","needs food"], rows:[["S",0,0,0],["T",1,1,1]]},
- tanimals:{type:"table", title:"✓ = has the characteristic, ✗ = does not", cols:["Animal","has fur","has feathers","lays eggs","breathes through gills"],
-   rows:[["W",0,1,1,0],["X",1,0,0,0],["Y",0,0,1,1],["Z",1,0,1,0]]},
- tlegs:{type:"table", title:"Four animals with a hard body covering", cols:["Animal","number of legs","body parts","antennae","wings"],
-   rows:[["P","8","2",0,0],["Q","6","3",1,1],["R","6","3",1,0],["S","many","many",1,0]]},
- gcover:{type:"groups", title:"Some animals are grouped below.", groups:[["A",["hen","penguin","owl"]],["B",["tiger","monkey","rabbit"]],["C",["goldfish","crocodile","python"]],["D",["beetle","cockroach","ladybird"]]]},
- snail:{type:"table", title:"Sam put one snail in each identical container for 3 days.", cols:["Container","lid","leaves (food)","damp soil"],
-   rows:[["A","with holes",1,1],["B","without holes",1,1],["C","with holes",0,1],["D","without holes",0,1]]},
- bread:{type:"table", title:"Four identical slices of bread were kept in sealed bags for 5 days.", cols:["Bread","kept in","sprinkled with water"],
-   rows:[["P","warm cupboard",1],["Q","warm cupboard",0],["R","fridge",1],["S","fridge",0]]},
- guppy:{type:"table", title:"Number of guppies in three tanks", cols:["Tank","1 January","30 June"], rows:[["X","10","10"],["Y","6","25"],["Z","12","4"]]}
-};
-
-/* ---------------- question sets ----------------
-   q: question, st: statements A-D, o: options, a: index of the right option,
-   e: explanation, z: Chinese hint, pic: photos, pl: photo labels, ch: chart, n: note per option, fix: keep option order */
-const SETS = [
- {id:"p1", lv:1, title:"What is it?", zh:"看图认一认", qs:[
-  {pic:["moss"], q:"What is this?", o:["moss","fern","bread mould","grass"], a:0,
-   e:"Moss is a tiny non-flowering plant. It grows in damp, shady places such as walls, rocks and tree trunks, and reproduces by spores.", z:"苔藓：很小的不开花植物，长在潮湿阴暗的地方。"},
-  {pic:["fern"], q:"What is this?", o:["fern","moss","money plant","hibiscus"], a:0,
-   e:"A fern is a non-flowering plant. Turn a leaf over: the brown dots hold its spores.", z:"蕨：不开花，叶子背面的褐色小点里有孢子。"},
-  {pic:["sori"], q:"These brown dots are under a fern leaf. What are they?", o:["spore cases with spores inside","seeds","tiny flowers","insect eggs"], a:0,
-   e:"Ferns do not have flowers or seeds. They reproduce by spores, which are kept in spore cases on the underside of the leaves.", z:"蕨叶背面的褐色点是孢子囊。"},
-  {pic:["birdsnest"], q:"This plant grows on tree trunks all over Singapore. What is it?", o:["bird's nest fern","pitcher plant","money plant","mushroom"], a:0,
-   e:"The bird's nest fern is a fern, so it is a non-flowering plant that reproduces by spores. It makes its own food; it only sits on the tree.", z:"鸟巢蕨是蕨类，不开花，用孢子繁殖。"},
-  {pic:["mould"], q:"This grew on bread left in a warm, damp cupboard. What is it?", o:["bread mould, a fungus","moss, a plant","dust","bacteria"], a:0,
-   e:"Bread mould is a fungus, not moss. It cannot make its own food — it feeds on the bread — and it grows fastest in warm, damp places.", z:"面包上长的是霉菌（真菌），不是苔藓。"},
-  {pic:["woodear"], q:"We eat this in Chinese cooking. Which group does it belong to?", o:["fungi — it is wood ear fungus (木耳)","plants — it is seaweed","plants — it is a dried leaf","animals"], a:0,
-   e:"Wood ear (木耳) is a fungus. It grows on dead wood and cannot make its own food.", z:"木耳是真菌，长在死木头上。"},
-  {pic:["toadstool"], q:"What is this?", o:["a toadstool, a poisonous fungus","a flower","a fruit","a plant with red leaves"], a:0,
-   e:"Toadstools are fungi. Some fungi are poisonous — never eat a mushroom you find outside.", z:"毒蘑菇也是真菌。野外的蘑菇不能吃。"},
-  {pic:["pinecone"], q:"This comes from a pine tree. What is it?", o:["a cone with seeds inside","a flower","a fruit","a mushroom"], a:0,
-   e:"A pine tree is a non-flowering plant, but it reproduces by seeds that are found in its cones.", z:"松果：松树不开花，但种子在松果里。"},
-  {pic:["pangolin"], q:"This animal lives in Singapore's forests. What is it?", o:["pangolin","lizard","crocodile","fish"], a:0,
-   e:"It is a pangolin. It has scales, but it is a MAMMAL: it has some hair, gives birth to its young alive and feeds them with milk.", z:"穿山甲有鳞片，但它是哺乳动物。"},
-  {pic:["mudskipper"], q:"This animal lives in Singapore's mangroves. What is it?", o:["mudskipper","frog","lizard","tadpole"], a:0,
-   e:"The mudskipper is a FISH. It has fins and gills, and can stay out of water for some time.", z:"弹涂鱼是鱼，能离开水一段时间。"}
- ]},
- {id:"p2", lv:1, title:"Which group?", zh:"看图分组", qs:[
-  {pic:["moss"], q:"Which group does moss belong to?", o:["plants","fungi","bacteria","animals"], a:0,
-   e:"Moss is a plant: it makes its own food. It is a non-flowering plant that reproduces by spores.", z:"苔藓是植物，会自己制造食物。"},
-  {pic:["mushroom"], q:"Which group does a mushroom belong to?", o:["fungi","plants","animals","bacteria"], a:0,
-   e:"A mushroom is a fungus: it cannot make its own food, and it reproduces by spores.", z:"蘑菇是真菌，不是植物。"},
-  {pic:["yeast"], q:"This is yeast under a microscope. Yeast is used to make bread. Which group does it belong to?", o:["fungi","bacteria","plants","animals"], a:0,
-   e:"Yeast is a fungus. It is so tiny that one yeast can only be seen under a microscope.", z:"酵母是真菌，很小，要用显微镜看。"},
-  {pic:["bat"], q:"A bat can fly. Which group does it belong to?", o:["mammals","birds","insects","reptiles"], a:0,
-   e:"A bat has fur and feeds its young with milk, so it is a mammal.", z:"蝙蝠会飞，但它是哺乳动物。"},
-  {pic:["penguin"], q:"A penguin cannot fly. Which group does it belong to?", o:["birds","mammals","fish","amphibians"], a:0,
-   e:"A penguin has feathers and lays eggs with hard shells, so it is a bird.", z:"企鹅不会飞，但有羽毛，是鸟。"},
-  {pic:["salamander"], q:"This animal has moist skin with no scales. Its young live in water. Which group does it belong to?", o:["amphibians","reptiles","fish","mammals"], a:0,
-   e:"A salamander is an amphibian: moist skin with no scales; the young live in water and breathe through gills.", z:"蝾螈是两栖动物。"},
-  {pic:["seahorse"], q:"Which group does a seahorse belong to?", o:["fish","reptiles","mammals","insects"], a:0,
-   e:"A seahorse lives in water, has fins and breathes through gills, so it is a fish.", z:"海马是鱼。"},
-  {pic:["whale"], q:"A whale lives in the sea. Which group does it belong to?", o:["mammals","fish","reptiles","amphibians"], a:0,
-   e:"A whale breathes air through lungs and feeds its young with milk, so it is a mammal, not a fish.", z:"鲸是哺乳动物，不是鱼。"},
-  {pic:["dragonfly"], q:"Which group does a dragonfly belong to?", o:["insects","birds","reptiles","amphibians"], a:0,
-   e:"A dragonfly has 3 body parts, 6 legs and a pair of antennae, so it is an insect.", z:"蜻蜓是昆虫。"},
-  {pic:["spider"], q:"Is a spider an insect?", o:["No — it has 8 legs and 2 body parts","Yes — it has 6 legs","Yes — it has wings","No — it has no legs"], a:0,
-   e:"Insects have 6 legs and 3 body parts. A spider has 8 legs, 2 body parts and no antennae, so it is not an insect.", z:"蜘蛛 8 条腿、两部分身体，不是昆虫。"}
- ]},
- {id:"k1", lv:2, title:"Living things", zh:"生物的特征", qs:[
-  {q:"Which of the following are basic needs of ALL living things?", st:["air","food","water","sunlight"], o:["A and B only","A, B and C only","B, C and D only","A, B, C and D"], a:1,
-   e:"All living things need air, food and water. Sunlight is needed by plants to make food, but fungi and many animals live without it.", z:"所有生物都需要空气、食物和水；阳光不是所有生物都需要。"},
-  {q:"Which statement does NOT describe all living things?", o:["They can move from place to place.","They reproduce.","They respond to changes.","They need air, food and water."], a:0,
-   e:"Plants are living things but cannot move from place to place.", z:"植物不能到处移动，但它是生物。"},
-  {q:"Which of the following show a living thing responding to changes?", st:["The leaves of a mimosa fold up when touched.","A dog pants on a hot day.","A bus moves when the driver starts it.","We sweat when we are hot."], o:["A and B only","A, B and D only","B, C and D only","A, B, C and D"], a:1,
-   e:"A bus is non-living; it moves only because a person drives it.", z:"公交车不是生物，它动是因为司机开它。"},
-  {q:"Living things reproduce ___.", o:["so that their own kind will continue to survive","so that they can grow bigger","so that there will be enough food","so that they can move about"], a:0,
-   e:"Reproducing makes young of their own kind, so the kind does not die out.", z:"繁殖是为了让自己的种类延续下去。"},
-  {q:"Animals move about to ___.", st:["look for food","look for water","look for shelter","escape from danger"], o:["A and B only","B and C only","A, C and D only","A, B, C and D"], a:3,
-   e:"Animals move to find food, water and shelter, and to escape from danger.", z:"动物移动是为了找食物、水、住处，以及逃避危险。"},
-  {q:"Which of these is a living thing?", o:["a seed","a wooden chair","a dead leaf","a stone"], a:0,
-   e:"A seed can grow into a new plant when it gets water, air and warmth. The chair and dead leaf were once part of living things but are non-living now.", z:"种子是生物，因为它会长成新植物。"},
-  {q:"Fire needs air and can get bigger. Why is fire NOT a living thing?", o:["It does not need food and water, and it cannot reproduce.","It is hot.","It does not move.","It is orange."], a:0,
-   e:"Living things need air, food and water, grow and reproduce. Fire does not need food or water and cannot reproduce its own kind.", z:"火需要空气、会变大，但它不需要食物和水，也不会繁殖。"},
-  {q:"A robot can move, make sounds and answer when we talk to it. Why is it a non-living thing?", o:["It cannot grow or reproduce.","It is made of metal.","It cannot talk.","It is too big."], a:0,
-   e:"Moving and making sounds is not enough. A robot cannot grow, reproduce or need food.", z:"会动、会说话不代表有生命。"},
-  {ch:"tlive", q:"Based on the table, what could S and T be?", o:["S: stone, T: guppy","S: dog, T: ship","S: tree, T: chair","S: mushroom, T: toy car"], a:0,
-   e:"T can grow, reproduce and needs food, so T is living (a guppy). S has none of these, so S is non-living (a stone).", z:"T 三项都有，是生物；S 三项都没有，是非生物。"},
-  {q:"Mei put a potted plant in a box with one hole on its side. After a week, the shoot had grown towards the hole. What does this show?", o:["Plants respond to changes around them, such as light.","Plants can move from place to place.","Plants do not need light.","Plants reproduce."], a:0,
-   e:"The shoot grew towards the light coming through the hole. This is the plant responding to light.", z:"植物向光生长，是对环境变化的反应。"}
- ]},
- {id:"k2", lv:2, title:"Plants", zh:"植物：开花、不开花、茎", qs:[
-  {q:"Which statement describes ALL plants?", o:["They can make their own food.","They have flowers.","They reproduce by seeds.","They have strong stems."], a:0,
-   e:"Every plant makes its own food. Ferns and mosses have no flowers or seeds; climbers have weak stems.", z:"所有植物都会自己制造食物。"},
-  {q:"Which plant is a non-flowering plant?", o:["fern","hibiscus","rice","cactus"], a:0,
-   e:"Rice has tiny flowers and the cactus has flowers. A fern never has flowers.", z:"水稻和仙人掌都会开花；蕨不开花。"},
-  {q:"Which statements about ferns and mosses are correct?", st:["They do not produce flowers.","They reproduce by spores.","They make their own food.","They grow best in hot, dry places."], o:["A and B only","A, B and C only","B, C and D only","A, B, C and D"], a:1,
-   e:"Ferns and mosses grow best in damp, shady places, not hot and dry ones.", z:"蕨和苔藓喜欢潮湿阴暗的地方。"},
-  {q:"Where are the spores of a fern found?", o:["on the underside of its leaves","inside its fruits","inside its flowers","in its roots"], a:0,
-   e:"The brown dots on the underside of a fern leaf are spore cases.", z:"蕨的孢子在叶子背面。"},
-  {pic:["pinecone"], q:"A pine tree does not have flowers, but it makes seeds in cones. Which is correct?", o:["It is a non-flowering plant that reproduces by seeds.","It is a flowering plant because it has seeds.","It is a non-flowering plant that reproduces by spores.","It is a fungus."], a:0,
-   e:"Not all non-flowering plants use spores. The pine tree is non-flowering but reproduces by seeds in its cones.", z:"松树：不开花，用种子繁殖。"},
-  {q:"Ali says, \"Grass is a non-flowering plant because I have never seen its flowers.\" Is he right?", o:["No. Grass has tiny flowers that are hard to notice.","Yes. Grass never has flowers.","Yes. Grass reproduces by spores.","No. Grass is not a plant."], a:0,
-   e:"Grass and rice are flowering plants. Their flowers are small and not colourful.", z:"草会开很小的花，是开花植物。"},
-  {q:"A young mango tree has no flowers yet. Which is correct?", o:["It is still a flowering plant; it will flower when it is mature.","It is a non-flowering plant for now.","It reproduces by spores.","It is not a living thing yet."], a:0,
-   e:"A plant does not change group with age. A mango tree will flower and bear fruits when it is mature.", z:"小芒果树还没开花，但它是开花植物。"},
-  {pic:["moneyplant"], q:"Which plant has a weak stem and needs a support to grow upwards?", o:["money plant","rain tree","hibiscus shrub","mango tree"], a:0,
-   e:"Climbers such as the money plant twine around or cling to a support. Trees have strong stems.", z:"绿萝是攀缘植物，茎很软，要靠支撑往上长。"},
-  {q:"Which of these are water plants?", st:["lotus","duckweed","cactus","money plant"], o:["A and B only","B and C only","A, C and D only","A, B and D only"], a:0,
-   e:"Lotus and duckweed grow in water. A cactus grows in dry places; a money plant grows on land.", z:"荷花和浮萍是水生植物。"},
-  {q:"Which characteristic can be used to separate a hibiscus from a fern?", o:["whether it bears flowers","whether it makes its own food","whether it needs water","whether it is living"], a:0,
-   e:"Both make their own food, need water and are living. Only the hibiscus bears flowers.", z:"大红花开花，蕨不开花。"}
- ]},
- {id:"k3", lv:2, title:"Fungi & bacteria", zh:"真菌和细菌", qs:[
-  {pic:["mushroom"], q:"Why is a mushroom NOT a plant?", o:["It cannot make its own food.","It is soft.","It has a cap and a stalk.","It is small."], a:0,
-   e:"Plants make their own food. Fungi such as mushrooms cannot.", z:"蘑菇不能自己制造食物，所以不是植物。"},
-  {pic:["shiitake"], q:"How do these mushrooms on a rotting log get their food?", o:["from the dead, decaying log","they make it using sunlight","by catching insects","through their flowers"], a:0,
-   e:"Fungi get their food from dead or decaying matter, such as a rotting log.", z:"真菌从腐烂的木头获得食物。"},
-  {q:"Where are the spores of a mushroom found?", o:["in the gills under the cap","in the stalk","in the roots","in the soil"], a:0,
-   e:"The thin gills under a mushroom's cap hold its spores.", z:"蘑菇的孢子在菌盖下面的菌褶里。"},
-  {q:"Which statements about fungi are correct?", st:["All fungi can be eaten.","Fungi reproduce by spores.","Some fungi can only be seen under a microscope.","Fungi can make their own food."], o:["B only","B and C only","A, B and C only","A, B, C and D"], a:1,
-   e:"Some fungi are poisonous, and no fungi make their own food. Yeast is so small we need a microscope.", z:"有些真菌有毒；真菌不能自己制造食物。"},
-  {q:"Bread mould grows FASTEST on bread kept ___.", o:["in a warm, damp place","in the freezer","in a cold, dry place","in a hot oven"], a:0,
-   e:"Fungi grow best where it is warm and damp.", z:"霉菌喜欢温暖潮湿的地方。"},
-  {q:"Which statements about bacteria are correct?", st:["They are too small to be seen with our eyes alone.","Some bacteria are used to make yoghurt.","All bacteria are harmful.","Some bacteria cause diseases."], o:["A and B only","A, B and D only","B, C and D only","A, B, C and D"], a:1,
-   e:"Not all bacteria are harmful — some help us make yoghurt and cheese.", z:"不是所有细菌都有害。"},
-  {q:"Which statements about BOTH fungi and bacteria are correct?", st:["Both are living things.","Both can make their own food.","Some of them are useful to people.","All of them can be seen with our eyes alone."], o:["A only","A and C only","B and D only","A, B and C only"], a:1,
-   e:"Neither can make its own food. Bacteria and some fungi (yeast) are too small to see without a microscope.", z:"真菌和细菌都是生物，都不能自己制造食物。"},
-  {pic:["yeast"], q:"Yeast is used to make bread rise. Which is correct?", o:["One yeast is too small to see without a microscope.","Yeast is a plant.","Yeast makes its own food.","Yeast is a kind of bacteria."], a:0,
-   e:"Yeast is a tiny fungus. It is not a plant and not bacteria.", z:"酵母是很小的真菌。"},
-  {q:"Which of these are fungi?", st:["mushroom","bread mould","moss","yeast"], o:["A and B only","A, B and D only","B, C and D only","A, B, C and D"], a:1,
-   e:"Moss is a plant — it makes its own food.", z:"苔藓是植物，不是真菌。"},
-  {q:"Why do we keep food in the fridge?", o:["The cold slows down the growth of bacteria and fungi.","The cold kills all bacteria.","Bacteria cannot get into a fridge.","Fungi need light to grow."], a:0,
-   e:"Cold does not kill all bacteria and fungi; it slows down their growth, so food stays fresh longer.", z:"低温让细菌和真菌长得慢，不是全部杀死。"}
- ]},
- {id:"k4", lv:2, title:"Mammals & birds", zh:"哺乳动物和鸟", qs:[
-  {q:"Which characteristic do ALL mammals have?", o:["They have hair or fur.","They give birth to young alive.","They live on land.","They have four legs."], a:0,
-   e:"The platypus lays eggs, whales live in the sea and humans have two legs — but all mammals have hair or fur.", z:"所有哺乳动物都有毛发。"},
-  {pic:["bat"], q:"A bat can fly. Why is it a mammal and not a bird?", o:["It has fur and feeds its young with milk.","It flies at night.","It has wings.","It eats fruit."], a:0,
-   e:"Birds have feathers. A bat has fur and feeds its young with milk.", z:"蝙蝠有毛、用奶喂幼仔。"},
-  {pic:["whale"], q:"Which statements about a whale are correct?", st:["It breathes through lungs.","It breathes through gills.","It feeds its young with milk.","It is a fish."], o:["A and C only","B and D only","A, C and D only","B, C and D only"], a:0,
-   e:"A whale comes up to breathe air through its blowhole into its lungs. It is a mammal.", z:"鲸用肺呼吸，是哺乳动物。"},
-  {pic:["pangolin"], q:"A pangolin has scales. Which group does it belong to?", o:["mammals — it has hair and feeds its young with milk","reptiles — it has scales","fish — it has scales","birds — it lays eggs"], a:0,
-   e:"Scales alone do not decide the group. The pangolin has hair and feeds its young with milk.", z:"穿山甲有鳞片，但是哺乳动物。"},
-  {q:"Which of these birds CANNOT fly?", st:["penguin","ostrich","sparrow","kiwi"], o:["A and B only","A, B and D only","B and C only","A, B, C and D"], a:1,
-   e:"Penguins, ostriches and kiwis cannot fly, but they are birds because they have feathers.", z:"企鹅、鸵鸟、几维鸟不会飞。"},
-  {q:"Which characteristic do ALL birds have?", o:["feathers","can fly","build nests in trees","eat worms"], a:0,
-   e:"Only birds have feathers, and every bird has them.", z:"所有鸟都有羽毛。"},
-  {q:"In which group do ALL the animals lay eggs?", o:["eagle, crocodile, frog","bat, eagle, frog","cat, dog, cow","dolphin, turtle, frog"], a:0,
-   e:"Bats, cats, dogs, cows and dolphins give birth to young alive.", z:"蝙蝠、猫、狗、牛、海豚都是胎生。"},
-  {pic:["platypus"], q:"A platypus has fur and feeds its young with milk, but it lays eggs. Which group is it in?", o:["mammals","birds","reptiles","amphibians"], a:0,
-   e:"The platypus is one of the very few mammals that lay eggs. Fur and milk make it a mammal.", z:"鸭嘴兽会下蛋，但它是哺乳动物。"},
-  {q:"Dolphins and sharks both live in the sea and have fins. What is a difference between them?", o:["A dolphin breathes through lungs; a shark breathes through gills.","A dolphin has fins; a shark does not.","A dolphin lives in water; a shark lives on land.","A dolphin lays eggs; a shark feeds its young with milk."], a:0,
-   e:"The dolphin is a mammal (lungs, milk). The shark is a fish (gills).", z:"海豚用肺呼吸，鲨鱼用鳃呼吸。"},
-  {q:"Which animal is a mammal?", o:["dolphin","penguin","turtle","seahorse"], a:0,
-   e:"Penguin: bird. Turtle: reptile. Seahorse: fish.", z:"海豚是哺乳动物。"}
- ]},
- {id:"k5", lv:2, title:"Fish, amphibians & reptiles", zh:"鱼、两栖、爬行动物", qs:[
-  {q:"Which of these describe fish?", st:["They breathe through gills.","They have fins.","All of them lay eggs.","They live in water."], o:["A and B only","A, B and D only","A, C and D only","A, B, C and D"], a:1,
-   e:"Not all fish lay eggs — guppies give birth to young alive.", z:"孔雀鱼是胎生的，所以 C 不对。"},
-  {pic:["seahorse"], q:"A seahorse looks very different from other fish. Why is it a fish?", o:["It lives in water, has fins and breathes through gills.","It can swim.","It is small.","It lays eggs."], a:0,
-   e:"Swimming, size and laying eggs do not decide the group. Gills and fins do.", z:"海马用鳃呼吸、有鳍，所以是鱼。"},
-  {pic:["mudskipper"], q:"A mudskipper can stay on the mud out of water. Which group does it belong to?", o:["fish","amphibians","reptiles","mammals"], a:0,
-   e:"The mudskipper has gills and fins. It is a fish that can stay out of water for some time.", z:"弹涂鱼是鱼，不是两栖动物。"},
-  {q:"Which describes the skin of an amphibian?", o:["moist, with no scales","dry, with scales","covered with fur","covered with feathers"], a:0,
-   e:"Amphibians such as frogs have moist skin with no scales.", z:"两栖动物皮肤湿润、没有鳞片。"},
-  {pic:["tadpole"], q:"A tadpole breathes through ___. An adult frog breathes through ___.", o:["gills ; lungs and skin","lungs ; gills","gills ; gills","lungs ; lungs"], a:0,
-   e:"The young live in water and breathe through gills. Adult frogs breathe through lungs and through their moist skin.", z:"蝌蚪用鳃，成蛙用肺和皮肤。"},
-  {q:"Which statements describe reptiles?", st:["They have dry, scaly skin.","They breathe through lungs.","Most lay eggs with tough shells on land.","They have moist skin."], o:["A and B only","A, B and C only","B, C and D only","A, B, C and D"], a:1,
-   e:"Moist skin is an amphibian characteristic, not a reptile one.", z:"湿润皮肤是两栖动物的特征。"},
-  {pic:["turtle"], q:"A sea turtle spends most of its life in the sea. How does it breathe?", o:["It comes up to the surface to breathe air with its lungs.","It breathes through gills.","It does not need air.","It breathes through its shell."], a:0,
-   e:"Turtles are reptiles. They breathe through lungs, so they must come up for air.", z:"海龟用肺呼吸，要浮上水面换气。"},
-  {q:"What is a difference between a frog and a lizard?", o:["A frog has moist skin, but a lizard has dry, scaly skin.","A frog lays eggs, but a lizard gives birth to young alive.","A frog has four legs, but a lizard has six.","A frog is living, but a lizard is not."], a:0,
-   e:"Both lay eggs and have four legs. Their skin is the key difference.", z:"青蛙皮肤湿润，蜥蜴皮肤干燥有鳞。"},
-  {q:"Which of these animals are reptiles?", st:["crocodile","snake","toad","house gecko"], o:["A and B only","A, B and D only","B, C and D only","A, B, C and D"], a:1,
-   e:"A toad is an amphibian. Crocodiles, snakes and geckos have dry, scaly skin.", z:"蟾蜍是两栖动物。"},
-  {q:"Which animal is an amphibian?", o:["salamander","crocodile","seahorse","snake"], a:0,
-   e:"A salamander has moist skin and its young live in water.", z:"蝾螈是两栖动物。"}
- ]},
- {id:"k6", lv:2, title:"Insects & not insects", zh:"昆虫和不是昆虫的", qs:[
-  {q:"How many legs does an insect have?", o:["6","8","4","many"], a:0,
-   e:"Insects have 3 pairs of legs: 6 legs.", z:"昆虫有 6 条腿。"},
-  {q:"An insect's body is made up of ___.", o:["3 parts: head, thorax and abdomen","2 parts: head and body","4 parts","many parts"], a:0,
-   e:"Head, thorax and abdomen.", z:"头、胸、腹三部分。"},
-  {q:"Which are characteristics of ALL insects?", st:["3 body parts","3 pairs of legs","2 pairs of wings","1 pair of antennae"], o:["A and B only","A, B and D only","A, C and D only","A, B, C and D"], a:1,
-   e:"Not all insects have 2 pairs of wings. A housefly has 1 pair; worker ants have none.", z:"苍蝇只有一对翅膀，工蚁没有翅膀。"},
-  {pic:["spider"], q:"Why is a spider NOT an insect?", o:["It has 8 legs and 2 body parts.","It spins webs.","It is small.","It eats insects."], a:0,
-   e:"Counting legs and body parts is the scientific way to tell.", z:"数腿和身体部分。"},
-  {q:"Which animal is an insect?", o:["mosquito","spider","centipede","scorpion"], a:0,
-   e:"A mosquito has 3 body parts and 6 legs.", z:"蚊子是昆虫。"},
-  {pic:["millipede"], q:"A centipede has ONE pair of legs on each body part. A millipede has ___.", o:["TWO pairs of legs on most body parts","no legs","6 legs","8 legs"], a:0,
-   e:"Millipedes have two pairs of legs on most body parts. Neither is an insect.", z:"马陆每节两对腿。"},
-  {q:"Which statement is correct?", o:["All insects have 6 legs, but not all insects have wings.","All insects have wings.","All animals with wings are insects.","Spiders and ants are both insects."], a:0,
-   e:"Birds and bats have wings too, and some insects have no wings.", z:"有翅膀的不一定是昆虫；昆虫不一定有翅膀。"},
-  {q:"Which animal is NOT an insect?", o:["earthworm","ant","beetle","bee"], a:0,
-   e:"An earthworm has no legs at all.", z:"蚯蚓没有腿，不是昆虫。"},
-  {q:"What do an insect's antennae help it to do?", o:["feel and smell things around it","fly","breathe","see in the dark"], a:0,
-   e:"Antennae (feelers) help insects sense things around them.", z:"触角用来感觉和闻。"},
-  {pic:["ant"], q:"A worker ant has no wings. Is it an insect?", o:["Yes — it has 3 body parts, 6 legs and 1 pair of antennae.","No — all insects have wings.","No — it lives in the soil.","Yes — it is small."], a:0,
-   e:"Wings are not needed to be an insect.", z:"没有翅膀也可以是昆虫。"}
- ]},
- {id:"e1", lv:3, title:"Charts & tables", zh:"分类图和表格（考试题型）", qs:[
-  {ch:"living", q:"Based on the chart, where would a bird's nest fern be placed?", o:["A","B","C","D"], a:1, fix:true,
-   e:"A bird's nest fern makes its own food and does not bear flowers → B.", z:"鸟巢蕨：会制造食物、不开花 → B。"},
-  {ch:"living", q:"Where would bread mould be placed?", o:["A","B","C","D"], a:2, fix:true,
-   e:"Bread mould cannot make its own food and reproduces by spores → C.", z:"面包霉：不会制造食物、用孢子繁殖 → C。"},
-  {ch:"living", q:"Which pair is placed correctly?", o:["A: rice plant, D: grasshopper","B: hibiscus, C: mushroom","A: fern, D: cat","C: moss, D: bat"], a:0,
-   e:"Hibiscus bears flowers (A). A fern does not bear flowers (B). Moss makes its own food, so it cannot be in C.", z:"大红花开花，应该在 A；蕨在 B；苔藓会制造食物，不能在 C。"},
-  {ch:"plantflow", q:"Which could be plants J, K, L and M?", o:["J: lotus, K: fern, L: long bean, M: rain tree","J: lotus, K: long bean, L: fern, M: rain tree","J: fern, K: lotus, L: rain tree, M: long bean","J: duckweed, K: moss, L: rain tree, M: long bean"], a:0,
-   e:"J does not grow on land (lotus). K grows on land but has no flowers (fern). L flowers and has a weak stem (long bean). M flowers and has a strong stem (rain tree).", z:"J 水生；K 不开花；L 开花且茎软；M 开花且茎硬。"},
-  {ch:"plantflow", q:"Which statements about plant K are correct?", st:["It grows on land.","It does not bear flowers.","It cannot make its own food.","It has a weak stem."], o:["A only","A and B only","B and C only","A, B and D only"], a:1,
-   e:"The chart tells us K grows on land and does not bear flowers. It does NOT tell us about K's stem. All plants make their own food.", z:"图上没有说 K 的茎，不能乱猜。"},
-  {ch:"breathe", q:"Where would a whale be placed?", o:["P","Q","R"], a:1, fix:true,
-   e:"A whale breathes through lungs and has no feathers → Q.", z:"鲸用肺呼吸、没有羽毛 → Q。"},
-  {ch:"breathe", q:"Where would a tadpole be placed?", o:["P","Q","R"], a:2, fix:true,
-   e:"A tadpole breathes through gills → R. (An adult frog would be in Q.)", z:"蝌蚪用鳃呼吸 → R。"},
-  {ch:"tanimals", q:"Based on the table, which could be W, X, Y and Z?", o:["W: eagle, X: cat, Y: goldfish, Z: platypus","W: bat, X: cat, Y: goldfish, Z: platypus","W: eagle, X: platypus, Y: goldfish, Z: cat","W: eagle, X: cat, Y: whale, Z: dog"], a:0,
-   e:"W has feathers (eagle). X has fur and does not lay eggs (cat). Y lays eggs and has gills (goldfish). Z has fur AND lays eggs (platypus).", z:"Z 有毛又下蛋 → 鸭嘴兽。"},
-  {ch:"tlegs", q:"Which animals are insects?", o:["Q and R only","Q only","P, Q and R only","Q, R and S only"], a:0,
-   e:"Q and R have 6 legs, 3 body parts and antennae. R has no wings but is still an insect. P is like a spider; S is like a centipede.", z:"R 没有翅膀，也是昆虫。"},
-  {ch:"gcover", q:"Which characteristic was used to group these animals?", o:["the type of body covering","how they move","what they eat","where they live"], a:0,
-   e:"A: feathers. B: fur/hair. C: scales. D: hard outer covering.", z:"A 羽毛，B 毛发，C 鳞片，D 硬壳。"}
- ]},
- {id:"e2", lv:3, title:"Experiments", zh:"实验题", qs:[
-  {ch:"snail", q:"Sam wants to find out if snails need FOOD. Which two containers should he compare?", o:["A and C","A and B","B and C","A and D"], a:0,
-   e:"A and C are the same except for the leaves. Only ONE thing is different.", z:"只能有一个条件不同：A 和 C 只差树叶。"},
-  {ch:"snail", q:"Which two containers should he compare to find out if snails need AIR?", o:["A and B","A and C","B and D","A and D"], a:0,
-   e:"A and B are the same except for the holes in the lid (air).", z:"A 和 B 只差盖子上的洞（空气）。"},
-  {ch:"snail", q:"Why must only ONE thing be different between the two containers?", o:["So that we know the result is caused by that one thing.","So that the snails are happy.","So that the experiment is faster.","So that fewer snails are used."], a:0,
-   e:"This is called a fair test.", z:"这叫公平测试。"},
-  {ch:"bread", q:"Which slice of bread most likely had the MOST mould after 5 days?", o:["P","Q","R","S"], a:0, fix:true,
-   e:"Mould grows best where it is warm and damp: bread P.", z:"温暖又潮湿 → P 发霉最多。"},
-  {ch:"bread", q:"Which two slices should be compared to find out if TEMPERATURE affects mould growth?", o:["P and R","P and Q","P and S","Q and R"], a:0,
-   e:"P and R are both wet; only the place (warm or cold) is different. (Q and S would also work.)", z:"P 和 R 都洒了水，只有温度不同。"},
-  {ch:"bread", q:"Which slice of bread most likely had the LEAST mould?", o:["P","Q","R","S"], a:3, fix:true,
-   e:"S is cold and dry — both slow down mould.", z:"冷又干 → S 发霉最少。"},
-  {ch:"guppy", q:"Which characteristic of living things does tank Y show?", o:["Living things reproduce.","Living things respond to changes.","Living things need air.","Living things can move."], a:0,
-   e:"The number of guppies in tank Y increased because they reproduced.", z:"数量增加 = 繁殖。"},
-  {ch:"guppy", q:"The guppies in tank X were healthy, but their number did not increase. What is the most likely reason?", o:["They were all male (or all female), so they could not reproduce.","Guppies cannot reproduce.","The tank was too big.","The guppies were not living things."], a:0,
-   e:"A male and a female are needed to reproduce.", z:"全是雄的或全是雌的，就不能繁殖。"},
-  {pic:["mimosa"], q:"Jun touched a mimosa plant and its leaves folded up. Later they opened again. Which statements are correct?", st:["The mimosa responded to touch.","The mimosa is a living thing.","The mimosa moved from one place to another."], o:["A only","A and B only","B and C only","A, B and C"], a:1,
-   e:"Folding its leaves is a response, but the plant did not move from place to place.", z:"叶子合上是反应，不是移动位置。"},
-  {q:"Kai left a slice of bread in a warm, damp cupboard. After a week, fuzzy black spots appeared. What were they, and where did they get their food?", o:["Bread mould; they fed on the bread.","Moss; they made their own food.","Bacteria; they made their own food.","Dirt; they did not need food."], a:0,
-   e:"Mould is a fungus. It cannot make its own food, so it feeds on the bread.", z:"面包霉是真菌，吃面包。"}
- ]},
- {id:"e3", lv:3, title:"AL1 challenge", zh:"难题挑战", qs:[
-  {q:"Which statement is correct?", o:["Some non-flowering plants reproduce by seeds.","All non-flowering plants reproduce by spores.","All plants with seeds have flowers.","Mosses reproduce by seeds."], a:0,
-   e:"Pine trees have no flowers but reproduce by seeds in cones.", z:"松树：不开花但用种子繁殖。"},
-  {pic:["shiitake","raintree"], pl:["Organism A","Organism B"], q:"Which correctly states a difference between organism A and organism B?", o:["A cannot make its own food, but B can.","A reproduces by seeds, but B reproduces by spores.","A responds to changes, but B does not.","A grows in water, but B grows on land."], a:0,
-   e:"A is a fungus (on a log) and B is a tree. Both are living, so both respond to changes. Fungi reproduce by spores; the tree by seeds.", z:"A 是真菌，B 是树。"},
-  {q:"In which group do ALL the animals give birth to young alive?", o:["cat, whale, bat","cat, platypus, bat","dog, whale, penguin","bat, turtle, cow"], a:0,
-   e:"The platypus, penguin and turtle lay eggs.", z:"鸭嘴兽、企鹅、海龟都下蛋。"},
-  {q:"Lin says, \"All animals that live in water are fish.\" Which animal shows that she is wrong?", o:["dolphin","goldfish","shark","seahorse"], a:0,
-   e:"A dolphin lives in water but is a mammal.", z:"海豚住在水里，但不是鱼。"},
-  {q:"Organism X cannot make its own food, reproduces by spores and grows on a rotting log. What is X?", o:["a fungus","a fern","a moss","an insect"], a:0,
-   e:"Ferns and mosses also reproduce by spores, but they make their own food.", z:"蕨和苔藓也用孢子，但会自己制造食物。"},
-  {q:"Which question can be used to separate a fern from a mushroom?", o:["Does it make its own food?","Does it reproduce by spores?","Does it bear flowers?","Does it need water?"], a:0,
-   e:"Both reproduce by spores, neither bears flowers, and both need water. Only the fern makes its own food.", z:"两个都用孢子、都不开花，只有蕨会制造食物。"},
-  {q:"Which question can be used to separate a bat from a bird?", o:["Does it have feathers?","Can it fly?","Does it have wings?","Does it breathe through lungs?"], a:0,
-   e:"Bats and birds both fly, have wings and breathe through lungs.", z:"蝙蝠和鸟都会飞、都有翅膀、都用肺呼吸。"},
-  {q:"Which question can be used to separate a spider from an ant?", o:["How many legs does it have?","Does it have a hard body covering?","Is it an animal?","Does it need food?"], a:0,
-   e:"A spider has 8 legs; an ant has 6.", z:"蜘蛛 8 条腿，蚂蚁 6 条腿。"},
-  {ch:"key", q:"Which questions should be written in boxes X and Y?", o:["X: Does it reproduce by spores?  Y: Does it bear flowers?","X: Does it bear flowers?  Y: Does it reproduce by spores?","X: Does it need water?  Y: Does it make its own food?","X: Does it have fur?  Y: Does it have roots?"], a:0,
-   e:"X must split bread mould (spores: yes) from a cat. Y must split hibiscus (flowers: yes) from a fern.", z:"X 分开面包霉和猫；Y 分开大红花和蕨。"},
-  {q:"Which statements about a whale and a shark are correct?", st:["Both live in water.","Both breathe through gills.","Both have fins.","Both are fish."], o:["A and B only","A and C only","A, B and C only","A, B, C and D"], a:1,
-   e:"A whale breathes through lungs and is a mammal.", z:"鲸用肺呼吸，是哺乳动物。"}
- ]},
- {id:"o1", lv:4, title:"Full-mark answers 1", zh:"选出能拿满分的答案（植物、真菌、生物）", qs:[
-  {pic:["mushroom"], q:"A mushroom is not a plant. Explain why. [1 mark]\nWhich answer gets the mark?", o:["It cannot make its own food.","It is a fungus.","It grows on dead logs.","It is small."], a:0,
-   n:["✓ The key difference from plants.","✗ Only names the group — it does not explain.","✗ Where it grows is not the reason.","✗ Size is not a characteristic."],
-   e:"\"Explain why\" needs the characteristic: plants make their own food; fungi cannot.", z:"\"解释\"要写特征，不能只写类别名。"},
-  {q:"State one similarity between a fern and a moss. [1 mark]", o:["Both reproduce by spores.","Both are green.","Both are small.","Both grow in pots."], a:0,
-   n:["✓ A characteristic they share.","✗ Colour is usually not accepted.","✗ Ferns can be big.","✗ Not a characteristic."],
-   e:"Similarity = a characteristic that both have.", z:"相同点要写两者共有的特征。"},
-  {q:"State one difference between a hibiscus and a fern. [1 mark]", o:["A hibiscus bears flowers, but a fern does not.","A hibiscus bears flowers.","A hibiscus is bigger than a fern.","A fern is green."], a:0,
-   n:["✓ Both sides are given.","✗ Only one side — half the answer.","✗ Size is not a characteristic.","✗ Colour, one side only."],
-   e:"A difference must mention BOTH plants.", z:"不同点两边都要写。"},
-  {q:"Why is a seed a living thing? [1 mark]", o:["It can grow into a new plant when it gets water, air and warmth.","It is small and round.","It comes from a plant.","It is hard."], a:0,
-   n:["✓ Shows it can grow.","✗ Shape is not a reason.","✗ A wooden chair also comes from a plant.","✗ Not a characteristic of living things."],
-   e:"Use a characteristic of living things: it can grow.", z:"用生物的特征来解释：会生长。"},
-  {q:"How does bread mould get its food? [1 mark]", o:["It feeds on the bread.","It makes its own food.","It gets food from sunlight.","It does not need food."], a:0,
-   n:["✓ Fungi feed on dead matter such as bread.","✗ Only plants make their own food.","✗ That is how plants make food.","✗ All living things need food."],
-   e:"Fungi get food from the dead or decaying matter they grow on.", z:"真菌从所长的东西上获得食物。"},
-  {q:"Bacteria can be useful and harmful. Give one example of each. [2 marks]", o:["Useful: used to make yoghurt. Harmful: can cause food poisoning.","Useful: used to make yoghurt.","Useful: bacteria are small. Harmful: bacteria are everywhere.","Harmful: all bacteria make us sick."], a:0,
-   n:["✓ Both parts answered — 2 marks.","½ Only one part — 1 mark.","✗ Neither is a use or a harm.","✗ Wrong: not all bacteria are harmful."],
-   e:"When a question asks for two things, give two.", z:"问两样就要答两样。"},
-  {q:"State one difference between plants and animals. [1 mark]", o:["Plants can make their own food, but animals cannot.","Plants are green, but animals are not.","Animals can move.","Plants are bigger than animals."], a:0,
-   n:["✓ Both sides, correct characteristic.","✗ Colour is not accepted.","✗ One side only.","✗ Size is not a characteristic."],
-   e:"The main difference: plants make their own food.", z:"植物会自己制造食物，动物不会。"},
-  {pic:["moneyplant"], q:"A money plant has a weak stem. How does it grow upwards? [1 mark]", o:["It twines around or clings to a support, such as a pole.","It grows along the ground.","It has strong roots.","It grows faster than other plants."], a:0,
-   n:["✓ Climbers need a support.","✗ That is a creeper, and it does not grow upwards.","✗ Roots do not hold it up.","✗ Speed is not the reason."],
-   e:"Weak-stemmed climbers grow up by holding on to a support.", z:"攀缘植物靠支撑往上长。"},
-  {q:"Ben says, \"A fern is a non-flowering plant because it has no flowers now.\" Which answer best corrects his reason?", o:["His reason is not enough — a young flowering plant may also have no flowers now. A fern NEVER bears flowers and reproduces by spores.","He is right: it has no flowers now.","He is wrong: ferns have flowers.","He is wrong: a fern is not a plant."], a:0,
-   n:["✓ Spots the weak reason and gives the right one.","✗ \"No flowers now\" is not a good reason.","✗ Ferns never have flowers.","✗ A fern is a plant."],
-   e:"Non-flowering means it NEVER produces flowers.", z:"不开花植物 = 永远不开花。"},
-  {q:"Ken's bread grew mould faster in the cupboard than in the fridge. Explain why. [1 mark]", o:["Mould grows faster in warm places than in cold places.","The fridge is dark.","The cupboard has more bread.","Mould does not like the fridge."], a:0,
-   n:["✓ Names the condition: warmth.","✗ Light is not the reason.","✗ Not a fair reason.","✗ Not scientific — say WHY."],
-   e:"Name the condition (warmth) and its effect.", z:"写出条件（温度）和结果。"}
- ]},
- {id:"o2", lv:4, title:"Full-mark answers 2", zh:"选出能拿满分的答案（动物、实验）", qs:[
-  {pic:["bat"], q:"State one characteristic that tells us a bat is a mammal. [1 mark]", o:["It has fur.","It can fly.","It is active at night.","It has wings."], a:0,
-   n:["✓ A mammal characteristic (feeding young with milk is also correct).","✗ Birds and insects fly too.","✗ Not a group characteristic.","✗ Birds and insects have wings too."],
-   e:"Pick a characteristic that only mammals have.", z:"选只有哺乳动物才有的特征。"},
-  {q:"Group X: housefly, beetle, mosquito. Group Y: penguin, eagle, sparrow.\nState one difference between the animals in X and Y. (Do NOT compare size.) [1 mark]", o:["Animals in X have 6 legs, but animals in Y have 2 legs.","Animals in X have 6 legs.","Animals in Y can fly.","Animals in X are smaller."], a:0,
-   n:["✓ Both groups, a clear characteristic.","½ One side only.","✗ Penguins cannot fly, and one side only.","✗ The question said not to compare size."],
-   e:"Feathers vs no feathers would also be correct — as long as both sides are given.", z:"两组都要写；题目说不比较大小就不能写大小。"},
-  {pic:["dolphin"], q:"A dolphin lives in the sea like a fish. Why is it a mammal? [1 mark]", o:["It breathes through lungs and feeds its young with milk.","It lives in the sea.","It is very clever.","It swims fast."], a:0,
-   n:["✓ Mammal characteristics.","✗ Fish live in the sea too.","✗ Not a characteristic.","✗ Fish swim fast too."],
-   e:"Give characteristics that only mammals have.", z:"写哺乳动物独有的特征。"},
-  {pic:["tadpole"], q:"How is a tadpole different from an adult frog in the way it breathes? [1 mark]", o:["A tadpole breathes through gills, but an adult frog breathes through lungs and skin.","A tadpole breathes through gills.","A tadpole lives in water.","A frog breathes air."], a:0,
-   n:["✓ Both sides.","½ One side only.","✗ About where it lives, not breathing.","✗ One side and not specific."],
-   e:"Compare BOTH, about breathing.", z:"两边都写，而且要写呼吸。"},
-  {pic:["crocodile"], q:"Why is a crocodile a reptile and not an amphibian? [1 mark]", o:["It has dry, scaly skin, but amphibians have moist skin.","It lives in water and on land.","It is big and dangerous.","It lays eggs."], a:0,
-   n:["✓ The key difference.","✗ Many amphibians live in water and on land too.","✗ Not a characteristic.","✗ Amphibians lay eggs too."],
-   e:"Pick the characteristic that is DIFFERENT between the two groups.", z:"要写两类动物不同的地方。"},
-  {pic:["spider"], q:"Why is a spider not an insect? [1 mark]", o:["It has 8 legs, but an insect has 6 legs.","It makes webs.","It is scary.","It has many eyes."], a:0,
-   n:["✓ Compare with insects.","✗ Not a group characteristic.","✗ Not scientific.","✗ Not the characteristic we classify by."],
-   e:"2 body parts (insects have 3) is also correct.", z:"写\"身体两部分，昆虫三部分\"也对。"},
-  {ch:"snail", q:"What was Sam trying to find out by comparing containers A and B? [1 mark]", o:["To find out if snails need air to survive.","To find out if snails like leaves.","To find out if snails are living things.","To find out how fast snails move."], a:0,
-   n:["✓ The only difference is the holes (air).","✗ Both have leaves.","✗ Not what changed.","✗ Not what changed."],
-   e:"The aim is about the ONE thing that was changed.", z:"实验目的 = 改变的那一个条件。"},
-  {ch:"bread", q:"Why did Ken use the SAME type and size of bread in all four bags? [1 mark]", o:["To make it a fair test, so only one thing is different.","He had only one type of bread.","To grow more mould.","So the bread tastes the same."], a:0,
-   n:["✓ Fair test.","✗ Not a scientific reason.","✗ Not the purpose.","✗ Not the purpose."],
-   e:"Keep everything else the same so the result is caused by what was changed.", z:"其它条件都一样，才是公平测试。"},
-  {ch:"guppy", q:"The water in tank Z was not changed for many weeks. Suggest why the number of guppies decreased. [1 mark]", o:["The water became dirty, so some guppies could not survive and died.","The guppies reproduced.","The guppies swam away.","The guppies grew bigger."], a:0,
-   n:["✓ Links the cause to the result.","✗ That would increase the number.","✗ They cannot leave the tank.","✗ Growing does not reduce the number."],
-   e:"Say the cause AND what happened to the guppies.", z:"写原因，也写结果（死了）。"},
-  {pic:["penguin"], q:"Penguins cannot fly. Why are they still birds? [1 mark]", o:["They have feathers and lay eggs with hard shells.","They live in cold places.","They can swim.","They have wings."], a:0,
-   n:["✓ Bird characteristics.","✗ Not a characteristic.","✗ Fish swim too.","✗ Bats and insects have wings too."],
-   e:"Feathers are found only in birds.", z:"只有鸟有羽毛。"}
- ]}
-];
+const ORDER = ["classification","materials","lifecycles","plants","digestive","magnets","light","plantsystem","matter","heat"];
+TOPICS.sort((a, b) => (ORDER.indexOf(a.id) + 1 || 99) - (ORDER.indexOf(b.id) + 1 || 99));
+const BY_ID = {}, PICS = {}, EMO = {}, ALLQ = {};
 const LEVELS = {1:"Level 1 · 看图认识", 2:"Level 2 · 知识点", 3:"Level 3 · 考试题型", 4:"Level 4 · 答题技巧"};
-
-/* ---------------- sort games (tap to classify) ---------------- */
-const SORTS = [
- {id:"s1", title:"Living or non-living?", zh:"生物还是非生物", bins:[["L","Living","生物"],["N","Non-living","非生物"]], items:[
-  ["seed","L","A seed can grow into a plant."],["stone","N","It never grows or reproduces."],["deadleaf","N","It was once living, but it is non-living now."],
-  ["chair","N","Made from wood, but non-living now."],["fire","N","It does not need food or water and cannot reproduce."],["robot","N","It moves, but cannot grow or reproduce."],
-  ["bacteria","L","Bacteria are tiny living things."],["mushroom","L","A fungus is a living thing."],["moss","L","Moss is a plant."],
-  ["caterpillar","L","A young insect — it grows into a butterfly."],["car","N","It moves only when someone drives it."],["cloud","N","Clouds are made of tiny water drops."],
-  ["shell","N","The animal is gone; the shell is non-living."],["yeast","L","Yeast is a fungus — a living thing."]]},
- {id:"s2", title:"Plant, fungus, bacteria or animal?", zh:"植物、真菌、细菌还是动物", bins:[["P","Plant","植物"],["F","Fungus","真菌"],["B","Bacteria","细菌"],["A","Animal","动物"]], items:[
-  ["moss","P","Moss makes its own food."],["fern","P","A fern makes its own food."],["birdsnest","P","A fern — it makes its own food."],
-  ["mushroom","F","Cannot make its own food; spores."],["mould","F","Bread mould is a fungus."],["yeast","F","Yeast is a fungus."],
-  ["woodear","F","Wood ear is a fungus."],["toadstool","F","A poisonous fungus."],["bacteria","B","Only seen under a microscope."],
-  ["mimosa","P","A flowering plant."],["duckweed","P","A water plant."],["pangolin","A","A mammal."],["earthworm","A","An animal with no legs."],["pinecone","P","From a pine tree — a plant."]]},
- {id:"s3", title:"Six animal groups", zh:"动物六大类", bins:[["M","Mammal","哺乳"],["B","Bird","鸟"],["F","Fish","鱼"],["A","Amphibian","两栖"],["R","Reptile","爬行"],["I","Insect","昆虫"]], items:[
-  ["bat","M","It flies, but it has fur and feeds its young with milk — a mammal."],["whale","M","It lives in the sea, but breathes through lungs and feeds its young with milk."],["dolphin","M","It lives in the sea, but breathes through lungs and feeds its young with milk."],
-  ["pangolin","M","Has hair and feeds young with milk."],["platypus","M","Fur and milk — a mammal that lays eggs."],["penguin","B","It cannot fly, but it has feathers — a bird."],
-  ["ostrich","B","It cannot fly, but it has feathers — a bird."],["kiwi","B","It cannot fly, but it has feathers — a bird."],["seahorse","F","It looks odd, but it has gills and fins — a fish."],["mudskipper","F","It can stay out of water for a while, but it has gills and fins — a fish."],
-  ["guppy","F","Gills and fins — gives birth to young alive."],["tadpole","A","Young frog — gills, lives in water."],["toad","A","No scales; eggs in water."],
-  ["salamander","A","Moist skin, no scales."],["frog","A","Moist skin, no scales."],["crocodile","R","It lives in water and on land, but it has dry, scaly skin — a reptile."],["turtle","R","It lives in the sea, but has dry, scaly skin and breathes through lungs — a reptile."],
-  ["gecko","R","Dry, scaly skin."],["monitor","R","Dry, scaly skin."],["snake","R","Dry, scaly skin."],["dragonfly","I","3 body parts, 6 legs."],
-  ["grasshopper","I","3 body parts, 6 legs."],["ant","I","3 body parts, 6 legs."],["butterfly","I","3 body parts, 6 legs."]]},
- {id:"s4", title:"Flowering or non-flowering?", zh:"开花还是不开花", bins:[["F","Flowering","开花植物"],["N","Non-flowering","不开花植物"]], items:[
-  ["hibiscus","F","Has flowers."],["rice","F","Rice has tiny flowers."],["cactus","F","Cacti have flowers."],["pitcher","F","Pitcher plants have flowers."],
-  ["lotus","F","Has flowers."],["mimosa","F","Has pink flowers."],["sunflower","F","Has flowers."],["bougainvillea","F","Has flowers."],["mango","F","Fruits come from flowers."],
-  ["fern","N","Spores, never flowers."],["moss","N","Spores, never flowers."],["birdsnest","N","A fern — spores."],["pine","N","Seeds in cones, never flowers."],["sori","N","Fern spore cases — a fern never flowers."]]},
- {id:"s5", title:"Insect or not?", zh:"是不是昆虫", bins:[["I","Insect","昆虫"],["N","Not an insect","不是昆虫"]], items:[
-  ["dragonfly","I","6 legs, 3 body parts."],["grasshopper","I","6 legs, 3 body parts."],["ant","I","6 legs, 3 body parts — even without wings."],["butterfly","I","6 legs, 3 body parts."],
-  ["mosquito","I","6 legs, 3 body parts."],["cockroach","I","6 legs, 3 body parts."],["beetle","I","6 legs, 3 body parts."],["bee","I","6 legs, 3 body parts."],["ladybird","I","6 legs, 3 body parts."],
-  ["spider","N","8 legs, 2 body parts."],["scorpion","N","8 legs."],["centipede","N","Many legs: one pair on each body part."],["millipede","N","Many legs: two pairs on each body part."],
-  ["earthworm","N","No legs."],["snail","N","Soft body, shell, no legs."],["crab","N","10 legs."]]}
-];
+const GROUPS = [["P3","小三 Primary 3"],["P3/P4","小三学、小四也考 P3 & P4"],["P4","小四 Primary 4"]];
+for (const t of TOPICS){
+  BY_ID[t.id] = t;
+  Object.assign(PICS, t.pics || {}); Object.assign(EMO, t.emo || {});
+  t.charts = t.charts || {}; t.sorts = t.sorts || []; t.learn = t.learn || [];
+  t.sets.forEach(s => { s.key = t.id + ":" + s.id; s.topic = t.id;
+    s.qs.forEach((q, i) => { q.id = s.key + "-" + (i + 1); q.set = s.key; q.topic = t.id; ALLQ[q.id] = q; }); });
+  t.sorts.forEach(s => { s.key = t.id + ":" + s.id; });
+  t.total = t.sets.reduce((a, s) => a + s.qs.length, 0);
+}
+const TOTAL = Object.keys(ALLQ).length;
 
 /* ---------------- storage ---------------- */
 const store = {
-  get(k, d){ try { const v = JSON.parse(localStorage.getItem("sci3v2-" + k)); return v == null ? d : v; } catch(e){ return d; } },
-  set(k, v){ try { localStorage.setItem("sci3v2-" + k, JSON.stringify(v)); } catch(e){} }
+  get(k, d){ try { const v = JSON.parse(localStorage.getItem("sci-v3-" + k)); return v == null ? d : v; } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem("sci-v3-" + k, JSON.stringify(v)); } catch(e){} }
 };
 let wrong = store.get("wrong", {});       // question id -> true
-let best = store.get("best", {});         // set id -> best score
-let sortBest = store.get("sortBest", {}); // sort id -> best %
+let best = store.get("best", {});         // set key -> best score
+let sortBest = store.get("sortBest", {}); // sort key -> best %
+let route = store.get("route", {page:"home"});
+if (route.page === "topic" && !BY_ID[route.topic]) route = {page:"home"};
 
 /* ---------------- helpers ---------------- */
 const app = document.getElementById("app");
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
-const ALLQ = {};
-SETS.forEach(s => s.qs.forEach((q, i) => { q.id = s.id + "-" + (i + 1); q.set = s.id; ALLQ[q.id] = q; }));
-const TOTAL = Object.keys(ALLQ).length;
 function shuffle(a){ for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+const wrongIds = () => Object.keys(wrong).filter(id => ALLQ[id]);
+const topicDone = t => t.sets.reduce((a, s) => a + Math.min(best[s.key] || 0, s.qs.length), 0);
 
 function picFail(img){ const s = document.createElement("span"); s.className = "emo"; s.textContent = img.dataset.e || "🖼️"; img.replaceWith(s); }
 function thing(id){
@@ -743,7 +220,7 @@ function thing(id){
   if (EMO[id]){ const p = EMO[id]; return {src: null, en: p[1], zh: p[2], emo: p[0]}; }
   return {src: null, en: id, zh: "", emo: "❓"};
 }
-// caption: undefined = name + Chinese; false = no caption (quiz photos must not give the answer away); string = that label
+// caption: undefined = name + Chinese; false = no caption (a quiz photo must not give the answer away); string = that label
 function figure(id, caption){
   const t = thing(id);
   const inner = t.src ? `<img src="${t.src}" alt="${caption === false ? "photo" : esc(t.en)}" loading="lazy" referrerpolicy="no-referrer" data-e="${t.emo}" onerror="picFail(this)">`
@@ -763,12 +240,12 @@ if (window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pick
 function say(text){
   if (!window.speechSynthesis) return;
   speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text.replace(/___/g, "blank").replace(/[^\x00-\x7F]/g, " "));
+  const u = new SpeechSynthesisUtterance(text.replace(/___/g, "blank").replace(/°C/g, " degrees Celsius").replace(/[^\x00-\x7F]/g, " "));
   u.lang = "en-GB"; u.rate = 0.9; if (voice) u.voice = voice;
   speechSynthesis.speak(u);
 }
 
-/* ---------------- chart rendering ---------------- */
+/* ---------------- charts ---------------- */
 function treeHTML(n, isRoot){
   if (n.g) return `<li><div class="node">${esc(n.t)}</div><ul><li><div class="grp ${"ABCD".includes(n.g) ? n.g : "E"}"><b>${esc(n.g)}</b>${(n.m || []).map(esc).join("<br>")}</div></li></ul></li>`;
   return `<li><div class="node${isRoot ? " root" : ""}">${esc(n.t)}</div><ul>${n.kids.map(k => treeHTML(k)).join("")}</ul></li>`;
@@ -778,9 +255,15 @@ function keyHTML(n, label){
   if (typeof n === "string") return `<li>${lab}<div class="grp D">${esc(n)}</div></li>`;
   return `<li>${lab}<div class="node${n.box ? " qbox" : " root"}">${esc(n.q)}</div><ul>${keyHTML(n.yes, "Yes")}${keyHTML(n.no, "No")}</ul></li>`;
 }
-function chartHTML(id){
-  const c = CHARTS[id];
+function chartHTML(topicId, id){
+  const c = BY_ID[topicId].charts[id];
+  if (!c) return "";
   const title = `<div class="chart-title">${esc(c.title)}</div>`;
+  if (c.type === "svg") return `<div class="chart">${title}<div class="svgwrap">${c.svg}</div></div>`;
+  if (c.type === "bars"){
+    const max = Math.max(...c.rows.map(r => r[1]), 1);
+    return `<div class="chart">${title}<div class="bars">${c.rows.map(r => `<div class="bar-row"><span class="bl">${esc(r[0])}</span><span class="bt"><i style="width:${r[1] / max * 100}%"></i></span><span class="bv">${esc(r[1])}</span></div>`).join("")}</div>${c.unit ? `<div class="unit">${esc(c.unit)}</div>` : ""}</div>`;
+  }
   if (c.type === "tree") return `<div class="chart">${title}<div class="tree"><ul>${treeHTML(c.root, true)}</ul></div></div>`;
   if (c.type === "key") return `<div class="chart">${title}<div class="tree"><ul>${keyHTML(c.root)}</ul></div></div>`;
   if (c.type === "flow") return `<div class="chart">${title}<div class="flow"><div class="fbox start">${esc(c.start)}</div><div class="fdown">↓</div>` +
@@ -793,59 +276,113 @@ function chartHTML(id){
     c.rows.map(r => `<tr>${r.map((v, i) => `<td>${i ? cell(v) : esc(v)}</td>`).join("")}</tr>`).join("") + `</table></div>`;
 }
 
-/* ---------------- tabs ---------------- */
-const TABS = [["learn","📘 <span class=en>Learn </span>学"],["sort","🧩 <span class=en>Sort </span>分一分"],["practice","✅ <span class=en>Practice </span>练习"],["mistakes","📒 <span class=en>Mistakes </span>错题本"],["parent","👪 家长看"]];
-let view = store.get("view", "learn");
-if (!TABS.some(t => t[0] === view)) view = "learn";
+/* ---------------- navigation ---------------- */
 let quiz = null, game = null;
 function renderTabs(){
-  const n = Object.keys(wrong).filter(id => ALLQ[id]).length;
-  document.getElementById("tabs").innerHTML = TABS.map(([k, label]) =>
-    `<button data-tab="${k}" class="${view === k ? "on" : ""}">${label}${k === "mistakes" && n ? " (" + n + ")" : ""}</button>`).join("");
+  const n = wrongIds().length;
+  const on = p => route.page === p || (p === "home" && route.page === "topic");
+  document.getElementById("tabs").innerHTML =
+    `<button data-go="home" class="${on("home") ? "on" : ""}">🏠 单元 Topics</button>` +
+    `<button data-go="mistakes" class="${on("mistakes") ? "on" : ""}">📒 错题本${n ? " (" + n + ")" : ""}</button>` +
+    `<button data-go="parent" class="${on("parent") ? "on" : ""}">👪 家长看</button>`;
 }
 document.getElementById("tabs").addEventListener("click", e => {
-  const b = e.target.closest("button[data-tab]"); if (!b) return;
-  go(b.dataset.tab);
+  const b = e.target.closest("button[data-go]"); if (!b) return;
+  go({page: b.dataset.go});
 });
-function go(v){ view = v; store.set("view", v); quiz = null; game = null; render(); window.scrollTo(0, 0); }
+function go(r){ route = r; store.set("route", r); quiz = null; game = null; render(); window.scrollTo(0, 0); }
 function render(){
   renderTabs();
-  if (view === "learn") return renderLearn();
-  if (view === "sort") return game ? renderGame() : renderSortMenu();
-  if (view === "practice" || view === "mistakes") return quiz ? renderQuiz() : (view === "practice" ? renderPracticeMenu() : renderMistakes());
-  return renderParent();
+  if (quiz) return renderQuiz();
+  if (game) return renderGame();
+  if (route.page === "topic") return renderTopic();
+  if (route.page === "mistakes") return renderMistakes();
+  if (route.page === "parent") return renderParent();
+  return renderHome();
 }
 
-/* ---------------- learn ---------------- */
-function renderLearn(){
-  app.innerHTML = `<div class="card"><h2>Learn 先看懂</h2><p class="zh">先看照片认识它们，再读要点。点 🔊 听英文。学完一节就去"分一分"和"练习"。</p></div>` +
-    LEARN.map((c, i) => c.sec ? `<div class="sec">${c.sec}</div>` :
-      `<div class="card"><div class="row" style="justify-content:space-between;flex-wrap:nowrap"><h3>${c.t}</h3><button class="say" data-say="${i}">🔊</button></div>
-      ${(c.pics.length || (c.emo || []).length) ? `<div class="strip">${c.pics.map(p => figure(p)).join("")}${(c.emo || []).map(p => figure(p)).join("")}</div>` : ""}
-      <ul class="facts">${c.facts.map(f => `<li>${f}</li>`).join("")}</ul>
-      <p class="zh">${c.zh}</p>${c.trap ? `<div class="trap">${c.trap}</div>` : ""}</div>`).join("");
-  app.querySelectorAll("[data-say]").forEach(b => b.onclick = () => {
-    const c = LEARN[+b.dataset.say];
+/* ---------------- home: all topics ---------------- */
+function renderHome(){
+  const done = TOPICS.reduce((a, t) => a + topicDone(t), 0), pct = TOTAL ? Math.round(done / TOTAL * 100) : 0;
+  let html = `<div class="card"><h2>Topics 单元</h2>
+    <p>全部 <b>${TOPICS.length}</b> 个单元，<b>${TOTAL}</b> 题。拿过分：<b>${done}</b>（${pct}%）</p>
+    <div class="progress"><i style="width:${pct}%"></i></div>
+    <p class="zh">点一个单元进去：先「学」，再「分一分」，最后「练习」。AL1 = 每套 9/10 以上。</p></div>`;
+  for (const [lv, label] of GROUPS){
+    const ts = TOPICS.filter(t => t.lv === lv);
+    if (!ts.length) continue;
+    html += `<div class="sec">${label}</div><div class="grid">` + ts.map(t => {
+      const d = topicDone(t), p = t.total ? Math.round(d / t.total * 100) : 0;
+      return `<button class="pick" data-topic="${t.id}"><div class="tcard"><div class="ic">${t.icon}</div><div class="tx">
+        <h3>${esc(t.title)}</h3><div class="zh">${esc(t.zh)}</div>
+        <div class="progress"><i style="width:${p}%"></i></div>
+        <span class="pill${p >= 90 ? " done" : ""}">${d} / ${t.total}</span> <span class="pill ${t.lv === "P4" ? "p4" : "lv"}">${t.lv}</span></div></div></button>`;
+    }).join("") + `</div>`;
+  }
+  app.innerHTML = html;
+  app.querySelectorAll("[data-topic]").forEach(b => b.onclick = () => go({page: "topic", topic: b.dataset.topic, tab: "learn"}));
+}
+
+/* ---------------- one topic ---------------- */
+function renderTopic(){
+  const t = BY_ID[route.topic], tab = route.tab || "learn";
+  const head = `<div class="tbar"><button class="btn ghost small" id="home">← 单元</button><h2>${t.icon} ${esc(t.title)} <span class="zh" style="font-weight:400">${esc(t.zh)}</span></h2></div>
+    <div class="seg">${[["learn","📘 学 Learn"],["sort","🧩 分一分 Sort"],["practice","✅ 练习 Practice"]].map(([k, l]) => `<button data-tab="${k}" class="${tab === k ? "on" : ""}">${l}</button>`).join("")}</div>`;
+  let body = "";
+  if (tab === "learn") body = learnHTML(t);
+  else if (tab === "sort") body = sortMenuHTML(t);
+  else body = practiceHTML(t);
+  app.innerHTML = head + body;
+  document.getElementById("home").onclick = () => go({page: "home"});
+  app.querySelectorAll(".seg [data-tab]").forEach(b => b.onclick = () => go({page: "topic", topic: t.id, tab: b.dataset.tab}));
+  if (tab === "learn") app.querySelectorAll("[data-say]").forEach(b => b.onclick = () => {
+    const c = t.learn[+b.dataset.say];
     say(c.t + ". " + c.facts.map(f => f.replace(/<[^>]+>/g, "")).join(" ") + (c.trap ? " " + c.trap : ""));
   });
+  if (tab === "sort") app.querySelectorAll("[data-sort]").forEach(b => b.onclick = () => {
+    game = newGame(t.sorts.find(x => x.key === b.dataset.sort)); render(); window.scrollTo(0, 0);
+  });
+  if (tab === "practice") app.querySelectorAll("[data-set]").forEach(b => b.onclick = () => {
+    const s = t.sets.find(x => x.key === b.dataset.set); startQuiz(s.title, s.qs, s.key);
+  });
+}
+function learnHTML(t){
+  return `<div class="card"><p class="zh" style="margin:0">先看照片和图认识它们，再读要点。点 🔊 听英文。学完一节就去「分一分」和「练习」。</p></div>` +
+    t.learn.map((c, i) => c.sec ? `<div class="sec">${c.sec}</div>` :
+      `<div class="card"><div class="row" style="justify-content:space-between;flex-wrap:nowrap"><h3>${c.t}</h3><button class="say" data-say="${i}">🔊</button></div>
+      ${((c.pics || []).length || (c.emo || []).length) ? `<div class="strip">${(c.pics || []).map(p => figure(p)).join("")}${(c.emo || []).map(p => figure(p)).join("")}</div>` : ""}
+      ${c.ch ? chartHTML(t.id, c.ch) : ""}
+      <ul class="facts">${c.facts.map(f => `<li>${f}</li>`).join("")}</ul>
+      <p class="zh">${c.zh}</p>${c.trap ? `<div class="trap">${c.trap}</div>` : ""}</div>`).join("");
+}
+function sortMenuHTML(t){
+  if (!t.sorts.length) return `<div class="card"><p>这个单元没有分类游戏，直接去「练习」。</p></div>`;
+  return `<div class="card"><p class="zh" style="margin:0">看照片，点它属于哪一组。每局最多 12 个，每次随机。点错会告诉你为什么。</p></div><div class="grid">` +
+    t.sorts.map(s => `<button class="pick" data-sort="${s.key}"><span class="pill${sortBest[s.key] === 100 ? " done" : ""}">${Math.min(12, s.items.length)} things${sortBest[s.key] != null ? " · best " + sortBest[s.key] + "%" : ""}</span>
+      <h3>${esc(s.title)}</h3><div class="zh">${esc(s.zh)}</div></button>`).join("") + `</div>`;
+}
+function practiceHTML(t){
+  const d = topicDone(t), pct = t.total ? Math.round(d / t.total * 100) : 0;
+  let html = `<div class="card"><p>AL1 目标：每套 <b>9/10 以上</b>。这个单元：<b>${d} / ${t.total}</b>（${pct}%）</p>
+    <div class="progress"><i style="width:${pct}%"></i></div>
+    <p class="zh">从 Level 1 往下做。选完马上看解释，选错的自动进错题本。</p></div>`;
+  [1, 2, 3, 4].forEach(lv => {
+    const ss = t.sets.filter(s => s.lv === lv);
+    if (!ss.length) return;
+    html += `<div class="sec">${LEVELS[lv]}</div><div class="grid">` + ss.map(s =>
+      `<button class="pick" data-set="${s.key}"><span class="pill${best[s.key] >= Math.ceil(s.qs.length * 0.9) ? " done" : ""}">${s.qs.length} questions${best[s.key] != null ? " · best " + best[s.key] + "/" + s.qs.length : ""}</span>
+      <h3>${esc(s.title)}</h3><div class="zh">${esc(s.zh)}</div></button>`).join("") + `</div>`;
+  });
+  return html;
 }
 
 /* ---------------- sort game ---------------- */
 function newGame(s){ return {s, items: shuffle(s.items.slice()).slice(0, 12), i: 0, score: 0, done: false, misses: []}; }
-function renderSortMenu(){
-  app.innerHTML = `<div class="card"><h2>Sort 分一分</h2><p class="zh">看照片，点它属于哪一组。每局 12 个，每次随机。点错会告诉你为什么。</p></div><div class="grid">` +
-    SORTS.map(s => `<button class="pick" data-sort="${s.id}"><span class="pill${sortBest[s.id] === 100 ? " done" : ""}">${Math.min(12, s.items.length)} things${sortBest[s.id] != null ? " · best " + sortBest[s.id] + "%" : ""}</span>
-      <h3>${s.title}</h3><div class="zh">${s.zh}</div></button>`).join("") + `</div>`;
-  app.querySelectorAll("[data-sort]").forEach(b => b.onclick = () => {
-    game = newGame(SORTS.find(x => x.id === b.dataset.sort));
-    render(); window.scrollTo(0, 0);
-  });
-}
 function renderGame(){
   const g = game, n = g.items.length;
   if (g.i >= n){
     const pct = Math.round(g.score / n * 100);
-    if (sortBest[g.s.id] == null || pct > sortBest[g.s.id]){ sortBest[g.s.id] = pct; store.set("sortBest", sortBest); }
+    if (sortBest[g.s.key] == null || pct > sortBest[g.s.key]){ sortBest[g.s.key] = pct; store.set("sortBest", sortBest); }
     app.innerHTML = `<div class="card"><h2>${esc(g.s.title)} · Done!</h2><p class="big-num">${g.score} / ${n}</p>
       ${g.misses.length ? `<p class="zh">点错的：</p><ul class="facts">${g.misses.map(m => `<li><b>${esc(thing(m[0]).en)}</b> → ${esc(m[1])}. ${esc(m[2])}</li>`).join("")}</ul>` : `<p class="zh">全对！🎉</p>`}
       <div class="row" style="margin-top:10px"><button class="btn" id="again">Play again 再玩一次</button><button class="btn ghost" id="back">Back 返回</button></div></div>`;
@@ -873,33 +410,15 @@ function renderGame(){
   });
 }
 
-/* ---------------- practice ---------------- */
-function mastered(){ return SETS.reduce((s, x) => s + (best[x.id] || 0), 0); }
-function renderPracticeMenu(){
-  const m = mastered(), pct = Math.round(m / TOTAL * 100);
-  let html = `<div class="card"><h2>Practice 练习</h2>
-    <p>AL1 目标：每套都做到 <b>9/10 以上</b>。现在：<b>${m} / ${TOTAL}</b>（${pct}%）</p>
-    <div class="progress"><i style="width:${pct}%"></i></div>
-    <p class="zh">从 Level 1 往下做。每套最多 10 题，点选答案，马上看解释。选错的自动进错题本。</p></div>`;
-  [1, 2, 3, 4].forEach(lv => {
-    html += `<div class="sec">${LEVELS[lv]}</div><div class="grid">` + SETS.filter(s => s.lv === lv).map(s =>
-      `<button class="pick" data-set="${s.id}"><span class="pill${best[s.id] >= 9 ? " done" : ""}">${s.qs.length} questions${best[s.id] != null ? " · best " + best[s.id] + "/" + s.qs.length : ""}</span>
-      <h3>${s.title}</h3><div class="zh">${s.zh}</div></button>`).join("") + `</div>`;
-  });
-  app.innerHTML = html;
-  app.querySelectorAll("[data-set]").forEach(b => b.onclick = () => {
-    const s = SETS.find(x => x.id === b.dataset.set);
-    startQuiz(s.title, s.qs, s.id);
-  });
-}
-function startQuiz(title, qs, setId){
-  quiz = {title, setId, qs: qs.map(q => ({...q, order: q.fix ? q.o.map((_, i) => i) : shuffle(q.o.map((_, i) => i))})), i: 0, score: 0, picked: null};
+/* ---------------- quiz ---------------- */
+function startQuiz(title, qs, setKey){
+  quiz = {title, setKey, qs: qs.map(q => ({...q, order: q.fix ? q.o.map((_, i) => i) : shuffle(q.o.map((_, i) => i))})), i: 0, score: 0, picked: null};
   render(); window.scrollTo(0, 0);
 }
 function stemHTML(q){
   let h = "";
   if (q.pic) h += `<div class="stempics${q.pic.length > 1 ? " two" : ""}">${q.pic.map((p, k) => figure(p, q.pl ? q.pl[k] : false)).join("")}</div>`;
-  if (q.ch) h += chartHTML(q.ch);
+  if (q.ch) h += chartHTML(q.topic, q.ch);
   h += `<div class="row" style="justify-content:space-between;align-items:flex-start;flex-wrap:nowrap"><p class="qtext">${esc(q.q)}</p><button class="say" id="sayq">🔊</button></div>`;
   if (q.st) h += `<ul class="stl">${q.st.map((s, k) => `<li><b>${"ABCD"[k]}</b>${esc(s)}</li>`).join("")}</ul>`;
   return h;
@@ -907,25 +426,25 @@ function stemHTML(q){
 function renderQuiz(){
   const z = quiz, n = z.qs.length;
   if (z.i >= n){
-    if (z.setId && (best[z.setId] == null || z.score > best[z.setId])){ best[z.setId] = z.score; store.set("best", best); }
+    if (z.setKey && (best[z.setKey] == null || z.score > best[z.setKey])){ best[z.setKey] = z.score; store.set("best", best); }
     app.innerHTML = `<div class="card"><h2>${esc(z.title)} · Done!</h2>
       <p class="big-num">${z.score} / ${n}</p>
       <p class="zh">${z.score === n ? "全对！🎉" : z.score >= Math.ceil(n * 0.9) ? "达到 AL1 水平！错的那题去错题本再看一次。" : "错的题已经进错题本。先回「学」看一下，再做一次。"}</p>
       <div class="row"><button class="btn" id="again">Try again 再做一次</button><button class="btn ghost" id="back">Back 返回</button></div></div>`;
-    document.getElementById("again").onclick = () => startQuiz(z.title, z.qs, z.setId);
-    document.getElementById("back").onclick = () => { quiz = null; render(); };
+    document.getElementById("again").onclick = () => startQuiz(z.title, z.qs, z.setKey);
+    document.getElementById("back").onclick = () => { quiz = null; render(); window.scrollTo(0, 0); };
     renderTabs();
     return;
   }
-  const q = z.qs[z.i];
-  app.innerHTML = `<div class="card"><div class="row" style="justify-content:space-between"><b>${esc(z.title)}</b><span class="muted">${z.i + 1} / ${n} · ✅ ${z.score}</span></div>
+  const q = z.qs[z.i], t = BY_ID[q.topic];
+  app.innerHTML = `<div class="card"><div class="row" style="justify-content:space-between"><b>${t.icon} ${esc(z.title)}</b><span class="muted">${z.i + 1} / ${n} · ✅ ${z.score}</span></div>
     <div class="progress"><i style="width:${z.i / n * 100}%"></i></div>
     ${stemHTML(q)}
     <div id="opts">${q.order.map((oi, k) => `<button class="opt" data-oi="${oi}"><span class="n">(${k + 1})</span>${esc(q.o[oi])}<span class="note"></span></button>`).join("")}</div>
     <div id="after"></div></div>
     <div class="row"><button class="btn ghost small" id="quit">Stop 结束</button></div>`;
   document.getElementById("sayq").onclick = () => say(q.q + (q.st ? " " + q.st.map((s, k) => "ABCD"[k] + ". " + s).join(". ") : "") + ". " + q.order.map((oi, k) => "Option " + (k + 1) + ": " + q.o[oi]).join(". "));
-  document.getElementById("quit").onclick = () => { quiz = null; render(); };
+  document.getElementById("quit").onclick = () => { quiz = null; render(); window.scrollTo(0, 0); };
   app.querySelectorAll(".opt").forEach(b => b.onclick = () => {
     if (z.picked != null) return;
     const oi = +b.dataset.oi; z.picked = oi;
@@ -945,15 +464,20 @@ function renderQuiz(){
   });
 }
 
-/* ---------------- mistakes ---------------- */
+/* ---------------- mistakes (all topics) ---------------- */
 function renderMistakes(){
-  const ids = Object.keys(wrong).filter(id => ALLQ[id]);
-  app.innerHTML = `<div class="card"><h2>Mistakes 错题本</h2>
-    ${ids.length ? `<p>现在有 <b>${ids.length}</b> 道错题。做对了就会自动消失。</p><button class="btn" id="redo">Redo all 全部重做</button>`
-                 : `<p>没有错题 🎉</p>`}</div>` +
-    (ids.length ? `<div class="card"><ul class="facts">${ids.map(id => `<li><span class="pill lv">${esc(SETS.find(s => s.id === ALLQ[id].set).title)}</span> ${esc(ALLQ[id].q.split("\n")[0])}</li>`).join("")}</ul></div>` : "");
-  const b = document.getElementById("redo");
-  if (b) b.onclick = () => startQuiz("Mistakes 错题", shuffle(ids.map(id => ALLQ[id])), null);
+  const ids = wrongIds();
+  if (!ids.length){ app.innerHTML = `<div class="card"><h2>Mistakes 错题本</h2><p>没有错题 🎉</p></div>`; return; }
+  const byTopic = TOPICS.map(t => [t, ids.filter(id => ALLQ[id].topic === t.id)]).filter(x => x[1].length);
+  app.innerHTML = `<div class="card"><h2>Mistakes 错题本</h2><p>现在有 <b>${ids.length}</b> 道错题。做对了就会自动消失。</p>
+    <button class="btn" data-redo="all">Redo all 全部重做</button></div>` +
+    byTopic.map(([t, list]) => `<div class="card"><div class="row" style="justify-content:space-between"><h3 style="margin:0">${t.icon} ${esc(t.title)} · ${list.length}</h3>
+      <button class="btn small" data-redo="${t.id}">重做这个单元</button></div>
+      <ul class="facts">${list.map(id => `<li>${esc(ALLQ[id].q.split("\n")[0])}</li>`).join("")}</ul></div>`).join("");
+  app.querySelectorAll("[data-redo]").forEach(b => b.onclick = () => {
+    const list = b.dataset.redo === "all" ? ids : ids.filter(id => ALLQ[id].topic === b.dataset.redo);
+    startQuiz("Mistakes 错题", shuffle(list.map(id => ALLQ[id])), null);
+  });
 }
 
 /* ---------------- parent ---------------- */
@@ -964,14 +488,14 @@ function renderParent(){
   }).join("");
   app.innerHTML = `<div class="card"><h2>家长看 · 怎么用</h2>
     <ul class="facts">
-      <li><b>全部是点选，不用打字。</b>每套最多 10 题，共 ${TOTAL} 题 + 5 个分类小游戏。</li>
-      <li><b>顺序</b>：先「学」一节（看照片、读要点）→「分一分」玩一局 → 再做「练习」对应的那一套。</li>
-      <li><b>四个等级</b>：Level 1 看图认识（苔藓、蕨、霉菌这些他可能没见过）；Level 2 知识点；Level 3 学校考试题型（分类图、表格、A and B only 组合题、实验题）；Level 4 答题技巧——从几个答案里选出能拿满分的，学会开放题怎么写。</li>
+      <li><b>全部是点选，不用打字。</b>每套最多 10 题。现在有 ${TOPICS.length} 个单元、${TOTAL} 题。</li>
+      <li><b>每个单元的顺序</b>：先「学」（看照片和图、读要点）→「分一分」玩一局 → 再做「练习」。</li>
+      <li><b>四个等级</b>：Level 1 看图认识；Level 2 知识点和易错点；Level 3 学校考试题型（图表、表格、"A and B only" 组合题、实验题）；Level 4 答题技巧——从几个答案里选出能拿满分的，学会开放题怎么写。</li>
       <li><b>AL1 标准</b>：每套稳定 9/10 以上，而且隔几天再做还对。</li>
-      <li><b>错题本</b>：第二天先做错题本，做对的会自动消失。</li>
+      <li><b>错题本</b>：所有单元的错题都在这里，第二天先做错题本，做对的会自动消失。</li>
       <li>做题记录只存在这台设备的浏览器里，换设备不会同步。</li>
     </ul>
-    <p class="zh">难度参考了新加坡名校小三科学单元测验的题型（分类图、表格、实验、多选组合题），题目是我们自己出的。</p>
+    <p class="zh">单元按新加坡小三、小四科学课程排列；难度参考名校单元测验的题型，题目是我们自己出的。</p>
     <div class="row" style="margin-top:8px"><button class="btn ghost small" id="wipe">全部清空</button></div></div>
     <div class="card"><h3>Photo credits</h3><p class="zh">照片来自 Wikimedia Commons（各自的 CC 授权，点名字可看作者和授权）。</p><div class="credits">${credits}</div></div>`;
   document.getElementById("wipe").onclick = () => {
