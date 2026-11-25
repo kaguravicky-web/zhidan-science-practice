@@ -19,7 +19,7 @@ const EMO = {
   ironbolt:["🔩","iron bolt","铁螺栓"], metalcan:["🥫","metal can","铁罐"], woodchopsticks:["🥢","wooden chopsticks","木筷子"], rubberballoon:["🎈","rubber balloon","橡胶气球"],
   air:["💨","air","空气"], glassjar:["🫙","clear glass jar","透明玻璃罐"], foamcup:["🥤","styrofoam cup","泡沫塑料杯"],
   railHot:["🛤️","railway track on a hot afternoon","烈日下的铁轨"], pingHot:["🏓","dented ping-pong ball in hot water","放进热水的凹乒乓球"],
-  lidHot:["🫙","metal lid under hot running water","用热水冲的金属盖"], cableHot:["⚡","overhead cables on a hot day","大热天的高架电缆"],
+  lidHot:["🫙","metal lid under hot running water","用热水冲的金属盖"], cableHot:["","overhead cables on a hot day","大热天的高架电缆"],
   thermoHot:["🌡️","thermometer put into hot soup","放进热汤的温度计"], balloonHot:["🎈","balloon on a flask in hot water","热水里瓶口的气球"],
   balloonIce:["🎈","balloon on a flask in ice water","冰水里瓶口的气球"], thermoIce:["🌡️","thermometer put into ice water","放进冰水的温度计"],
   bottleCold:["🧴","capped empty plastic bottle in the freezer","盖紧放进冷冻格的空塑料瓶"], bridgeNight:["🌉","bridge on a cool night","凉爽夜晚的桥"]

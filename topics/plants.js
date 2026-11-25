@@ -21,17 +21,17 @@ const PICS = {
 const EMO = {
   tomato:["🍅","tomato","番茄"], cucumber:["🥒","cucumber","黄瓜"], chilli:["🌶️","chilli","辣椒"], brinjal:["🍆","brinjal (eggplant)","茄子"],
   spinach:["🥬","spinach","菠菜"], tea:["🍵","tea (made from leaves)","茶（用叶子做的）"], broccoli:["🥦","broccoli","西兰花"], peanut:["🥜","peanuts","花生"],
-  job_hold:["⚓","holds the plant firmly in the soil","把植物牢牢固定在土里"],
-  job_absorb:["💧","absorbs water and mineral salts from the soil","从土里吸收水和矿物盐"],
-  job_upright:["🧍","holds the plant upright","支撑植物直立"],
-  job_carry:["🚚","carries water up from the roots and food from the leaves to other parts","把水往上运，把叶子做的食物运到其它部分"],
-  job_light:["⬆️","holds the leaves up so that they get more light","把叶子举高，得到更多光"],
-  job_food:["🍞","makes food for the plant using light","利用光为植物制造食物"],
-  job_flat:["📄","is thin and flat to trap as much light as possible","又薄又平，吸收更多光"],
-  job_develop:["🔄","develops into a fruit","发育成果实"],
-  job_protect:["🛡️","protects the seeds inside it","保护里面的种子"],
-  job_disperse:["🐦","helps the seeds to be carried away from the parent plant","帮助种子散播到远处"],
-  job_newplant:["🌱","grows into a new plant","长成新的植物"]
+  job_hold:["","holds the plant firmly in the soil","把植物牢牢固定在土里"],
+  job_absorb:["","absorbs water and mineral salts from the soil","从土里吸收水和矿物盐"],
+  job_upright:["","holds the plant upright","支撑植物直立"],
+  job_carry:["","carries water up from the roots and food from the leaves to other parts","把水往上运，把叶子做的食物运到其它部分"],
+  job_light:["","holds the leaves up so that they get more light","把叶子举高，得到更多光"],
+  job_food:["","makes food for the plant using light","利用光为植物制造食物"],
+  job_flat:["","is thin and flat to trap as much light as possible","又薄又平，吸收更多光"],
+  job_develop:["","develops into a fruit","发育成果实"],
+  job_protect:["","protects the seeds inside it","保护里面的种子"],
+  job_disperse:["","helps the seeds to be carried away from the parent plant","帮助种子散播到远处"],
+  job_newplant:["","grows into a new plant","长成新的植物"]
 };
 
 /* ---------------- charts ---------------- */

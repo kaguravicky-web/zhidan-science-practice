@@ -6,16 +6,16 @@ const PICS = {
 };
 // job cards for the sort (ids from plants.js / classification.js are reused where they fit)
 const EMO = {
-  ps_water:["⬆️","carries water from the roots to the leaves","把水从根运到叶子"],
-  ps_salts:["🧂","carries mineral salts absorbed by the roots","运送根吸收的矿物盐"],
-  ps_food:["🍞","carries food made in the leaves","运送叶子制造的食物"],
-  ps_roots:["⬇️","brings food down to the roots","把食物往下运到根"],
-  ps_ring:["⭕","is removed when a ring of bark is stripped off","环剥树皮时被去掉"],
-  ps_red:["🔴","is stained red when the stem stands in red water","茎放在红水里时被染红"],
-  ps_outer:["🟠","is nearer the outside of the stem","比较靠近茎的外面"],
-  ps_inner:["🔵","is deeper inside the stem (in the wood of a tree)","在茎的里面（树的木质部分）"],
-  ps_wilt:["🥀","if it is cut, the leaves above soon wilt","被切断后，上面的叶子很快枯萎"],
-  ps_swell:["🫧","if it is cut, food collects above the cut and the stem swells","被切断后，食物堆在切口上方，茎会膨大"]
+  ps_water:["","carries water from the roots to the leaves","把水从根运到叶子"],
+  ps_salts:["","carries mineral salts absorbed by the roots","运送根吸收的矿物盐"],
+  ps_food:["","carries food made in the leaves","运送叶子制造的食物"],
+  ps_roots:["","brings food down to the roots","把食物往下运到根"],
+  ps_ring:["","is removed when a ring of bark is stripped off","环剥树皮时被去掉"],
+  ps_red:["","is stained red when the stem stands in red water","茎放在红水里时被染红"],
+  ps_outer:["","is nearer the outside of the stem","比较靠近茎的外面"],
+  ps_inner:["","is deeper inside the stem (in the wood of a tree)","在茎的里面（树的木质部分）"],
+  ps_wilt:["","if it is cut, the leaves above soon wilt","被切断后，上面的叶子很快枯萎"],
+  ps_swell:["","if it is cut, food collects above the cut and the stem swells","被切断后，食物堆在切口上方，茎会膨大"]
 };
 
 /* ---------------- charts ---------------- */

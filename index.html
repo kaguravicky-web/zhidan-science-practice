@@ -80,6 +80,8 @@ figure.ph figcaption{font-size:12.5px;padding:4px 4px 5px;line-height:1.25}
 .stempics figure.ph img,.stempics figure.ph .emo{height:170px}
 .stempics figure.ph .emo{font-size:90px}
 /* sort game */
+.ph.job{display:flex;align-items:center;justify-content:center;min-height:150px;background:#fffbeb;border-color:#fcd34d}
+.ph.job figcaption{font-size:18px!important;font-weight:700;padding:18px 14px!important;line-height:1.4!important}
 .sortcard{text-align:center}
 .sortcard figure.ph{width:min(280px,100%);margin:6px auto}
 .sortcard figure.ph img,.sortcard figure.ph .emo{height:190px}
@@ -158,7 +160,7 @@ footer{max-width:860px;margin:0 auto;padding:4px 16px 28px;color:var(--mute);fon
 </div></header>
 <nav><div class="in" id="tabs"></div></nav>
 <main id="app"></main>
-<footer>Made for Ji Dam's home practice · v2026-11-25-4 · photos: Wikimedia Commons</footer>
+<footer>Made for Ji Dam's home practice · v2026-11-25-5 · photos: Wikimedia Commons</footer>
 
 <script>
 "use strict";
@@ -166,16 +168,16 @@ const TOPICS = [];
 function TOPIC(t){ TOPICS.push(t); }
 </script>
 <!-- one file per unit; a missing file is simply skipped -->
-<script src="topics/classification.js?v=2026-11-25-4"></script>
-<script src="topics/materials.js?v=2026-11-25-4"></script>
-<script src="topics/lifecycles.js?v=2026-11-25-4"></script>
-<script src="topics/plants.js?v=2026-11-25-4"></script>
-<script src="topics/digestive.js?v=2026-11-25-4"></script>
-<script src="topics/magnets.js?v=2026-11-25-4"></script>
-<script src="topics/light.js?v=2026-11-25-4"></script>
-<script src="topics/plantsystem.js?v=2026-11-25-4"></script>
-<script src="topics/matter.js?v=2026-11-25-4"></script>
-<script src="topics/heat.js?v=2026-11-25-4"></script>
+<script src="topics/classification.js?v=2026-11-25-5"></script>
+<script src="topics/materials.js?v=2026-11-25-5"></script>
+<script src="topics/lifecycles.js?v=2026-11-25-5"></script>
+<script src="topics/plants.js?v=2026-11-25-5"></script>
+<script src="topics/digestive.js?v=2026-11-25-5"></script>
+<script src="topics/magnets.js?v=2026-11-25-5"></script>
+<script src="topics/light.js?v=2026-11-25-5"></script>
+<script src="topics/plantsystem.js?v=2026-11-25-5"></script>
+<script src="topics/matter.js?v=2026-11-25-5"></script>
+<script src="topics/heat.js?v=2026-11-25-5"></script>
 <script>
 "use strict";
 /* ---------------- data from the topic files ---------------- */
@@ -223,6 +225,7 @@ function thing(id){
 // caption: undefined = name + Chinese; false = no caption (a quiz photo must not give the answer away); string = that label
 function figure(id, caption){
   const t = thing(id);
+  if (!t.src && !t.emo) return `<figure class="ph job"><figcaption>${esc(t.en)}${t.zh && caption === undefined ? `<br><span class="zh">${esc(t.zh)}</span>` : ""}</figcaption></figure>`;
   const inner = t.src ? `<img src="${t.src}" alt="${caption === false ? "photo" : esc(t.en)}" loading="lazy" referrerpolicy="no-referrer" data-e="${t.emo}" onerror="picFail(this)">`
                       : `<span class="emo">${t.emo}</span>`;
   let cap = "";
