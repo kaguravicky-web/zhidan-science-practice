@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="MRT 练习">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<title>MRT 练习</title>
+<style>
+:root{
+  --bg:#f4f6f8;--card:#fff;--ink:#1f2a37;--mute:#64748b;--line:#94a3b8;
+  --ok:#15803d;--okbg:#dcfce7;--bad:#b91c1c;--badbg:#fee2e2;--warn:#92400e;--warnbg:#fef3c7;
+  --ga:#dbeafe;--gb:#fce7f3;--gc:#fef3c7;--gd:#dcfce7;
+  --en:#005ec4;--sci:#8e1f9c;--c:#0f766e;--cbg:#e6f2f1
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB",sans-serif;-webkit-tap-highlight-color:transparent}
+body.en{--c:var(--en);--cbg:#e5effa}
+body.sci{--c:var(--sci);--cbg:#f5e9f7}
+button{font:inherit;color:inherit;touch-action:manipulation;cursor:pointer}
+.bar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:4px;min-height:54px;padding:env(safe-area-inset-top) 8px 0;background:#fff;border-bottom:4px solid var(--c)}
+.bar .back{flex:none;width:44px;height:44px;border:0;background:none;font-size:36px;line-height:1;color:var(--c);padding:0 0 5px}
+.bar .logo{flex:none;width:44px;text-align:center;font-size:24px}
+.bar .ttl{flex:1;min-width:0;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .rt{flex:none;font-size:14px;color:var(--mute);padding-right:8px;font-variant-numeric:tabular-nums}
+main{max-width:560px;margin:0 auto;padding:14px 16px 32px}
+body.has-dock main{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:10;background:rgba(255,255,255,.97);border-top:1px solid #e2e8f0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));display:flex;gap:10px;justify-content:center}
+.dock[hidden]{display:none}
+.dock button{flex:1;max-width:528px;height:56px;border:0;border-radius:14px;background:var(--c);color:#fff;font-size:18px;font-weight:700}
+.dock button:disabled{background:#cbd5e1}
+.dock .no{background:var(--bad)}.dock .yes{background:var(--ok)}
+.card{background:var(--card);border-radius:16px;padding:16px;margin:0 0 12px;box-shadow:0 1px 3px rgba(15,23,42,.08)}
+h2{font-size:20px;margin:0 0 6px}
+p{margin:6px 0}
+.zh{color:var(--mute);font-size:14.5px}
+.muted{color:var(--mute)}
+.sec{margin:18px 4px 8px;font-size:15px;font-weight:700;color:var(--c)}
+.hello{font-size:19px;font-weight:700;margin:6px 4px 12px}
+/* home hub */
+.hub{display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:0;border-left:8px solid var(--hc);background:#fff;border-radius:16px;padding:18px 16px;margin:0 0 12px;box-shadow:0 1px 3px rgba(15,23,42,.1)}
+.hub.en{--hc:var(--en)}.hub.sci{--hc:var(--sci)}
+.hub .hic{font-size:40px;line-height:1}
+.hub .htx{flex:1;min-width:0}
+.hub b{display:block;font-size:20px}
+.hub .htx span{display:block;color:var(--mute);font-size:14.5px}
+.badge{flex:none;background:var(--badbg);color:var(--bad);font-weight:700;font-size:13.5px;border-radius:999px;padding:3px 10px}
+.tip{background:#fff;border:1px dashed #cbd5e1;border-radius:14px;padding:12px 14px;font-size:14.5px;color:#334155;margin:4px 0 12px}
+.linkbtn{display:block;width:100%;border:0;background:none;color:var(--c);font-weight:600;padding:12px;font-size:16px}
+/* rows */
+.rowbtn{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:#fff;border-radius:14px;padding:13px 14px;margin:0 0 8px;box-shadow:0 1px 2px rgba(15,23,42,.08);min-height:58px}
+.rowbtn .ic{flex:none;font-size:28px;width:36px;text-align:center;line-height:1}
+.rowbtn .tx{flex:1;min-width:0}
+.rowbtn .t1{display:block;font-weight:700}
+.rowbtn .t2{display:block;font-size:13.5px;color:var(--mute)}
+.rowbtn .chev{flex:none;color:#94a3b8;font-size:26px;line-height:1}
+.rowbtn.hot{background:var(--c);color:#fff}
+.rowbtn.hot .t2,.rowbtn.hot .chev{color:rgba(255,255,255,.85)}
+.rowbtn.warn{background:var(--warnbg)}
+.m{font-style:normal;white-space:nowrap;margin-left:6px;opacity:.55}
+.m.got{opacity:1}.m.full{opacity:1;color:var(--ok);font-weight:700}
+.bars-mini{height:6px;background:#e2e8f0;border-radius:99px;overflow:hidden;margin-top:5px}
+.bars-mini i{display:block;height:100%;background:var(--c)}
+/* word chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 2px}
+.chip{border:1px solid #cbd5e1;background:#fff;border-radius:999px;padding:6px 12px;font-size:15.5px}
+.mode{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:2px solid var(--c);background:#fff;border-radius:16px;padding:14px;margin:0 0 10px}
+.mode .ic{font-size:34px;line-height:1;flex:none}
+.mode .tx{flex:1;min-width:0}
+.mode b{display:block;font-size:18px}
+.mode span{display:block;font-size:14px;color:var(--mute)}
+.mode .sc{flex:none;font-weight:700;color:var(--c);font-size:15px}
+/* MRT line progress */
+.line{position:relative;display:flex;justify-content:space-between;align-items:center;height:24px;margin:2px 4px 12px}
+.line::before{content:"";position:absolute;left:4px;right:4px;top:50%;height:6px;margin-top:-3px;border-radius:3px;background:var(--c)}
+.line i{position:relative;flex:none;width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid var(--c)}
+.line i.now{width:24px;height:24px;border-width:6px}
+.line i.ok{width:18px;height:18px;background:var(--ok);border:3px solid #fff;box-shadow:0 0 0 2px var(--ok)}
+.line i.bad{width:18px;height:18px;background:var(--bad);border:3px solid #fff;box-shadow:0 0 0 2px var(--bad)}
+/* quiz bits */
+.qtext{font-size:18px;font-weight:600;margin:8px 0 4px;white-space:pre-line}
+.qhead{display:flex;gap:8px;align-items:flex-start;justify-content:space-between}
+.say{flex:none;border:1px solid #cbd5e1;background:#fff;border-radius:999px;padding:5px 12px;font-size:15px;margin-top:8px}
+.stl{list-style:none;padding:0;margin:6px 0 4px}
+.stl li{margin:5px 0;padding-left:28px;text-indent:-28px}
+.stl b{display:inline-block;width:28px;text-indent:0}
+.opt{display:block;width:100%;text-align:left;margin:9px 0;padding:13px 14px;min-height:54px;border:2px solid #e2e8f0;border-radius:14px;background:#fff;font-size:17px}
+.opt .n{color:var(--mute);margin-right:6px}
+.opt:disabled{cursor:default;color:inherit;opacity:1}
+.opt.right{border-color:var(--ok);background:var(--okbg)}
+.opt.wrong{border-color:var(--bad);background:var(--badbg)}
+.opt .note{display:block;font-size:14px;margin-top:4px;color:var(--mute)}
+.opt .note:empty{display:none}
+.explain{margin-top:12px;padding:12px 14px;border-radius:14px;background:#f1f5f9;scroll-margin-bottom:110px}
+.explain.ok{background:var(--okbg)}.explain.bad{background:var(--badbg)}
+.blank{display:inline-block;min-width:64px;border-bottom:3px solid var(--c);margin:0 3px;height:1em;vertical-align:-2px}
+.sent{font-size:18px;line-height:1.55}
+.def{font-size:15.5px;color:#334155;background:var(--cbg);border-radius:12px;padding:10px 12px;margin:10px 0 0}
+/* parent mode */
+.pm-tip{font-size:14.5px;color:var(--warn);background:var(--warnbg);border-radius:12px;padding:9px 12px;margin:0 0 12px}
+.pm-word{font-size:38px;font-weight:800;text-align:center;line-height:1.2;margin:10px 0 12px;word-break:break-word;color:var(--c)}
+.center{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+/* letter tiles */
+.slots{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 14px;margin:16px 0 6px}
+.wgrp{display:flex;gap:3px}
+.slot{width:var(--sw,34px);height:46px;border:0;border-bottom:3px solid #94a3b8;background:#f8fafc;border-radius:8px 8px 3px 3px;font-size:min(22px, calc(var(--sw,34px) * .9));font-weight:700;padding:0;text-align:center}
+.slot.on{border-bottom-color:var(--c);background:var(--cbg)}
+.slot.good{background:var(--okbg);border-bottom-color:var(--ok)}
+.slot.miss{background:var(--badbg);border-bottom-color:var(--bad)}
+.fix{display:flex;align-items:center;justify-content:center;width:12px;font-size:22px;font-weight:700}
+.tiles{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:14px 0 4px}
+.tile{width:46px;height:50px;border:0;border-radius:12px;background:#fff;box-shadow:0 2px 0 #cbd5e1,0 0 0 2px #cbd5e1 inset;font-size:24px;font-weight:700;user-select:none;-webkit-user-select:none;padding:0}
+.tile.used{visibility:hidden}
+.tools{display:flex;justify-content:center;gap:10px;margin-top:8px}
+.tools button{border:1px solid #cbd5e1;background:#fff;border-radius:999px;padding:7px 16px;font-size:15px}
+.answer{font-size:30px;font-weight:800;letter-spacing:1px;text-align:center;margin:4px 0}
+/* results */
+.big-num{font-size:44px;font-weight:800;color:var(--c);text-align:center;line-height:1.1;margin:6px 0}
+.res{list-style:none;padding:0;margin:8px 0 0}
+.res li{display:flex;gap:10px;align-items:baseline;padding:8px 2px;border-top:1px solid #eef2f6}
+.res li .mk{flex:none;width:22px;font-weight:800}
+.res li.ok .mk{color:var(--ok)}.res li.bad .mk{color:var(--bad)}
+.res li .w{font-weight:700}
+.btns{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.btn{border:0;background:var(--c);color:#fff;border-radius:14px;height:52px;font-size:17px;font-weight:700}
+.btn.ghost{background:#fff;color:var(--c);border:2px solid var(--c)}
+/* photos (same as the main science page) */
+.strip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0}
+figure.ph{margin:0;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;text-align:center}
+figure.ph img{display:block;width:100%;height:100px;object-fit:cover;background:#e2e8f0}
+figure.ph .emo{display:flex;align-items:center;justify-content:center;height:100px;font-size:54px}
+figure.ph figcaption{font-size:13px;padding:4px 4px 5px;line-height:1.25}
+.stempics{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:6px 0}
+.stempics figure.ph{width:min(280px,100%)}
+.stempics.two figure.ph{width:calc(50% - 5px)}
+.stempics figure.ph img,.stempics figure.ph .emo{height:170px}
+.stempics.two figure.ph img,.stempics.two figure.ph .emo{height:140px}
+.stempics figure.ph .emo{font-size:84px}
+.ph.job{display:flex;align-items:center;justify-content:center;min-height:150px;background:#fffbeb;border-color:#fcd34d}
+.ph.job figcaption{font-size:19px!important;font-weight:700;padding:18px 14px!important;line-height:1.4!important}
+.sortcard{text-align:center}
+.sortcard figure.ph{width:min(300px,100%);margin:4px auto}
+.sortcard figure.ph img,.sortcard figure.ph .emo{height:200px}
+.sortcard figure.ph .emo{font-size:110px}
+.sortcard figure.ph figcaption{font-size:18px;font-weight:700}
+.bins{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.bin{border:2px solid #cbd5e1;background:#fff;border-radius:14px;padding:14px 8px;font-size:16px;font-weight:700;min-height:64px}
+.bin small{display:block;font-weight:400;color:var(--mute);font-size:13px}
+.bin.right{border-color:var(--ok);background:var(--okbg)}
+.bin.wrong{border-color:var(--bad);background:var(--badbg)}
+.bin:disabled{cursor:default;color:inherit;opacity:1}
+/* charts (same as the main science page, phone sizes) */
+.chart{margin:8px 0;padding:10px 6px;border:1px solid #e2e8f0;border-radius:12px;background:#fcfdfe}
+.chart-title{font-weight:700;margin-bottom:6px;font-size:14.5px}
+.svgwrap svg{display:block;width:100%;height:auto;max-height:340px;margin:0 auto}
+.bars{display:flex;flex-direction:column;gap:6px}
+.bar-row{display:flex;align-items:center;gap:8px;font-size:13px}
+.bar-row .bl{flex:0 0 36%;text-align:right;font-weight:600}
+.bar-row .bt{flex:1;background:#eef2f7;border-radius:6px;height:20px;overflow:hidden}
+.bar-row .bt i{display:block;height:100%;background:#38bdf8;border-radius:6px}
+.bar-row .bv{flex:0 0 auto;min-width:30px;font-weight:700}
+.unit{font-size:12.5px;color:var(--mute);text-align:right;margin-top:4px}
+.tree{overflow-x:auto;padding-bottom:4px}
+.tree ul{position:relative;padding:18px 0 0;margin:0;display:flex;justify-content:center}
+.tree>ul{padding-top:0}
+.tree li{list-style:none;position:relative;padding:18px 1px 0;text-align:center;flex:1 1 0;min-width:0}
+.tree li::before,.tree li::after{content:"";position:absolute;top:0;right:50%;border-top:2px solid var(--line);width:50%;height:18px}
+.tree li::after{right:auto;left:50%;border-left:2px solid var(--line)}
+.tree li:only-child::before,.tree li:only-child::after{display:none}
+.tree li:only-child{padding-top:0}
+.tree li:first-child::before,.tree li:last-child::after{border:0 none}
+.tree li:last-child::before{border-right:2px solid var(--line);border-radius:0 6px 0 0}
+.tree li:first-child::after{border-radius:6px 0 0 0}
+.tree ul ul::before{content:"";position:absolute;top:0;left:50%;border-left:2px solid var(--line);width:0;height:18px}
+.node{display:inline-block;border:2px solid #475569;border-radius:10px;padding:5px 7px;font-size:11.5px;line-height:1.3;background:#fff;max-width:100%}
+.node.root{font-weight:700;font-size:13px;padding:6px 12px}
+.node.qbox{border-style:dashed;font-weight:800;font-size:16px;padding:4px 14px}
+.yn{display:block;font-size:11.5px;font-weight:700;color:#0f766e;margin-bottom:2px}
+.grp{display:inline-block;border-radius:10px;padding:6px 3px;font-size:11.5px;line-height:1.35;min-width:0;max-width:100%}
+.grp b{display:block;font-size:15px}
+.grp.A{background:var(--ga)}.grp.B{background:var(--gb)}.grp.C{background:var(--gc)}.grp.D{background:var(--gd)}.grp.E{background:#ede9fe}
+.flow{display:flex;flex-direction:column;align-items:flex-start;font-size:14px}
+.frow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.fbox{border:2px solid #475569;border-radius:10px;padding:6px 10px;background:#fff;font-weight:600}
+.fbox.start{font-weight:700;background:#f1f5f9}
+.fside{color:#0f766e;font-weight:700}
+.fdown{padding:2px 0 2px 18px;color:#0f766e;font-weight:700;font-size:13px}
+.fend{display:inline-block;border-radius:10px;padding:6px 14px;background:var(--gd);font-weight:800}
+table.ct{border-collapse:collapse;width:100%;font-size:13px}
+table.ct th,table.ct td{border:1.5px solid #94a3b8;padding:6px 4px;text-align:center}
+table.ct th{background:#f1f5f9}
+table.ct td:first-child{font-weight:700}
+.tick{color:var(--ok);font-weight:700}.cross{color:var(--bad);font-weight:700}
+/* info */
+ul.facts{margin:6px 0 0;padding-left:20px}
+ul.facts li{margin:5px 0}
+details{margin-top:8px}
+summary{font-weight:700;color:var(--c);padding:6px 0}
+.credits{font-size:12px;color:var(--mute)}
+.credits a{color:var(--mute)}
+.ver{text-align:center;color:var(--mute);font-size:12px;margin:14px 0 0}
+</style>
+</head>
+<body>
+<header class="bar" id="bar"></header>
+<main id="app"></main>
+<div class="dock" id="dock" hidden></div>
+
+<script>
+"use strict";
+const TOPICS = [];
+function TOPIC(t){ TOPICS.push(t); }
+</script>
+<!-- science units come straight from the main science page; English lists from tools/sync_english.js -->
+<script src="../topics/classification.js?v=2026-11-26-1"></script>
+<script src="../topics/materials.js?v=2026-11-26-1"></script>
+<script src="../topics/lifecycles.js?v=2026-11-26-1"></script>
+<script src="../topics/plants.js?v=2026-11-26-1"></script>
+<script src="../topics/digestive.js?v=2026-11-26-1"></script>
+<script src="../topics/magnets.js?v=2026-11-26-1"></script>
+<script src="../topics/light.js?v=2026-11-26-1"></script>
+<script src="../topics/plantsystem.js?v=2026-11-26-1"></script>
+<script src="../topics/matter.js?v=2026-11-26-1"></script>
+<script src="../topics/heat.js?v=2026-11-26-1"></script>
+<script src="english.js?v=2026-11-26-1"></script>
+<script>
+"use strict";
+const VERSION = "2026-11-26-1";
+const $ = s => document.querySelector(s);
+const bar = $("#bar"), app = $("#app"), dock = $("#dock");
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+const escRe = s => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+function shuffle(a){ for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+/* ---------------- science data (same files as the main page) ---------------- */
+const TH = "https://thumb.wikimedia.org/wikipedia/commons/thumb/";
+const ORDER = ["classification","materials","lifecycles","plants","digestive","magnets","light","plantsystem","matter","heat"];
+TOPICS.sort((a, b) => (ORDER.indexOf(a.id) + 1 || 99) - (ORDER.indexOf(b.id) + 1 || 99));
+const BY_ID = {}, PICS = {}, EMO = {}, ALLQ = {};
+const LEVELS = {1:"Level 1 · 看图认识", 2:"Level 2 · 知识点", 3:"Level 3 · 考试题型", 4:"Level 4 · 答题技巧"};
+const GROUPS = [["P3","小三 Primary 3"],["P3/P4","小三学、小四也考"],["P4","小四 Primary 4"]];
+for (const t of TOPICS){
+  BY_ID[t.id] = t;
+  Object.assign(PICS, t.pics || {}); Object.assign(EMO, t.emo || {});
+  t.charts = t.charts || {}; t.sorts = t.sorts || []; t.learn = t.learn || [];
+  t.sets.forEach(s => { s.key = t.id + ":" + s.id; s.topic = t.id;
+    s.qs.forEach((q, i) => { q.id = s.key + "-" + (i + 1); q.set = s.key; q.topic = t.id; ALLQ[q.id] = q; }); });
+  t.sorts.forEach(s => { s.key = t.id + ":" + s.id; });
+  t.all = t.sets.flatMap(s => s.qs);
+  t.total = t.all.length;
+}
+const SCI_TOTAL = Object.keys(ALLQ).length;
+
+/* ---------------- English data (copied from the spelling site) ---------------- */
+const EN = window.EN_LISTS || [];
+const EN_BY_ID = {}, EN_ITEM = {}, CHUNKS = [], CHUNK = {};
+const enKey = it => it.listId + "|" + it.id;
+for (const l of EN){
+  EN_BY_ID[l.id] = l;
+  l.items.forEach(it => { it.listId = l.id; EN_ITEM[enKey(it)] = it; });
+  // at most 10 words a round: bigger lists are cut into even parts (16 -> 8 + 8)
+  const k = Math.ceil(l.items.length / 10), size = Math.ceil(l.items.length / k);
+  for (let p = 0; p < k; p++){
+    const c = {key: l.id + (k > 1 ? "~" + (p + 1) : ""), list: l, title: l.week + (k > 1 ? ` (${p + 1}/${k})` : ""), items: l.items.slice(p * size, (p + 1) * size)};
+    CHUNKS.push(c); CHUNK[c.key] = c;
+  }
+}
+const EN_WORDS = EN.reduce((n, l) => n + l.items.length, 0);
+// pairs that could both fit one sentence: never offer one as the wrong choice for the other
+const EN_AVOID = [["croaked","squeaked"],["quivering","disappointed"],["scrawny","disappointed"],["scrawny","quivering"],
+  ["keenly","warily"],["boldly","warily"],["floating","bobbing up"],["concentrating","panicking"],["adventure","success"],
+  ["scary","unpleasant"],["shoved","slid"],["slid","wriggled"],["unusual","special"],["vibrant","special"],["vibrant","unusual"],
+  ["alert","serious"],["stationery","equipment"],["approved","scheduled"],["criticise","reprimand"],["infringe","criticise"],
+  ["climate","environment"],["landfill","Semakau Landfill"],["omnipresent","indispensable"],["equality","inclusivity"],
+  ["communist","racial"],["survive","develop"]];
+const AVOID = new Set(EN_AVOID.flatMap(([a, b]) => [a + "|" + b, b + "|" + a]));
+const MODES = [
+  {id:"say", ic:"🗣️", t:"念给他拼 Say & spell", d:"家长拿手机念单词和句子，孩子说出拼写，家长点 ✓ 或 ✗"},
+  {id:"tiles", ic:"🧩", t:"字母拼词 Letter tiles", d:"孩子自己点 🔊 听，再点字母拼出这个词"},
+  {id:"mean", ic:"📖", t:"选词 · 词义 Meaning", d:"句子里该填哪个词？这个词是什么意思？"}
+];
+const MODE = Object.fromEntries(MODES.map(m => [m.id, m]));
+
+/* ---------------- storage ---------------- */
+// science keys are the main science page's own keys, so the mistake book is shared in the same browser
+const K = {sciWrong:"sci-v3-wrong", sciBest:"sci-v3-best", sciSort:"sci-v3-sortBest", enWrong:"mrt-en-wrong", enBest:"mrt-en-best"};
+const LS = {
+  get(k, d){ try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} },
+  edit(k, f){ const v = LS.get(k, {}); f(v); LS.set(k, v); return v; }   // read fresh, change, write back
+};
+const sciWrongIds = () => Object.keys(LS.get(K.sciWrong, {})).filter(id => ALLQ[id]);
+const enWrongKeys = () => { const w = LS.get(K.enWrong, {}); return Object.keys(w).filter(k => EN_ITEM[k]).sort((a, b) => w[b] - w[a]); };
+const topicDone = (t, best) => t.sets.reduce((a, s) => a + Math.min(best[s.key] || 0, s.qs.length), 0);
+
+/* ---------------- speech ---------------- */
+let voice = null;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voice = vs.find(v => /en-GB|en_GB/.test(v.lang)) || vs.find(v => /en-SG|en-AU/.test(v.lang)) || vs.find(v => /^en/.test(v.lang)) || null;
+}
+if (window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function say(text, rate){
+  if (!window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(String(text).replace(/_{2,}/g, "blank").replace(/°C/g, " degrees Celsius").replace(/[^\x00-\x7F]/g, " "));
+  u.lang = "en-GB"; u.rate = rate || 0.9; if (voice) u.voice = voice;
+  speechSynthesis.speak(u);
+}
+
+/* ---------------- photos + charts (same drawing code as the main page) ---------------- */
+function picFail(img){ const s = document.createElement("span"); s.className = "emo"; s.textContent = img.dataset.e || "🖼️"; img.replaceWith(s); }
+function thing(id){
+  if (PICS[id]){ const p = PICS[id]; return {src: TH + p[0], en: p[1], zh: p[2], emo: p[3]}; }
+  if (EMO[id]){ const p = EMO[id]; return {src: null, en: p[1], zh: p[2], emo: p[0]}; }
+  return {src: null, en: id, zh: "", emo: "❓"};
+}
+// caption: undefined = name + Chinese; false = no caption (a quiz photo must not give the answer away); string = that label
+function figure(id, caption){
+  const t = thing(id);
+  if (!t.src && !t.emo) return `<figure class="ph job"><figcaption>${esc(t.en)}${t.zh && caption === undefined ? `<br><span class="zh">${esc(t.zh)}</span>` : ""}</figcaption></figure>`;
+  const inner = t.src ? `<img src="${t.src}" alt="${caption === false ? "photo" : esc(t.en)}" loading="lazy" referrerpolicy="no-referrer" data-e="${t.emo}" onerror="picFail(this)">`
+                      : `<span class="emo">${t.emo}</span>`;
+  let cap = "";
+  if (caption === undefined) cap = `<figcaption>${esc(t.en)}${t.zh ? `<br><span class="zh">${esc(t.zh)}</span>` : ""}</figcaption>`;
+  else if (caption) cap = `<figcaption>${esc(caption)}</figcaption>`;
+  return `<figure class="ph">${inner}${cap}</figure>`;
+}
+function treeHTML(n, isRoot){
+  if (n.g) return `<li><div class="node">${esc(n.t)}</div><ul><li><div class="grp ${"ABCD".includes(n.g) ? n.g : "E"}"><b>${esc(n.g)}</b>${(n.m || []).map(esc).join("<br>")}</div></li></ul></li>`;
+  return `<li><div class="node${isRoot ? " root" : ""}">${esc(n.t)}</div><ul>${n.kids.map(k => treeHTML(k)).join("")}</ul></li>`;
+}
+function keyHTML(n, label){
+  const lab = label ? `<span class="yn">${label}</span>` : "";
+  if (typeof n === "string") return `<li>${lab}<div class="grp D">${esc(n)}</div></li>`;
+  return `<li>${lab}<div class="node${n.box ? " qbox" : " root"}">${esc(n.q)}</div><ul>${keyHTML(n.yes, "Yes")}${keyHTML(n.no, "No")}</ul></li>`;
+}
+function chartHTML(topicId, id){
+  const c = BY_ID[topicId].charts[id];
+  if (!c) return "";
+  const title = `<div class="chart-title">${esc(c.title)}</div>`;
+  if (c.type === "svg") return `<div class="chart">${title}<div class="svgwrap">${c.svg}</div></div>`;
+  if (c.type === "bars"){
+    const max = Math.max(...c.rows.map(r => r[1]), 1);
+    return `<div class="chart">${title}<div class="bars">${c.rows.map(r => `<div class="bar-row"><span class="bl">${esc(r[0])}</span><span class="bt"><i style="width:${r[1] / max * 100}%"></i></span><span class="bv">${esc(r[1])}</span></div>`).join("")}</div>${c.unit ? `<div class="unit">${esc(c.unit)}</div>` : ""}</div>`;
+  }
+  if (c.type === "tree") return `<div class="chart">${title}<div class="tree"><ul>${treeHTML(c.root, true)}</ul></div></div>`;
+  if (c.type === "key") return `<div class="chart">${title}<div class="tree"><ul>${keyHTML(c.root)}</ul></div></div>`;
+  if (c.type === "flow") return `<div class="chart">${title}<div class="flow"><div class="fbox start">${esc(c.start)}</div><div class="fdown">↓</div>` +
+    c.steps.map(s => `<div class="frow"><div class="fbox">${esc(s.q)}</div><div class="fside">${esc(s.side)}</div></div><div class="fdown">${esc(s.down)} ↓</div>`).join("") +
+    `<div class="fend">${esc(c.end)}</div></div></div>`;
+  if (c.type === "groups") return `<div class="chart">${title}<table class="ct"><tr>${c.groups.map(g => `<th>${esc(g[0])}</th>`).join("")}</tr>` +
+    `<tr>${c.groups.map(g => `<td style="font-weight:400">${g[1].map(esc).join("<br>")}</td>`).join("")}</tr></table></div>`;
+  const cell = v => v === 1 ? '<span class="tick">✓</span>' : v === 0 ? '<span class="cross">✗</span>' : esc(v);
+  return `<div class="chart">${title}<table class="ct"><tr>${c.cols.map(h => `<th>${esc(h)}</th>`).join("")}</tr>` +
+    c.rows.map(r => `<tr>${r.map((v, i) => `<td>${i ? cell(v) : esc(v)}</td>`).join("")}</tr>`).join("") + `</table></div>`;
+}
+
+/* ---------------- screens + navigation ---------------- */
+// routes: #  #en  #en/l/<chunk>  #en/x  #en/p  #sci  #sci/u/<topic>  #sci/x  #sci/p  #sci/g  #info
+let play = null;          // the round being played (kept in memory only)
+let internal = false;     // true once we navigated inside the page, so ‹ can use the browser history
+function go(h){ internal = true; if (location.hash === h) render(true); else location.hash = h; }
+function goBack(parent){ if (internal) history.back(); else location.replace(parent || "#"); }
+window.addEventListener("hashchange", () => render(true));
+
+function screen(o){
+  document.body.className = o.theme || "";
+  bar.innerHTML = (o.back != null ? `<button class="back" id="back" aria-label="Back">‹</button>` : `<span class="logo">🚇</span>`) +
+    `<div class="ttl">${o.title}</div><div class="rt">${o.right || ""}</div>`;
+  if (o.back != null) $("#back").onclick = () => goBack(o.back);
+  app.innerHTML = o.body;
+  dock.innerHTML = o.dock || "";
+  dock.hidden = !o.dock;
+  if (o.dock) document.body.classList.add("has-dock");
+}
+function render(top){
+  const [a, b, c] = location.hash.replace(/^#/, "").split("/").map(decodeURIComponent);
+  if (a === "en"){
+    if (b === "l") enList(c); else if (b === "x") enMistakes(); else if (b === "p") enPlay(); else enHome();
+  } else if (a === "sci"){
+    if (b === "u") sciUnit(c); else if (b === "x") sciMistakes(); else if (b === "p") sciPlay(); else if (b === "g") sortPlay(); else sciHome();
+  } else if (a === "info") info();
+  else home();
+  if (top) window.scrollTo(0, 0);
+}
+app.addEventListener("click", e => { const b = e.target.closest("[data-go]"); if (b) go(b.dataset.go); });
+
+function lineHTML(res, n){
+  let h = `<div class="line" aria-label="${res.length} of ${n}">`;
+  for (let k = 0; k < n; k++) h += `<i class="${k < res.length ? (res[k] ? "ok" : "bad") : k === res.length ? "now" : ""}"></i>`;
+  return h + `</div>`;
+}
+function row(o){
+  return `<button class="rowbtn${o.cls ? " " + o.cls : ""}"${o.go ? ` data-go="${o.go}"` : ""}${o.act ? ` data-act="${o.act}"` : ""}${o.k ? ` data-k="${o.k}"` : ""}>${o.ic ? `<span class="ic">${o.ic}</span>` : ""}<span class="tx"><span class="t1">${o.t1}</span>${o.t2 ? `<span class="t2">${o.t2}</span>` : ""}${o.extra || ""}</span><span class="chev">›</span></button>`;
+}
+
+/* ---------------- home ---------------- */
+function home(){
+  const enW = enWrongKeys().length, sciW = sciWrongIds().length;
+  screen({title: "MRT 练习 · 地铁上做一做", body: `
+    <p class="hello">坐几站，练一组 👇</p>
+    <button class="hub en" data-go="#en"><span class="hic">🔤</span><span class="htx"><b>English Words</b><span>英文单词 · ${CHUNKS.length} 组 · ${EN_WORDS} 个词</span></span>${enW ? `<span class="badge">错 ${enW}</span>` : ""}</button>
+    <button class="hub sci" data-go="#sci"><span class="hic">🔬</span><span class="htx"><b>Science</b><span>科学 · ${TOPICS.length} 个单元 · ${SCI_TOTAL} 题</span></span>${sciW ? `<span class="badge">错 ${sciW}</span>` : ""}</button>
+    <div class="tip">📲 <b>加到主屏幕，像 App 一样用</b><br>iPhone：用 Safari 打开 → 点「分享」⬆️ →「添加到主屏幕」。<br>安卓：Chrome 右上角 ⋮ →「添加到主屏幕」。</div>
+    <button class="linkbtn" data-go="#info">ℹ️ 怎么用 · 家长看</button>`});
+}
+
+/* ---------------- English ---------------- */
+function enHome(){
+  const best = LS.get(K.enBest, {}), nW = enWrongKeys().length;
+  const rowFor = c => {
+    const n = c.items.length;
+    const marks = MODES.map(m => { const s = best[c.key + ":" + m.id]; return `<i class="m${s == null ? "" : s >= n ? " full" : " got"}">${m.ic}${s == null ? "" : s + "/" + n}</i>`; }).join("");
+    return row({go: "#en/l/" + encodeURIComponent(c.key), t1: esc(c.title), t2: `${n} 个词 ${marks}`});
+  };
+  const lists = EN.slice().reverse();   // newest first
+  const part = isHome => lists.filter(l => (l.date === "Home practice") === isHome).flatMap(l => CHUNKS.filter(c => c.list === l)).map(rowFor).join("");
+  screen({theme: "en", back: "#", title: "🔤 English Words 英文单词", body:
+    (nW ? row({cls: "warn", go: "#en/x", ic: "📒", t1: `错词本 · ${nW} 个词`, t2: "做对一次就移出"}) : "") +
+    `<div class="sec">📰 Little Red Dot · 在家练的词</div>${part(true)}
+     <div class="sec">🏫 学校听写 School lists</div>${part(false)}`});
+}
+function modeButtons(n, bestKey){
+  const best = LS.get(K.enBest, {});
+  return MODES.map(m => { const s = bestKey ? best[bestKey + ":" + m.id] : null;
+    return `<button class="mode" data-mode="${m.id}"><span class="ic">${m.ic}</span><span class="tx"><b>${m.t}</b><span>${m.d}</span></span>${s != null ? `<span class="sc">${s}/${n}</span>` : ""}</button>`; }).join("");
+}
+function enList(key){
+  const c = CHUNK[key];
+  if (!c) return location.replace("#en");
+  screen({theme: "en", back: "#en", title: esc(c.title), body: `
+    <div class="card"><h2>${esc(c.title)}</h2><p class="zh">${c.items.length} 个词${c.list.date ? " · " + esc(c.list.date) : ""} · 点一个词听读音</p>
+      <div class="chips">${c.items.map((it, i) => `<button class="chip" data-w="${i}">${esc(it.word)}</button>`).join("")}</div></div>
+    <div class="sec">选一种练法</div>${modeButtons(c.items.length, c.key)}`});
+  app.querySelectorAll("[data-w]").forEach(b => b.onclick = () => say(c.items[+b.dataset.w].word, 0.85));
+  app.querySelectorAll("[data-mode]").forEach(b => b.onclick = () => { startEn(b.dataset.mode, c.items, c.title, c.key); go("#en/p"); });
+}
+function enMistakes(){
+  const keys = enWrongKeys();
+  if (!keys.length){ screen({theme: "en", back: "#en", title: "📒 错词本", body: `<div class="card"><h2>没有错词 🎉</h2><p class="zh">练的时候错了的词会自动放到这里。</p></div>`}); return; }
+  const items = keys.map(k => EN_ITEM[k]), first = items.slice(0, 10);
+  screen({theme: "en", back: "#en", title: `📒 错词本 · ${keys.length}`, body: `
+    <div class="card"><h2>错词 ${keys.length} 个</h2><p class="zh">每次练最近错的 ${first.length} 个。做对一次就移出错词本。</p>
+      <div class="chips">${items.map((it, i) => `<button class="chip" data-w="${i}">${esc(it.word)}</button>`).join("")}</div></div>
+    <div class="sec">练这 ${first.length} 个</div>${modeButtons(first.length, null)}
+    <button class="linkbtn" id="wipe">清空错词本</button>`});
+  app.querySelectorAll("[data-w]").forEach(b => b.onclick = () => say(items[+b.dataset.w].word, 0.85));
+  app.querySelectorAll("[data-mode]").forEach(b => b.onclick = () => { startEn(b.dataset.mode, first, "错词 Mistakes", null); go("#en/p"); });
+  $("#wipe").onclick = () => { if (confirm("清空英文错词本？")){ LS.set(K.enWrong, {}); render(); } };
+}
+
+// sentence helpers
+const wordRe = it => new RegExp("\\b" + escRe(it.word) + "\\b", "i");
+const sentHTML = it => esc(it.text).replace(wordRe(it), m => `<b>${m}</b>`);
+const blankHTML = it => esc(it.text).replace(wordRe(it), `<span class="blank"></span>`);
+const plainDef = d => d.replace(/\s*[（(][^()（）]*[㐀-鿿][^()（）]*[)）]/g, "").trim();
+const isLetter = ch => /\p{L}/u.test(ch);
+
+function startEn(mode, items, title, bestKey){
+  const its = shuffle(items.slice());
+  const flip = Math.random() < .5, types = its.map((_, i) => (i % 2 === 0) === flip ? "fill" : "mean");
+  play = {kind: "en", mode, title, bestKey, src: items, items: its, i: 0, res: [], log: [],
+          qs: its.map((it, i) => mode === "tiles" ? tileQ(it) : mode === "mean" ? meanQ(it, wordRe(it).test(it.text) ? types[i] : "mean") : {})};
+}
+function tileQ(it){
+  const chars = [...it.word], letters = chars.filter(isLetter);
+  let order = letters.map((_, i) => i);
+  for (let tries = 0; tries < 12; tries++){ shuffle(order); if (order.map(i => letters[i]).join("") !== letters.join("")) break; }
+  return {slots: chars.map(ch => isLetter(ch) ? {ch: null, t: -1} : {fixed: ch}), tiles: order.map(i => ({ch: letters[i], used: false})), done: false, ok: null};
+}
+function meanQ(it, type){
+  const others = shuffle(EN_BY_ID[it.listId].items.filter(o => o !== it && o.word.toLowerCase() !== it.word.toLowerCase() && !AVOID.has(it.word + "|" + o.word))).slice(0, 3);
+  const text = o => type === "fill" ? o.word : plainDef(o.definition);
+  const opts = shuffle([it, ...others]).map(o => ({text: text(o), right: o === it})).filter((o, i, a) => a.findIndex(x => x.text === o.text) === i);
+  return {type, opts, picked: null};
+}
+function enMark(it, ok, extra){
+  const z = play;
+  z.res.push(ok); z.log.push({it, ok, extra});
+  LS.edit(K.enWrong, w => { if (ok) delete w[enKey(it)]; else w[enKey(it)] = Date.now(); });
+}
+function enPlay(){
+  const z = play;
+  if (!z || z.kind !== "en") return location.replace("#en");
+  const n = z.items.length;
+  if (z.i >= n) return enDone();
+  const it = z.items[z.i], q = z.qs[z.i], answered = z.res.length > z.i, m = MODE[z.mode];
+  const top = lineHTML(z.res, n);
+  const base = {theme: "en", back: "#en", title: `${m.ic} ${esc(z.title)}`, right: `${z.i + 1} / ${n}`};
+  const next = `<button id="next"${answered ? "" : " disabled"}>${answered ? (z.i + 1 < n ? "下一个 Next ›" : "到站 Finish 🚉") : "先作答"}</button>`;
+
+  if (z.mode === "say"){
+    screen({...base, body: `${top}
+      <div class="pm-tip">👀 家长拿手机：念单词（可以再念句子），孩子说出拼写。</div>
+      <div class="card"><div class="pm-word">${esc(it.word)}</div>
+        <div class="center"><button class="say" data-s="w">🔊 单词</button><button class="say" data-s="s">🔊 句子</button></div>
+        <p class="sent" style="margin-top:14px">${sentHTML(it)}</p>
+        ${it.definition ? `<div class="def">${esc(it.definition)}</div>` : ""}</div>`,
+      dock: `<button class="no" id="no">✗ 拼错了</button><button class="yes" id="yes">✓ 拼对了</button>`});
+    const mark = ok => { enMark(it, ok); z.i++; render(true); };
+    $("#no").onclick = () => mark(false); $("#yes").onclick = () => mark(true);
+  }
+
+  else if (z.mode === "tiles"){
+    let longest = 0, cur = 0;
+    q.slots.forEach(s => { if (s.fixed === " "){ cur = 0; } else { cur++; longest = Math.max(longest, cur); } });
+    const groups = [[]];
+    q.slots.forEach((s, k) => { if (s.fixed === " ") groups.push([]); else groups[groups.length - 1].push(k); });
+    const slotHTML = k => { const s = q.slots[k];
+      if (s.fixed) return `<span class="fix">${esc(s.fixed)}</span>`;
+      const cls = q.done ? (s.ch && s.ch.toLowerCase() === [...it.word][k].toLowerCase() ? " good" : " miss") : s.ch ? " on" : "";
+      return `<button class="slot${cls}" data-k="${k}">${s.ch ? esc(s.ch) : ""}</button>`; };
+    screen({...base, body: `${top}
+      <div class="card">
+        <div class="qhead"><p class="qtext" style="margin-top:2px">Spell the word. 拼出这个词</p></div>
+        <div class="center" style="justify-content:flex-start"><button class="say" data-s="w">🔊 听单词</button><button class="say" data-s="s">🔊 听句子</button></div>
+        <p class="sent">${q.done ? sentHTML(it) : blankHTML(it)}</p>
+        ${it.definition ? `<div class="def">${esc(q.done ? it.definition : plainDef(it.definition))}</div>` : ""}
+        <div class="slots" style="--sw:min(34px, calc((100vw - 64px) / ${Math.max(longest, 1)} - 3px))">${groups.map(g => `<span class="wgrp">${g.map(slotHTML).join("")}</span>`).join("")}</div>
+        ${q.done ? `<div class="explain ${q.ok ? "ok" : "bad"}" id="after">${q.ok ? "✅ 拼对了！" : `❌ 正确拼法：<div class="answer">${esc(it.word)}</div>`}</div>` :
+          `<div class="tiles">${q.tiles.map((t, j) => `<button class="tile${t.used ? " used" : ""}" data-t="${j}">${esc(t.ch)}</button>`).join("")}</div>
+           <div class="tools"><button id="bk">⌫ 退一格</button><button id="clr">↺ 重来</button></div>`}
+      </div>`, dock: next});
+    const fill = () => {
+      if (q.slots.some(s => !s.fixed && !s.ch)) return;
+      q.done = true;
+      q.ok = q.slots.map(s => s.fixed || s.ch).join("").toLowerCase() === it.word.toLowerCase();
+      enMark(it, q.ok, q.ok ? "" : q.slots.map(s => s.fixed || s.ch).join(""));
+    };
+    app.querySelectorAll("[data-t]").forEach(b => b.onclick = () => {
+      const j = +b.dataset.t, s = q.slots.find(s => !s.fixed && !s.ch);
+      if (!s || q.tiles[j].used) return;
+      s.ch = q.tiles[j].ch; s.t = j; q.tiles[j].used = true; fill(); render();
+      if (q.done) $("#after").scrollIntoView({block: "nearest", behavior: "smooth"});
+    });
+    const clear = s => { if (s && s.ch){ q.tiles[s.t].used = false; s.ch = null; s.t = -1; } };
+    if (!q.done){
+      app.querySelectorAll(".slot").forEach(b => b.onclick = () => { clear(q.slots[+b.dataset.k]); render(); });
+      $("#bk").onclick = () => { clear(q.slots.filter(s => !s.fixed && s.ch).pop()); render(); };
+      $("#clr").onclick = () => { q.slots.forEach(clear); render(); };
+    }
+  }
+
+  else {
+    const stem = q.type === "fill"
+      ? `<p class="qtext">Which word fits? 哪个词填进去？</p><p class="sent">${blankHTML(it)}</p>`
+      : `<p class="qtext">What does <b style="color:var(--c)">${esc(it.word)}</b> mean? 意思是？</p>`;
+    screen({...base, body: `${top}
+      <div class="card">${stem}
+        <div class="center" style="justify-content:flex-start"><button class="say" data-s="${q.type === "fill" ? "b" : "w"}">🔊 听</button></div>
+        <div>${q.opts.map((o, k) => `<button class="opt${q.picked != null ? (o.right ? " right" : k === q.picked ? " wrong" : "") : ""}" data-k="${k}"${q.picked != null ? " disabled" : ""}>${esc(o.text)}</button>`).join("")}</div>
+        ${q.picked != null ? `<div class="explain ${q.opts[q.picked].right ? "ok" : "bad"}" id="after">${q.opts[q.picked].right ? "✅ Correct!" : "❌ Not quite."} <b>${esc(it.word)}</b><p class="sent" style="font-size:16.5px">${sentHTML(it)}</p>${it.definition ? `<div class="zh">${esc(it.definition)}</div>` : ""}</div>` : ""}
+      </div>`, dock: next});
+    if (q.picked == null) app.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+      q.picked = +b.dataset.k; enMark(it, q.opts[q.picked].right); render();
+      $("#after").scrollIntoView({block: "nearest", behavior: "smooth"});
+    });
+  }
+  app.querySelectorAll("[data-s]").forEach(b => b.onclick = () => {
+    const k = b.dataset.s;
+    say(k === "w" ? it.word : k === "b" ? it.text.replace(wordRe(it), "blank") : it.text, k === "w" ? 0.85 : 0.9);
+  });
+  const nx = $("#next"); if (nx) nx.onclick = () => { z.i++; render(true); };
+}
+function enDone(){
+  const z = play, n = z.items.length, score = z.res.filter(Boolean).length, m = MODE[z.mode];
+  if (z.bestKey && !z.saved){ z.saved = true; LS.edit(K.enBest, b => { const k = z.bestKey + ":" + z.mode; if (b[k] == null || score > b[k]) b[k] = score; }); }
+  const wrongItems = z.log.filter(x => !x.ok).map(x => x.it);
+  screen({theme: "en", back: "#en", title: `${m.ic} ${esc(z.title)}`, right: "🚉", body: `
+    ${lineHTML(z.res, n)}
+    <div class="card" style="text-align:center"><h2>🚉 到站！</h2><div class="big-num">${score} / ${n}</div>
+      <p class="zh">${score === n ? "全对！🎉 换一种练法再来一次？" : "错的词已经放进错词本。"}</p>
+      <div class="btns">${wrongItems.length ? `<button class="btn" id="redo">再练错的 ${wrongItems.length} 个</button>` : ""}
+        <button class="btn${wrongItems.length ? " ghost" : ""}" id="again">再来一次</button>
+        <button class="btn ghost" id="back2">换一种练法</button></div></div>
+    <div class="card"><ul class="res">${z.log.map(x => `<li class="${x.ok ? "ok" : "bad"}"><span class="mk">${x.ok ? "✓" : "✗"}</span><span><span class="w">${esc(x.it.word)}</span>${x.extra ? ` <span class="muted">（拼成 ${esc(x.extra)}）</span>` : ""}<br><span class="zh">${esc(x.it.definition)}</span></span></li>`).join("")}</ul></div>`});
+  if ($("#redo")) $("#redo").onclick = () => { startEn(z.mode, wrongItems, z.title, null); render(true); };
+  $("#again").onclick = () => { startEn(z.mode, z.src, z.title, z.bestKey); render(true); };
+  $("#back2").onclick = () => goBack("#en");
+}
+
+/* ---------------- Science ---------------- */
+function sciHome(){
+  const best = LS.get(K.sciBest, {}), nW = sciWrongIds().length;
+  let body = row({cls: "hot", act: "rand", ic: "🎲", t1: "随机 10 题", t2: `全部 ${TOPICS.length} 个单元混在一起`}) +
+    (nW ? row({cls: "warn", go: "#sci/x", ic: "📒", t1: `错题本 · ${nW} 题`, t2: "和科学主网站的错题本是同一个（同一个浏览器里）"}) : "");
+  for (const [lv, label] of GROUPS){
+    const ts = TOPICS.filter(t => t.lv === lv);
+    if (!ts.length) continue;
+    body += `<div class="sec">${label}</div>` + ts.map(t => { const d = topicDone(t, best), p = Math.round(d / t.total * 100);
+      return row({go: "#sci/u/" + t.id, ic: t.icon, t1: `${esc(t.title)} <span class="zh" style="font-weight:400">${esc(t.zh)}</span>`, t2: `${t.total} 题 · 拿过分 ${d}`, extra: `<span class="bars-mini"><i style="width:${p}%"></i></span>`}); }).join("");
+  }
+  screen({theme: "sci", back: "#", title: "🔬 Science 科学", body});
+  app.querySelector("[data-act=rand]").onclick = () => { const deal = () => shuffle(Object.values(ALLQ)).slice(0, 10); startSci("随机 10 题", deal(), null, deal); go("#sci/p"); };
+}
+function sciUnit(id){
+  const t = BY_ID[id];
+  if (!t) return location.replace("#sci");
+  const best = LS.get(K.sciBest, {}), sb = LS.get(K.sciSort, {});
+  let body = row({cls: "hot", act: "rand", ic: "🎲", t1: "随机 10 题", t2: `从这个单元 ${t.total} 题里抽`});
+  if (t.sorts.length) body += `<div class="sec">🧩 分一分（看照片点分类）</div>` + t.sorts.map(s => row({act: "sort", k: s.key, t1: esc(s.title), t2: esc(s.zh) + (sb[s.key] != null ? ` · 最好 ${sb[s.key]}%` : "")})).join("");
+  [1, 2, 3, 4].forEach(lv => {
+    const ss = t.sets.filter(s => s.lv === lv);
+    if (!ss.length) return;
+    body += `<div class="sec">${LEVELS[lv]}</div>` + ss.map(s => {
+      const b = best[s.key], full = b != null && b >= Math.ceil(s.qs.length * 0.9);
+      return row({act: "set", k: s.key, t1: esc(s.title), t2: `${esc(s.zh)} · ${s.qs.length} 题${b != null ? ` · <b style="color:${full ? "var(--ok)" : "inherit"}">最好 ${b}/${s.qs.length}</b>` : ""}`});
+    }).join("");
+  });
+  screen({theme: "sci", back: "#sci", title: `${t.icon} ${esc(t.title)} ${esc(t.zh)}`, body});
+  app.querySelector("[data-act=rand]").onclick = () => { const deal = () => shuffle(t.all.slice()).slice(0, 10); startSci(t.title + " · 随机", deal(), null, deal); go("#sci/p"); };
+  app.querySelectorAll("[data-act=set]").forEach(b => b.onclick = () => { const s = t.sets.find(x => x.key === b.dataset.k); startSci(s.title, s.qs, s.key); go("#sci/p"); });
+  app.querySelectorAll("[data-act=sort]").forEach(b => b.onclick = () => { const s = t.sorts.find(x => x.key === b.dataset.k);
+    play = {kind: "sort", s, back: "#sci/u/" + t.id, items: shuffle(s.items.slice()).slice(0, 10), i: 0, res: [], misses: [], picked: null}; go("#sci/g"); });
+}
+function sciMistakes(){
+  const ids = sciWrongIds();
+  if (!ids.length){ screen({theme: "sci", back: "#sci", title: "📒 错题本", body: `<div class="card"><h2>没有错题 🎉</h2><p class="zh">做错的题会自动放到这里，做对了就移出。</p></div>`}); return; }
+  const by = TOPICS.map(t => [t, ids.filter(id => ALLQ[id].topic === t.id)]).filter(x => x[1].length);
+  screen({theme: "sci", back: "#sci", title: `📒 错题本 · ${ids.length}`, body:
+    row({cls: "hot", act: "all", ic: "🔁", t1: `重做 ${Math.min(10, ids.length)} 道错题`, t2: `一共 ${ids.length} 道，每次最多 10 道`}) +
+    `<div class="sec">按单元</div>` + by.map(([t, list]) => row({act: "unit", k: t.id, ic: t.icon, t1: `${esc(t.title)} · ${list.length} 题`, t2: esc(t.zh)})).join("")});
+  const dealAll = () => shuffle(sciWrongIds().map(id => ALLQ[id])).slice(0, 10);
+  app.querySelector("[data-act=all]").onclick = () => { startSci("错题 Mistakes", dealAll(), null, dealAll); go("#sci/p"); };
+  app.querySelectorAll("[data-act=unit]").forEach(b => b.onclick = () => {
+    const deal = () => shuffle(sciWrongIds().filter(id => ALLQ[id].topic === b.dataset.k).map(id => ALLQ[id])).slice(0, 10);
+    startSci("错题 · " + BY_ID[b.dataset.k].title, deal(), null, deal); go("#sci/p"); });
+}
+function startSci(title, qs, setKey, refill){
+  play = {kind: "sci", title, setKey, src: qs, refill, qs: qs.map(q => ({q, order: q.fix ? q.o.map((_, i) => i) : shuffle(q.o.map((_, i) => i)), picked: null})), i: 0, res: []};
+}
+function sciPlay(){
+  const z = play;
+  if (!z || z.kind !== "sci") return location.replace("#sci");
+  const n = z.qs.length;
+  if (z.i >= n) return sciDone();
+  const {q, order, picked} = z.qs[z.i], t = BY_ID[q.topic], answered = picked != null;
+  let stem = "";
+  if (q.pic) stem += `<div class="stempics${q.pic.length > 1 ? " two" : ""}">${q.pic.map((p, k) => figure(p, q.pl ? q.pl[k] : false)).join("")}</div>`;
+  if (q.ch) stem += chartHTML(q.topic, q.ch);
+  stem += `<div class="qhead"><p class="qtext">${esc(q.q)}</p><button class="say" id="sayq">🔊</button></div>`;
+  if (q.st) stem += `<ul class="stl">${q.st.map((s, k) => `<li><b>${"ABCD"[k]}</b>${esc(s)}</li>`).join("")}</ul>`;
+  const ok = answered && picked === q.a;
+  screen({theme: "sci", back: "#sci", title: `${t.icon} ${esc(z.title)}`, right: `${z.i + 1} / ${n}`, body: `
+    ${lineHTML(z.res, n)}
+    <div class="card">${stem}
+      <div>${order.map((oi, k) => `<button class="opt${answered ? (oi === q.a ? " right" : oi === picked ? " wrong" : "") : ""}" data-oi="${oi}"${answered ? " disabled" : ""}><span class="n">(${k + 1})</span>${esc(q.o[oi])}<span class="note">${answered && q.n ? esc(q.n[oi]) : ""}</span></button>`).join("")}</div>
+      ${answered ? `<div class="explain ${ok ? "ok" : "bad"}" id="after">${ok ? "✅ Correct! " : "❌ Not quite. "}${esc(q.e)}${q.z ? `<div class="zh" style="margin-top:4px">${esc(q.z)}</div>` : ""}</div>` : ""}
+    </div>`, dock: `<button id="next"${answered ? "" : " disabled"}>${answered ? (z.i + 1 < n ? "下一题 Next ›" : "到站 Finish 🚉") : "先选一个答案"}</button>`});
+  $("#sayq").onclick = () => say(q.q + (q.st ? " " + q.st.map((s, k) => "ABCD"[k] + ". " + s).join(". ") : "") + ". " + order.map((oi, k) => "Option " + (k + 1) + ": " + q.o[oi]).join(". "));
+  if (!answered) app.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+    const oi = +b.dataset.oi, right = oi === q.a;
+    z.qs[z.i].picked = oi; z.res.push(right);
+    LS.edit(K.sciWrong, w => { if (right) delete w[q.id]; else w[q.id] = true; });
+    render(); $("#after").scrollIntoView({block: "nearest", behavior: "smooth"});
+  });
+  else $("#next").onclick = () => { z.i++; render(true); };
+}
+function sciDone(){
+  const z = play, n = z.qs.length, score = z.res.filter(Boolean).length;
+  if (z.setKey && !z.saved){ z.saved = true; LS.edit(K.sciBest, b => { if (b[z.setKey] == null || score > b[z.setKey]) b[z.setKey] = score; }); }
+  const wrongQs = z.qs.filter((x, i) => !z.res[i]).map(x => x.q);
+  screen({theme: "sci", back: "#sci", title: `🔬 ${esc(z.title)}`, right: "🚉", body: `
+    ${lineHTML(z.res, n)}
+    <div class="card" style="text-align:center"><h2>🚉 到站！</h2><div class="big-num">${score} / ${n}</div>
+      <p class="zh">${score === n ? "全对！🎉" : score >= Math.ceil(n * 0.9) ? "AL1 水平！错的那题已进错题本。" : "错的题已进错题本，下次先做错题。"}</p>
+      <div class="btns">${wrongQs.length ? `<button class="btn" id="redo">马上重做错的 ${wrongQs.length} 题</button>` : ""}
+        ${z.setKey || (z.refill && z.refill().length) ? `<button class="btn${wrongQs.length ? " ghost" : ""}" id="again">${z.setKey ? "再做一次" : "再来一组"}</button>` : ""}
+        <button class="btn ghost" id="back2">返回</button></div></div>`});
+  if ($("#redo")) $("#redo").onclick = () => { startSci("错的再做", shuffle(wrongQs.slice()), null); render(true); };
+  if ($("#again")) $("#again").onclick = () => { if (z.setKey) startSci(z.title, z.src, z.setKey); else startSci(z.title, z.refill(), null, z.refill); render(true); };
+  $("#back2").onclick = () => goBack("#sci");
+}
+function sortPlay(){
+  const g = play;
+  if (!g || g.kind !== "sort") return location.replace("#sci");
+  const n = g.items.length;
+  if (g.i >= n){
+    const score = g.res.filter(Boolean).length, pct = Math.round(score / n * 100);
+    if (!g.saved){ g.saved = true; LS.edit(K.sciSort, b => { if (b[g.s.key] == null || pct > b[g.s.key]) b[g.s.key] = pct; }); }
+    screen({theme: "sci", back: g.back, title: `🧩 ${esc(g.s.title)}`, right: "🚉", body: `${lineHTML(g.res, n)}
+      <div class="card" style="text-align:center"><h2>🚉 到站！</h2><div class="big-num">${score} / ${n}</div>
+        <div class="btns"><button class="btn" id="again">再玩一次</button><button class="btn ghost" id="back2">返回</button></div></div>
+      ${g.misses.length ? `<div class="card"><ul class="res">${g.misses.map(m => `<li class="bad"><span class="mk">✗</span><span><span class="w">${esc(thing(m[0]).en)}</span> → ${esc(m[1])}<br><span class="zh">${esc(m[2])}</span></span></li>`).join("")}</ul></div>` : ""}`});
+    $("#again").onclick = () => { Object.assign(g, {items: shuffle(g.s.items.slice()).slice(0, 10), i: 0, res: [], misses: [], picked: null, saved: false}); render(true); };
+    $("#back2").onclick = () => goBack(g.back);
+    return;
+  }
+  const it = g.items[g.i], answered = g.picked != null, rightBin = g.s.bins.find(b => b[0] === it[1]), ok = answered && g.picked === it[1];
+  screen({theme: "sci", back: g.back, title: `🧩 ${esc(g.s.title)}`, right: `${g.i + 1} / ${n}`, body: `${lineHTML(g.res, n)}
+    <div class="card sortcard">${figure(it[0])}
+      <div class="bins">${g.s.bins.map(b => `<button class="bin${answered ? (b[0] === it[1] ? " right" : b[0] === g.picked ? " wrong" : "") : ""}" data-k="${b[0]}"${answered ? " disabled" : ""}>${esc(b[1])}<small>${esc(b[2])}</small></button>`).join("")}</div>
+      ${answered ? `<div class="explain ${ok ? "ok" : "bad"}" id="after" style="text-align:left">${ok ? "✅ " : "❌ It is <b>" + esc(rightBin[1]) + "</b>. "}${esc(it[2])}</div>` : ""}
+    </div>`, dock: `<button id="next"${answered ? "" : " disabled"}>${answered ? (g.i + 1 < n ? "下一个 Next ›" : "到站 Finish 🚉") : "点它属于哪一组"}</button>`});
+  if (!answered) app.querySelectorAll(".bin").forEach(b => b.onclick = () => {
+    g.picked = b.dataset.k; const right = g.picked === it[1]; g.res.push(right);
+    if (!right) g.misses.push([it[0], rightBin[1], it[2]]);
+    render(); $("#after").scrollIntoView({block: "nearest", behavior: "smooth"});
+  });
+  else $("#next").onclick = () => { g.i++; g.picked = null; render(true); };
+}
+
+/* ---------------- info ---------------- */
+function info(){
+  const credits = Object.values(PICS).map(p => { const file = decodeURIComponent(p[0].split("/")[2]);
+    return `<div><a href="https://commons.wikimedia.org/wiki/File:${encodeURIComponent(file)}" target="_blank" rel="noopener">${esc(p[1])}</a></div>`; }).join("");
+  screen({back: "#", title: "ℹ️ 怎么用 · 家长看", body: `
+    <div class="card"><h2>地铁上怎么练</h2><ul class="facts">
+      <li><b>全部是点的，不用打字。</b>每组最多 10 题，大概两三站做完一组。上面那条「地铁线」就是进度，一题一站，绿点对、红点错。</li>
+      <li><b>英文三种练法</b>：🗣️ 念给他拼——家长拿手机念，孩子说出拼写，家长点对错；🧩 字母拼词——孩子自己点 🔊 听（戴耳机），点字母拼出来；📖 选词·词义——句子里该填哪个词、这个词什么意思。</li>
+      <li><b>科学</b>：🎲 随机 10 题最适合地铁；也可以进单元做整套或玩「分一分」。题目和照片就是科学主网站那 ${SCI_TOTAL} 题。</li>
+      <li><b>错的都会自动进错题本</b>，做对一次就移出。下车前点一下「再练错的」。</li>
+      <li>🔊 读音用手机自带的英式英语。地铁上建议戴耳机，或者用「念给他拼」。</li>
+      <li>打开过的页面和照片会存在手机里，信号不好也能继续做。</li>
+      <li>记录只存在这部手机的浏览器里。注意：iPhone 从主屏幕打开和在 Safari 里打开，记录是分开的，固定用一种就好。</li>
+    </ul>
+    <div class="btns"><button class="btn ghost" id="wipeEn">清空英文记录</button><button class="btn ghost" id="wipeSci">清空科学记录</button></div></div>
+    <div class="card"><details><summary>照片来源 Photo credits</summary><p class="zh">照片来自 Wikimedia Commons（各自的 CC 授权，点名字可以看作者和授权）。</p><div class="credits">${credits}</div></details></div>
+    <p class="ver">v${VERSION} · 英文 ${EN.length} 个词表 · 科学 ${TOPICS.length} 个单元</p>`});
+  $("#wipeEn").onclick = () => { if (confirm("清空英文的错词和成绩？")){ LS.set(K.enWrong, {}); LS.set(K.enBest, {}); render(); } };
+  $("#wipeSci").onclick = () => { if (confirm("清空科学的错题和成绩？（同一个浏览器里，科学主网站的记录也会一起清空）")){ LS.set(K.sciWrong, {}); LS.set(K.sciBest, {}); LS.set(K.sciSort, {}); render(); } };
+}
+
+render(true);
+if ("serviceWorker" in navigator && window.isSecureContext) navigator.serviceWorker.register("sw.js").catch(() => {});
+</script>
+</body>
+</html>
