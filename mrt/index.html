@@ -85,6 +85,7 @@ p{margin:6px 0}
 .line i.now{width:24px;height:24px;border-width:6px}
 .line i.ok{width:18px;height:18px;background:var(--ok);border:3px solid #fff;box-shadow:0 0 0 2px var(--ok)}
 .line i.bad{width:18px;height:18px;background:var(--bad);border:3px solid #fff;box-shadow:0 0 0 2px var(--bad)}
+.line i.half{width:18px;height:18px;background:#d97706;border:3px solid #fff;box-shadow:0 0 0 2px #d97706}
 /* quiz bits */
 .qtext{font-size:18px;font-weight:600;margin:8px 0 4px;white-space:pre-line}
 .qhead{display:flex;gap:8px;align-items:flex-start;justify-content:space-between}
@@ -97,10 +98,11 @@ p{margin:6px 0}
 .opt:disabled{cursor:default;color:inherit;opacity:1}
 .opt.right{border-color:var(--ok);background:var(--okbg)}
 .opt.wrong{border-color:var(--bad);background:var(--badbg)}
+.opt.half{border-color:#d97706;background:var(--warnbg)}
 .opt .note{display:block;font-size:14px;margin-top:4px;color:var(--mute)}
 .opt .note:empty{display:none}
 .explain{margin-top:12px;padding:12px 14px;border-radius:14px;background:#f1f5f9;scroll-margin-bottom:110px}
-.explain.ok{background:var(--okbg)}.explain.bad{background:var(--badbg)}
+.explain.ok{background:var(--okbg)}.explain.bad{background:var(--badbg)}.explain.half{background:var(--warnbg)}
 .blank{display:inline-block;min-width:64px;border-bottom:3px solid var(--c);margin:0 3px;height:1em;vertical-align:-2px}
 .sent{font-size:18px;line-height:1.55}
 .def{font-size:15.5px;color:#334155;background:var(--cbg);border-radius:12px;padding:10px 12px;margin:10px 0 0}
@@ -220,20 +222,20 @@ const TOPICS = [];
 function TOPIC(t){ TOPICS.push(t); }
 </script>
 <!-- science units come straight from the main science page; English lists from tools/sync_english.js -->
-<script src="../topics/classification.js?v=2026-11-26-1"></script>
-<script src="../topics/materials.js?v=2026-11-26-1"></script>
-<script src="../topics/lifecycles.js?v=2026-11-26-1"></script>
-<script src="../topics/plants.js?v=2026-11-26-1"></script>
-<script src="../topics/digestive.js?v=2026-11-26-1"></script>
-<script src="../topics/magnets.js?v=2026-11-26-1"></script>
-<script src="../topics/light.js?v=2026-11-26-1"></script>
-<script src="../topics/plantsystem.js?v=2026-11-26-1"></script>
-<script src="../topics/matter.js?v=2026-11-26-1"></script>
-<script src="../topics/heat.js?v=2026-11-26-1"></script>
-<script src="english.js?v=2026-11-26-1"></script>
+<script src="../topics/classification.js?v=2026-11-26-2"></script>
+<script src="../topics/materials.js?v=2026-11-26-2"></script>
+<script src="../topics/lifecycles.js?v=2026-11-26-2"></script>
+<script src="../topics/plants.js?v=2026-11-26-2"></script>
+<script src="../topics/digestive.js?v=2026-11-26-2"></script>
+<script src="../topics/magnets.js?v=2026-11-26-2"></script>
+<script src="../topics/light.js?v=2026-11-26-2"></script>
+<script src="../topics/plantsystem.js?v=2026-11-26-2"></script>
+<script src="../topics/matter.js?v=2026-11-26-2"></script>
+<script src="../topics/heat.js?v=2026-11-26-2"></script>
+<script src="english.js?v=2026-11-26-2"></script>
 <script>
 "use strict";
-const VERSION = "2026-11-26-1";
+const VERSION = "2026-11-26-2";
 const $ = s => document.querySelector(s);
 const bar = $("#bar"), app = $("#app"), dock = $("#dock");
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
@@ -396,7 +398,7 @@ app.addEventListener("click", e => { const b = e.target.closest("[data-go]"); if
 
 function lineHTML(res, n){
   let h = `<div class="line" aria-label="${res.length} of ${n}">`;
-  for (let k = 0; k < n; k++) h += `<i class="${k < res.length ? (res[k] ? "ok" : "bad") : k === res.length ? "now" : ""}"></i>`;
+  for (let k = 0; k < n; k++) h += `<i class="${k < res.length ? (res[k] === 0.5 ? "half" : res[k] ? "ok" : "bad") : k === res.length ? "now" : ""}"></i>`;
   return h + `</div>`;
 }
 function row(o){
@@ -649,26 +651,26 @@ function sciPlay(){
   if (q.ch) stem += chartHTML(q.topic, q.ch);
   stem += `<div class="qhead"><p class="qtext">${esc(q.q)}</p><button class="say" id="sayq">🔊</button></div>`;
   if (q.st) stem += `<ul class="stl">${q.st.map((s, k) => `<li><b>${"ABCD"[k]}</b>${esc(s)}</li>`).join("")}</ul>`;
-  const ok = answered && picked === q.a;
+  const ok = answered && picked === q.a, half = answered && !ok && q.n && /^½/.test(q.n[picked]);
   screen({theme: "sci", back: "#sci", title: `${t.icon} ${esc(z.title)}`, right: `${z.i + 1} / ${n}`, body: `
     ${lineHTML(z.res, n)}
     <div class="card">${stem}
-      <div>${order.map((oi, k) => `<button class="opt${answered ? (oi === q.a ? " right" : oi === picked ? " wrong" : "") : ""}" data-oi="${oi}"${answered ? " disabled" : ""}><span class="n">(${k + 1})</span>${esc(q.o[oi])}<span class="note">${answered && q.n ? esc(q.n[oi]) : ""}</span></button>`).join("")}</div>
-      ${answered ? `<div class="explain ${ok ? "ok" : "bad"}" id="after">${ok ? "✅ Correct! " : "❌ Not quite. "}${esc(q.e)}${q.z ? `<div class="zh" style="margin-top:4px">${esc(q.z)}</div>` : ""}</div>` : ""}
+      <div>${order.map((oi, k) => `<button class="opt${answered ? (oi === q.a ? " right" : oi === picked ? (half ? " half" : " wrong") : "") : ""}" data-oi="${oi}"${answered ? " disabled" : ""}><span class="n">(${k + 1})</span>${esc(q.o[oi])}<span class="note">${answered && q.n ? esc(q.n[oi]) : ""}</span></button>`).join("")}</div>
+      ${answered ? `<div class="explain ${ok ? "ok" : half ? "half" : "bad"}" id="after">${ok ? "✅ Correct! " : half ? "½ 半对 Half marks — 还拿不到满分。 " : "❌ Not quite. "}${esc(q.e)}${q.z ? `<div class="zh" style="margin-top:4px">${esc(q.z)}</div>` : ""}</div>` : ""}
     </div>`, dock: `<button id="next"${answered ? "" : " disabled"}>${answered ? (z.i + 1 < n ? "下一题 Next ›" : "到站 Finish 🚉") : "先选一个答案"}</button>`});
   $("#sayq").onclick = () => say(q.q + (q.st ? " " + q.st.map((s, k) => "ABCD"[k] + ". " + s).join(". ") : "") + ". " + order.map((oi, k) => "Option " + (k + 1) + ": " + q.o[oi]).join(". "));
   if (!answered) app.querySelectorAll(".opt").forEach(b => b.onclick = () => {
     const oi = +b.dataset.oi, right = oi === q.a;
-    z.qs[z.i].picked = oi; z.res.push(right);
+    z.qs[z.i].picked = oi; z.res.push(right ? 1 : q.n && /^½/.test(q.n[oi]) ? 0.5 : 0);
     LS.edit(K.sciWrong, w => { if (right) delete w[q.id]; else w[q.id] = true; });
     render(); $("#after").scrollIntoView({block: "nearest", behavior: "smooth"});
   });
   else $("#next").onclick = () => { z.i++; render(true); };
 }
 function sciDone(){
-  const z = play, n = z.qs.length, score = z.res.filter(Boolean).length;
+  const z = play, n = z.qs.length, score = z.res.filter(r => r === 1).length;
   if (z.setKey && !z.saved){ z.saved = true; LS.edit(K.sciBest, b => { if (b[z.setKey] == null || score > b[z.setKey]) b[z.setKey] = score; }); }
-  const wrongQs = z.qs.filter((x, i) => !z.res[i]).map(x => x.q);
+  const wrongQs = z.qs.filter((x, i) => z.res[i] !== 1).map(x => x.q);
   screen({theme: "sci", back: "#sci", title: `🔬 ${esc(z.title)}`, right: "🚉", body: `
     ${lineHTML(z.res, n)}
     <div class="card" style="text-align:center"><h2>🚉 到站！</h2><div class="big-num">${score} / ${n}</div>

@@ -36,6 +36,29 @@ TOPIC({id:"magnets", lv:"P3/P4", icon:"🧲", title:"Magnets", zh:"磁铁", pics
 - English: simple, British spelling (colour, aluminium, metre, mould), Singapore context (HDB, hawker, MRT, rain trees).
 - Write questions yourself. Never copy questions from websites or papers (copyright) — use them only to judge depth.
 
+## No giveaways (answer length and shape)
+A child must never be able to find the answer by picking the longest or most detailed option. (The first version failed
+this: on Level 4 the right answer was the longest in 104 of 108 questions.) `tools/check.js` enforces it:
+- Write all options **in the same shape and about the same length** (within ~25 %). A short answer with the right keyword beats
+  a long one without it — so wrong options are often the longer ones.
+- The right option must **never contain a wrong option inside it** (right = "Useful: yoghurt. Harmful: food poisoning.",
+  wrong = "Useful: yoghurt." — the child just picks the superset).
+- In each set the right option may be the longest in **at most 3** questions.
+- **Level 4 ("which answer gets full marks?")**: every option is a complete-looking answer of the same shape (if the question
+  asks for two things, every option gives two things). Each wrong option has ONE real exam mistake that a teacher would mark down:
+  everyday words instead of the keyword ("dark" instead of "opaque", "hot" instead of "gains heat"), one of the two parts wrong
+  (a fungus given as a bacterium, a use that is not a use), the reason missing but padded with a true but irrelevant detail,
+  cause and effect reversed, an observation instead of an explanation, an over-statement ("all bacteria", "never").
+  Never nonsense options — the child must need science to tell them apart.
+- **No "odd one out" either.** If every wrong option is the right answer with ONE half swapped, the right answer is the one the
+  others agree with, and a test-wise child picks it without knowing the science. For answers with two parts (two functions;
+  property + reason; change + reason; keyword + link) build the options as a **2×2 grid**: right+right ✓, right+wrong ½,
+  wrong+right ½, wrong+wrong ✗ — then each half appears exactly twice and no option is "the middle one". For one-part answers,
+  make the wrong options differ from the right one AND from each other in different ways. `check.js` allows the right option
+  to be the one sharing the most words with the others in at most 3 questions per set.
+- Notes `n` start with ✓ (full marks, only on the right option), ½ (part marks) or ✗ (no marks) and say exactly which word or
+  idea earns or loses the mark. The page shows ½ options in amber ("half marks"), not red.
+
 ## Question fields
 `q` question (use `\n` for a new line, `___` for a blank) · `o` 2–4 options · `a` index of the right option in `o` ·
 `e` explanation · `z` 中文提示 · optional: `st` statements, `pic:["id"]` photos above the question (their names are

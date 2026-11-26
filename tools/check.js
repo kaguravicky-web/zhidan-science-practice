@@ -18,7 +18,16 @@ for (const f of all) {
 }
 
 // merged photo / emoji maps (topics may reuse each other's ids)
-const PICS = {}, EMO = {}, probs = [];
+const PICS = {}, EMO = {}, probs = [], warns = [];
+const norm = s => s.toLowerCase().replace(/[^a-z0-9 ]/g, "").replace(/\s+/g, " ").trim();
+// "pick the option the others agree with": word overlap of each option with all the other options
+const words = s => new Set(s.toLowerCase().replace(/[^a-z0-9 ]/g, " ").split(/\s+/).filter(w => w.length > 2));
+const jac = (a, b) => { let i = 0; for (const w of a) if (b.has(w)) i++; return i / (a.size + b.size - i || 1); };
+function centroidIsRight(q) {
+  const W = q.o.map(words), sc = W.map((w, k) => W.reduce((x, v, j) => j === k ? x : x + jac(w, v), 0));
+  const max = Math.max(...sc);
+  return sc.filter(x => x === max).length === 1 && sc[q.a] === max;
+}
 for (const t of TOPICS) {
   for (const [k, v] of Object.entries(t.pics || {})) {
     if (PICS[k] && JSON.stringify(PICS[k]) !== JSON.stringify(v)) probs.push(`${t.id}: photo id "${k}" already used by another topic with a different photo`);
@@ -60,6 +69,7 @@ for (const t of TOPICS) {
   // sets
   const setIds = new Set(), texts = new Set();
   for (const s of t.sets || []) {
+    let longestInSet = 0, middleInSet = 0;
     if (setIds.has(s.id)) P(`duplicate set id ${s.id}`); setIds.add(s.id);
     if (![1, 2, 3, 4].includes(s.lv)) P(`set ${s.id}: lv must be 1-4`);
     if (!s.title || !s.zh) P(`set ${s.id}: needs title and zh`);
@@ -80,9 +90,25 @@ for (const t of TOPICS) {
         const letters = "ABCD".slice(0, q.st.length);
         q.o.forEach(o => (o.match(/\b[A-D]\b/g) || []).forEach(L => { if (!letters.includes(L)) P(`${tag}: option uses ${L} but there are only ${q.st.length} statements`); }));
       }
+      // no giveaways: the right option must not be the longest by a mile, or contain a wrong option inside it
+      if (!q.st && !q.fix) {
+        const right = norm(q.o[q.a]);
+        q.o.forEach((o, k) => { if (k !== q.a && norm(o).length > 8 && right.includes(norm(o))) P(`${tag}: the right option contains wrong option "${o}" (the longest one is always right)`); });
+        if (q.o.length >= 3 && centroidIsRight(q)) middleInSet++;
+        const L = q.o.map(o => o.length), others = L.filter((_, k) => k !== q.a), avg = others.reduce((x, y) => x + y, 0) / others.length;
+        if (L.reduce((x, y) => x + y, 0) / L.length >= 15) {
+          if (L[q.a] > Math.max(...others) * 1.1) longestInSet++;
+          const ratio = L[q.a] / avg;
+          if (s.lv === 4 && ratio > 1.3) P(`${tag}: Level 4 right option is ${ratio.toFixed(1)}x as long as the others — make all options the same length`);
+          else if (ratio > 1.5) warns.push(`${t.id} ${tag}: right option is ${ratio.toFixed(1)}x as long as the others`);
+        }
+      }
+      if (q.n) q.n.forEach((x, k) => { if (!/^[✓½✗]/.test(x)) P(`${tag}: note ${k + 1} must start with ✓, ½ or ✗`); if ((k === q.a) !== x.startsWith("✓")) P(`${tag}: only the right option's note starts with ✓`); });
       const key = q.q + "|" + (q.ch || "") + "|" + (q.pic || []).join() + "|" + q.o[q.a];
       if (texts.has(key)) P(`${tag}: same question appears twice`); texts.add(key);
     });
+    if (longestInSet > 3) P(`set ${s.id}: the right option is the longest in ${longestInSet} questions (max 3 per set)`);
+    if (middleInSet > 3) P(`set ${s.id}: the right option shares the most words with the other options in ${middleInSet} questions (max 3 per set) — use the 2x2 grid (see AUTHORING.md)`);
   }
   // sorts
   for (const s of t.sorts || []) {
@@ -99,5 +125,6 @@ for (const t of TOPICS) {
   const nq = (t.sets || []).reduce((a, s) => a + s.qs.length, 0);
   console.log(`${t.icon} ${t.id} (${t.lv}): ${t.learn.filter(c => !c.sec).length} learn cards, ${(t.sorts || []).length} sorts, ${(t.sets || []).length} sets, ${nq} questions`);
 }
+if (warns.length) console.log(`\n! ${warns.length} warning(s) (allowed, but look at them):\n - ` + warns.join("\n - "));
 console.log(probs.length ? `\n✗ ${probs.length} problem(s):\n - ` + probs.join("\n - ") : `\n✓ no problems (${grand} questions checked)`);
 if (probs.length) process.exitCode = 1;

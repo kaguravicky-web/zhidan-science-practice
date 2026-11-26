@@ -1,6 +1,6 @@
 // Offline cache for the MRT page. Page + data: network first (3.5 s), cached copy when the signal is bad.
 // Photos (Wikimedia thumbnails): cached the first time they are seen.
-const PAGES = "mrt-pages-v1", PHOTOS = "mrt-photos-v1";
+const PAGES = "mrt-pages-v2", PHOTOS = "mrt-photos-v1";
 self.addEventListener("install", e => self.skipWaiting());
 self.addEventListener("activate", e => e.waitUntil((async () => {
   for (const k of await caches.keys()) if (![PAGES, PHOTOS].includes(k)) await caches.delete(k);
@@ -15,7 +15,8 @@ self.addEventListener("fetch", e => {
 });
 async function page(r, u){
   const c = await caches.open(PAGES);
-  const net = fetch(r).then(async res => {
+  // scripts and data: always check with the server (a quick 304 when nothing changed); pages keep the normal request
+  const net = fetch(r.mode === "navigate" ? r : new Request(r, {cache: "no-cache"})).then(async res => {
     if (res.ok){
       for (const k of await c.keys()) if (new URL(k.url).pathname === u.pathname && k.url !== r.url) c.delete(k);  // old ?v= copies
       await c.put(r, res.clone());
