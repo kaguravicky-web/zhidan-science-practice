@@ -12,6 +12,8 @@ const PICS = {
 };
 // emoji-only things (no photo needed)
 const EMO = {
+  golfer:["🏌️","golfer","打高尔夫的人"],
+  banana:["🍌","banana","香蕉"],
   body:["🧍","human body","人体"], mouth:["👄","mouth","口腔"], tongue:["👅","tongue","舌头"], lungs:["🫁","lungs","肺"],
   heart:["🫀","heart","心脏"], nose:["👃","nose","鼻子"], blood:["🩸","blood","血液"], skull:["💀","skull","头骨"],
   bone:["🦴","bones","骨头"], muscle:["💪","muscles","肌肉"], runner:["🏃","running","跑步"]
@@ -36,6 +38,15 @@ const CHARTS = {
 
 /* ---------------- learn cards ---------------- */
 const LEARN = [
+ {sec:"⛳ Golf science 高尔夫里的科学", golf:1},
+ {golf:1, t:"A banana at the turn 打完九洞吃根香蕉", emo:["banana","golfer"], facts:[
+  "Many golfers eat a banana halfway through a round. The body has to <b>digest</b> it before it can use it.",
+  "In the <b>mouth</b>, the <b>teeth</b> break the banana into small pieces and <b>saliva</b> starts to digest it.",
+  "It goes down the <b>gullet</b> to the <b>stomach</b>, where <b>digestive juices</b> break it down further.",
+  "In the <b>small intestine</b>, digestion is <b>completed</b> and the digested food is <b>absorbed into the blood</b>. The blood carries it to the muscles you use to walk and swing.",
+  "The <b>large intestine</b> absorbs <b>water</b> from the undigested food."],
+  zh:"很多人打完前九洞会吃根香蕉，身体要先把它消化才能用上。口腔里牙齿把香蕉嚼碎，唾液开始消化；经过食道到胃，消化液继续分解；在小肠里消化完成，消化好的养分被吸收进血液，送到走路和挥杆用的肌肉。大肠吸收未消化食物里的水分。",
+  trap:"⚠️ Digested food is absorbed into the blood in the SMALL intestine, not the stomach. The large intestine mainly absorbs water."},
  {sec:"1 · Body systems 人体系统"},
  {t:"Systems in the body 人体系统", emo:["body"], facts:[
   "A <b>system</b> is a group of parts (<b>organs</b>) that <b>work together</b> to carry out a function (do a job).",

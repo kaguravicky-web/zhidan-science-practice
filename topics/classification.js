@@ -1,6 +1,12 @@
 /* Topic: Classification (P3 Diversity). Data only - see tools/AUTHORING.md for the format. */
 (function(){
 const PICS = {
+  kingfisher:["6/6c/Todiramphus_chloris_2_-_Laem_Phak_Bia.jpg/330px-Todiramphus_chloris_2_-_Laem_Phak_Bia.jpg","collared kingfisher","白领翡翠（一种翠鸟）","🐦"],
+  heron:["a/a9/Il_pescatore_solitario.jpg/330px-Il_pescatore_solitario.jpg","grey heron","苍鹭","🐦"],
+  otter:["c/cd/Smooth-coated_otter_%28Lutrogale_perspicillata%29_Kota_Kinabatangan.jpg/330px-Smooth-coated_otter_%28Lutrogale_perspicillata%29_Kota_Kinabatangan.jpg","smooth-coated otter","江獭（水獭）","🦦"],
+  fairyring:["9/96/Fairy_ring_on_a_suburban_lawn_100_1851.jpg/330px-Fairy_ring_on_a_suburban_lawn_100_1851.jpg","fairy ring: mushrooms growing in a circle on grass","仙女环：草地上长成一圈的蘑菇","🍄"],
+  golfcourse:["d/d1/Golf_course_Golfplatz_Wittenbeck_Mecklenburg_Ostsee_Baltic_Sea_Germany.jpg/330px-Golf_course_Golfplatz_Wittenbeck_Mecklenburg_Ostsee_Baltic_Sea_Germany.jpg","a golf course from the air","从空中看高尔夫球场","⛳"],
+  golfball:["e/e6/Golfball.jpg/330px-Golfball.jpg","golf ball next to the hole","高尔夫球和球洞","⛳"],
   moss:["4/45/Green_moss_growing_on_a_rock.jpg/330px-Green_moss_growing_on_a_rock.jpg","moss","苔藓","🌿"],
   mosscap:["2/29/Polytrichum_commune.jpeg/330px-Polytrichum_commune.jpeg","moss with spore capsules","苔藓的孢子囊","🌿"],
   fern:["f/f7/Nephrolepis_exaltata_indoor0705c.jpg/330px-Nephrolepis_exaltata_indoor0705c.jpg","fern","蕨","🌿"],
@@ -73,6 +79,30 @@ const EMO = {
 
 /* ---------------- learn cards ---------------- */
 const LEARN = [
+ {sec:"⛳ Golf science 高尔夫里的科学", golf:1},
+ {golf:1, t:"Living or non-living on the course? 球场上：生物还是非生物", pics:["golfball","golfcourse"], facts:[
+  "The <b>grass</b> on the fairway is a <b>living thing</b>: it <b>grows</b>, needs <b>air</b>, <b>water</b> and <b>food</b>, and <b>reproduces</b>.",
+  "A divot slowly fills in with new grass — the grass <b>grows</b>. Growing is one sign of a living thing.",
+  "A bird flies off when a ball lands near it: living things <b>respond to changes</b> around them.",
+  "The <b>golf ball</b>, the tee and the flagstick are <b>non-living</b>: they do not grow, reproduce or need food."],
+  zh:"球道上的草会生长、需要空气水和养分、会繁殖，是生物。打出的草皮坑会慢慢长满新草——会生长是生物的特征。球落在鸟旁边，鸟会飞走：生物会对周围的变化作出反应。球、球座、旗杆不会生长，是非生物。",
+  trap:"⚠️ Moving does not prove something is alive: a rolling ball moves but is non-living. Check: does it grow, reproduce, respond to changes, and need air, food and water?"},
+ {golf:1, t:"Mushrooms after rain: fungi 雨后的蘑菇：真菌", pics:["fairyring","mushroom"], facts:[
+  "After a few rainy days, <b>mushrooms</b> may pop up on the fairway. They are <b>fungi</b>, not plants.",
+  "Sometimes they grow in a circle called a <b>fairy ring</b>.",
+  "Fungi <b>cannot make their own food</b>. These ones feed on <b>dead matter</b> in the soil, such as dead roots and grass clippings.",
+  "Fungi <b>reproduce by spores</b> and grow best in <b>damp</b>, warm places — that is why they appear after rain.",
+  "Fungi and bacteria <b>break down</b> dead grass and leaves, so dead plants do not pile up on the course."],
+  zh:"雨后球道上冒出的蘑菇是真菌，不是植物；有时会长成一圈，叫「仙女环」。真菌不能自己制造养分，靠分解土里死去的草根、草屑生存，用孢子繁殖，喜欢潮湿温暖的地方。真菌和细菌把枯草落叶分解掉。",
+  trap:"⚠️ A mushroom is NOT a plant: it has no green leaves and cannot make its own food using light."},
+ {golf:1, t:"Animals you meet on the course 球场上的动物", pics:["monitor","otter","heron","kingfisher","frog"], facts:[
+  "<b>Monitor lizard</b> — a <b>reptile</b>: dry, <b>scaly</b> skin; lays eggs on land.",
+  "<b>Otter</b> — a <b>mammal</b>: has <b>fur</b>; gives birth to young and feeds them <b>milk</b>.",
+  "<b>Heron</b> and <b>kingfisher</b> — <b>birds</b>: have <b>feathers</b> and a beak; lay eggs with hard shells.",
+  "<b>Frog</b> in the pond — an <b>amphibian</b>: <b>moist</b> skin; lays eggs in water.",
+  "<b>Fish</b> in the water hazard — have <b>scales</b> and <b>fins</b>, and breathe with <b>gills</b>."],
+  zh:"巨蜥：爬行动物（皮肤干燥有鳞片，在陆地上产蛋）。水獭：哺乳动物（有毛，胎生，喂奶）。苍鹭、翠鸟：鸟（有羽毛和喙，蛋有硬壳）。池塘里的青蛙：两栖动物（皮肤湿润，在水里产卵）。水障碍里的鱼：有鳞和鳍，用鳃呼吸。",
+  trap:"⚠️ An otter swims well, but it is a mammal, not a fish: it has fur, breathes with lungs and feeds its young on milk."},
  {sec:"1 · Living and non-living 生物与非生物"},
  {t:"Sorting into groups 分类是什么", pics:[], facts:[
   "We classify things by looking for <b>similarities</b> (what is the same) and <b>differences</b>.",

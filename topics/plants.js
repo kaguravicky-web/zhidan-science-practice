@@ -1,6 +1,7 @@
 /* Topic: Plant parts and their functions (P3 Systems). Data only - see tools/AUTHORING.md for the format. */
 (function(){
 const PICS = {
+  golfcourse:["d/d1/Golf_course_Golfplatz_Wittenbeck_Mecklenburg_Ostsee_Baltic_Sea_Germany.jpg/330px-Golf_course_Golfplatz_Wittenbeck_Mecklenburg_Ostsee_Baltic_Sea_Germany.jpg","a golf course from the air","从空中看高尔夫球场","⛳"],
   youngroots:["a/ab/Primary_and_secondary_cotton_roots.jpg/330px-Primary_and_secondary_cotton_roots.jpg","roots of a young plant","幼苗的根","🌱"],
   carrot:["a/a2/Vegetable-Carrot-Bundle-wStalks.jpg/330px-Vegetable-Carrot-Bundle-wStalks.jpg","carrots","胡萝卜","🥕"],
   sweetpotato:["3/38/Ipomoea_batatas_-_Tubers.jpg/330px-Ipomoea_batatas_-_Tubers.jpg","sweet potatoes","番薯","🍠"],
@@ -19,6 +20,7 @@ const PICS = {
 };
 // "job cards" for the function sort, plus food we eat (ids from classification.js are reused: hibiscus, mango, moneyplant, raintree, sunflower)
 const EMO = {
+  sprinkler:["💦","sprinklers watering the green","喷灌给果岭浇水"],
   tomato:["🍅","tomato","番茄"], cucumber:["🥒","cucumber","黄瓜"], chilli:["🌶️","chilli","辣椒"], brinjal:["🍆","brinjal (eggplant)","茄子"],
   spinach:["🥬","spinach","菠菜"], tea:["🍵","tea (made from leaves)","茶（用叶子做的）"], broccoli:["🥦","broccoli","西兰花"], peanut:["🥜","peanuts","花生"],
   job_hold:["","holds the plant firmly in the soil","把植物牢牢固定在土里"],
@@ -53,6 +55,14 @@ const CHARTS = {
 
 /* ---------------- learn cards ---------------- */
 const LEARN = [
+ {sec:"⛳ Golf science 高尔夫里的科学", golf:1},
+ {golf:1, t:"Grass, trees and slopes 草、树和斜坡", pics:["golfcourse"], emo:["sprinkler"], facts:[
+  "<b>Roots</b> hold the grass <b>firmly in the soil</b>, so heavy rain does not wash the soil off the slopes and the edges of the bunkers.",
+  "Roots also <b>absorb water and mineral salts</b> from the soil — that is why the greens are watered.",
+  "<b>Leaves</b> make <b>food</b> for the plant using <b>light</b>. Grass under thick trees gets little light, so it grows thin and weak.",
+  "A tree's <b>stem</b> (its trunk) <b>holds the plant upright</b> and <b>carries water</b> up from the roots to the leaves, and <b>food</b> from the leaves to other parts."],
+  zh:"根把草牢牢固定在土里，下大雨时斜坡和沙坑边上的土不会被冲走；根还从土里吸收水分和矿物盐，所以果岭要浇水。叶子利用光为植物制造养分，大树底下光少，草长得又稀又弱。树干就是茎，支撑植物直立，把水从根运到叶子，把养分从叶子运到其他部分。",
+  trap:"⚠️ Plants do NOT take in food from the soil. Roots absorb water and mineral salts; the leaves make the food."},
  {sec:"1 · Parts of a plant 植物的部分"},
  {t:"Parts of a flowering plant 开花植物的部分", ch:"plantnames", facts:[
   "A flowering plant has <b>roots</b>, a <b>stem</b>, <b>leaves</b>, <b>flowers</b>, <b>fruits</b> and <b>seeds</b>.",

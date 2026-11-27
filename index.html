@@ -30,6 +30,8 @@ ul.facts li{margin:3px 0}
 .zh{color:var(--mute);font-size:14px}
 .trap{margin-top:8px;padding:8px 10px;border-radius:10px;background:var(--warnbg);color:var(--warn);font-size:14px}
 .sec{margin:18px 2px 8px;font-size:15px;font-weight:700;color:var(--brand)}
+.sec.golf{color:#15803d}
+.card.golf{border-left:5px solid #16a34a;background:#f4fdf7}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
 .pick{display:block;width:100%;text-align:left;border:1px solid #e2e8f0;background:#fff;border-radius:14px;padding:14px;cursor:pointer;font:inherit;color:inherit;box-shadow:0 1px 3px rgba(15,23,42,.06)}
 .pick:hover{border-color:var(--brand2)}
@@ -161,7 +163,7 @@ footer{max-width:860px;margin:0 auto;padding:4px 16px 28px;color:var(--mute);fon
 </div></header>
 <nav><div class="in" id="tabs"></div></nav>
 <main id="app"></main>
-<footer>Made for Ji Dam's home practice · v2026-11-26-2 · photos: Wikimedia Commons</footer>
+<footer>Made for Ji Dam's home practice · v2026-11-28-1 · photos: Wikimedia Commons</footer>
 
 <script>
 "use strict";
@@ -169,16 +171,16 @@ const TOPICS = [];
 function TOPIC(t){ TOPICS.push(t); }
 </script>
 <!-- one file per unit; a missing file is simply skipped -->
-<script src="topics/classification.js?v=2026-11-26-2"></script>
-<script src="topics/materials.js?v=2026-11-26-2"></script>
-<script src="topics/lifecycles.js?v=2026-11-26-2"></script>
-<script src="topics/plants.js?v=2026-11-26-2"></script>
-<script src="topics/digestive.js?v=2026-11-26-2"></script>
-<script src="topics/magnets.js?v=2026-11-26-2"></script>
-<script src="topics/light.js?v=2026-11-26-2"></script>
-<script src="topics/plantsystem.js?v=2026-11-26-2"></script>
-<script src="topics/matter.js?v=2026-11-26-2"></script>
-<script src="topics/heat.js?v=2026-11-26-2"></script>
+<script src="topics/classification.js?v=2026-11-28-1"></script>
+<script src="topics/materials.js?v=2026-11-28-1"></script>
+<script src="topics/lifecycles.js?v=2026-11-28-1"></script>
+<script src="topics/plants.js?v=2026-11-28-1"></script>
+<script src="topics/digestive.js?v=2026-11-28-1"></script>
+<script src="topics/magnets.js?v=2026-11-28-1"></script>
+<script src="topics/light.js?v=2026-11-28-1"></script>
+<script src="topics/plantsystem.js?v=2026-11-28-1"></script>
+<script src="topics/matter.js?v=2026-11-28-1"></script>
+<script src="topics/heat.js?v=2026-11-28-1"></script>
 <script>
 "use strict";
 /* ---------------- data from the topic files ---------------- */
@@ -351,9 +353,9 @@ function renderTopic(){
   });
 }
 function learnHTML(t){
-  return `<div class="card"><p class="zh" style="margin:0">先看照片和图认识它们，再读要点。点 🔊 听英文。学完一节就去「分一分」和「练习」。</p></div>` +
-    t.learn.map((c, i) => c.sec ? `<div class="sec">${c.sec}</div>` :
-      `<div class="card"><div class="row" style="justify-content:space-between;flex-wrap:nowrap"><h3>${c.t}</h3><button class="say" data-say="${i}">🔊</button></div>
+  return `<div class="card"><p class="zh" style="margin:0">⛳ 第一节是「高尔夫里的科学」，先从球场上熟悉的东西开始。然后看照片和图认识它们，再读要点。点 🔊 听英文。学完一节就去「分一分」和「练习」。</p></div>` +
+    t.learn.map((c, i) => c.sec ? `<div class="sec${c.golf ? " golf" : ""}">${c.sec}</div>` :
+      `<div class="card${c.golf ? " golf" : ""}"><div class="row" style="justify-content:space-between;flex-wrap:nowrap"><h3>${c.t}</h3><button class="say" data-say="${i}">🔊</button></div>
       ${((c.pics || []).length || (c.emo || []).length) ? `<div class="strip">${(c.pics || []).map(p => figure(p)).join("")}${(c.emo || []).map(p => figure(p)).join("")}</div>` : ""}
       ${c.ch ? chartHTML(t.id, c.ch) : ""}
       <ul class="facts">${c.facts.map(f => `<li>${f}</li>`).join("")}</ul>
@@ -494,6 +496,7 @@ function renderParent(){
     <ul class="facts">
       <li><b>全部是点选，不用打字。</b>每套最多 10 题。现在有 ${TOPICS.length} 个单元、${TOTAL} 题。</li>
       <li><b>每个单元的顺序</b>：先「学」（看照片和图、读要点）→「分一分」玩一局 → 再做「练习」。</li>
+      <li><b>⛳ 高尔夫里的科学</b>：每个单元「学」的第一节是绿色的高尔夫卡，用球场上熟悉的东西（草、蘑菇、风、斜坡、沙坑、影子、球杆）引出这个单元的概念。可以先边聊边看，再往下学。</li>
       <li><b>四个等级</b>：Level 1 看图认识；Level 2 知识点和易错点；Level 3 学校考试题型（图表、表格、"A and B only" 组合题、实验题）；Level 4 答题技巧——从几个答案里选出能拿满分的，学会开放题怎么写。</li>
       <li><b>AL1 标准</b>：每套稳定 9/10 以上，而且隔几天再做还对。</li>
       <li><b>错题本</b>：所有单元的错题都在这里，第二天先做错题本，做对的会自动消失。</li>

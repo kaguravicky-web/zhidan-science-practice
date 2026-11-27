@@ -22,6 +22,8 @@ const PICS = {
 };
 // emoji-only things (no photo needed)
 const EMO = {
+  golfclubs:["🏌️","golf clubs","球杆"],
+  ballmarker:["🪙","ball marker on a hat clip","帽夹上的球标"],
   clip:["📎","steel paper clip","钢回形针"], safetypin:["🧷","steel safety pin","钢安全别针"], needle:["🪡","steel sewing needle","钢缝衣针"],
   steelbolt:["🔩","steel nut and bolt","钢螺丝和螺母"], goldring:["💍","gold ring","金戒指"], brasskey:["🔑","brass key","黄铜钥匙"],
   pencil:["✏️","pencil","铅笔"], ruler:["📏","plastic ruler","塑料尺"], balloon:["🎈","rubber balloon","橡胶气球"],
@@ -36,6 +38,14 @@ const EMO = {
 
 /* ---------------- learn cards ---------------- */
 const LEARN = [
+ {sec:"⛳ Golf science 高尔夫里的科学", golf:1},
+ {golf:1, t:"Magnets in your golf bag 球包里的磁铁", emo:["ballmarker","golfclubs"], facts:[
+  "Many <b>ball markers</b> stay on a hat clip because of a small <b>magnet</b>: it <b>attracts</b> the steel part, so no glue is needed.",
+  "<b>Irons</b> were first made of iron; today most are made of <b>steel</b>, which is mostly iron. Steel is a <b>magnetic material</b>, so a magnet sticks to it.",
+  "Most <b>driver</b> heads are made of <b>titanium</b>, and <b>graphite</b> shafts are not metal at all — a magnet does <b>not</b> attract them.",
+  "Try it: bring a fridge magnet to each club in the bag and sort them into <b>magnetic</b> and <b>non-magnetic</b>."],
+  zh:"很多球标靠帽夹里的小磁铁吸住钢的部分，不用胶水。铁杆最早是铁做的，现在大多是钢做的，钢主要是铁，是磁性材料，磁铁吸得住。大多数一号木杆头是钛做的，碳纤维杆身根本不是金属，磁铁都吸不住。拿冰箱贴去试试每支球杆，分成「有磁性」和「没磁性」两组。",
+  trap:"⚠️ \"It is a metal, so a magnet attracts it\" is wrong: titanium, like aluminium, is a metal that is NOT magnetic. Test it with a magnet."},
  {sec:"1 · Magnets and magnetic materials 磁铁和磁性材料"},
  {t:"Magnets 磁铁", pics:["barfilings","horseshoe","ringmagnets","fridgeletters"], facts:[
   "A magnet <b>attracts</b> (pulls) <b>magnetic materials</b> towards it. It does not need to touch them.",

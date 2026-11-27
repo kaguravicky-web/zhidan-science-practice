@@ -1,11 +1,13 @@
 /* Topic: Plant transport system (P4 Systems). Data only - see tools/AUTHORING.md for the format. */
 (function(){
 const PICS = {
+  golfball:["e/e6/Golfball.jpg/330px-Golfball.jpg","golf ball next to the hole","高尔夫球和球洞","⛳"],
   girdled:["7/75/AnnelageAnn%C3%A9lationGirdling1LilleLamiot3.jpg/330px-AnnelageAnn%C3%A9lationGirdling1LilleLamiot3.jpg","a tree trunk with a ring of bark removed","被环剥的树干","🌳"],
   celerybunch:["0/0d/Celery_1.jpg/330px-Celery_1.jpg","celery","芹菜","🥬"]
 };
 // job cards for the sort (ids from plants.js / classification.js are reused where they fit)
 const EMO = {
+  sprinkler:["💦","sprinklers watering the green","喷灌给果岭浇水"],
   ps_water:["","carries water from the roots to the leaves","把水从根运到叶子"],
   ps_salts:["","carries mineral salts absorbed by the roots","运送根吸收的矿物盐"],
   ps_food:["","carries food made in the leaves","运送叶子制造的食物"],
@@ -34,6 +36,14 @@ const CHARTS = {
 
 /* ---------------- learn cards ---------------- */
 const LEARN = [
+ {sec:"⛳ Golf science 高尔夫里的科学", golf:1},
+ {golf:1, t:"Watering the greens 给果岭浇水", pics:["golfball"], emo:["sprinkler"], facts:[
+  "Water from the sprinklers soaks into the soil and is <b>absorbed by the roots</b>.",
+  "The water, with <b>mineral salts</b>, travels <b>up</b> the stems in the <b>water-carrying tubes</b> to the <b>leaves</b>.",
+  "The leaves use light to make <b>food</b>. The food travels in the <b>food-carrying tubes</b> to <b>all parts</b> of the plant, including the roots.",
+  "On a hot, dry day with too little water in the soil, too little water reaches the leaves, so the grass <b>wilts</b> and turns brown."],
+  zh:"喷灌的水渗进土里，被根吸收；水和矿物盐沿着运水管道往上运到叶子。叶子利用光制造养分，养分经运送养分的管道送到植物的各个部分，包括根。天气又热又干、土里水太少时，送到叶子的水不够，草就会枯萎变黄。",
+  trap:"⚠️ Food-carrying tubes take food from the leaves to ALL parts of the plant — up to the flowers and fruits too, not only down to the roots."},
  {sec:"1 · The plant transport system 植物的运输系统"},
  {t:"Two kinds of tubes 两种管道", ch:"xsec", facts:[
   "A plant has a <b>transport system</b>: tubes that run from the <b>roots</b>, through the <b>stem</b>, to the <b>leaves</b>, flowers and fruits.",

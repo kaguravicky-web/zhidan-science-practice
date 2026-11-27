@@ -14,6 +14,8 @@ const PICS = {
 };
 // emoji-only things (no photo needed)
 const EMO = {
+  golfclubs:["🏌️","golf clubs","球杆"],
+  icebottle:["🧊","drink bottle with ice","装了冰的水壶"],
   fire:["🔥","fire","火"], icecube:["🧊","ice cube","冰块"], hottea:["☕","cup of hot tea","一杯热茶"],
   steelspoon:["🥄","steel spoon","钢汤匙"], metalcoin:["🪙","coin","硬币"], steelclip:["📎","steel paper clip","钢回形针"], metalkey:["🔑","metal key","金属钥匙"],
   ironbolt:["🔩","iron bolt","铁螺栓"], metalcan:["🥫","metal can","铁罐"], woodchopsticks:["🥢","wooden chopsticks","木筷子"], rubberballoon:["🎈","rubber balloon","橡胶气球"],
@@ -27,6 +29,14 @@ const EMO = {
 
 /* ---------------- learn cards ---------------- */
 const LEARN = [
+ {sec:"⛳ Golf science 高尔夫里的科学", golf:1},
+ {golf:1, t:"Cold shafts and melting ice 冰凉的杆身和融化的冰", emo:["icebottle","golfclubs"], facts:[
+  "Heat always flows from a <b>hotter</b> object to a <b>colder</b> one.",
+  "Ice in your drink bottle <b>gains heat</b> from the drink and <b>melts</b>. The drink <b>loses heat</b>, so it becomes colder.",
+  "Early in the morning, clubs left in the bag all night are all at the <b>same temperature</b>. Yet the <b>steel</b> shaft feels colder than the <b>rubber</b> grip: steel is a <b>good conductor of heat</b>, so heat flows from your hand into it <b>faster</b>.",
+  "An insulated drink bottle has walls that are <b>poor conductors of heat</b>, so the cold drink <b>gains heat</b> from the hot air <b>more slowly</b> and stays cold for longer."],
+  zh:"热总是从较热的物体流向较冷的物体。水壶里的冰从饮料吸收热而融化，饮料失去热，变得更冰。清早，在球包里放了一夜的球杆温度都一样，但钢杆身摸起来比橡胶握把冰：钢是热的良导体，手上的热更快流进去。保温水壶的壁是热的不良导体，冰饮料从热空气吸收热更慢，所以能冰更久。",
+  trap:"⚠️ Write \"gains heat\" or \"loses heat\" — never \"gains coldness\". Cold does not flow; heat does."},
  {sec:"1 · Heat and temperature 热和温度"},
  {t:"Heat is energy 热是一种能量", pics:["sun"], emo:["fire","hottea"], facts:[
   "<b>Heat is a form of energy</b>. Our main source of heat is the <b>Sun</b>. Fire, a stove, an electric heater and our own bodies also give out heat.",

@@ -1,6 +1,7 @@
 /* Topic: Materials (P3 Diversity of materials). Data only - see tools/AUTHORING.md for the format. */
 (function(){
 const PICS = {
+  golfball:["e/e6/Golfball.jpg/330px-Golfball.jpg","golf ball next to the hole","高尔夫球和球洞","⛳"],
   tyre:["9/99/Large_tyre.jpg/330px-Large_tyre.jpg","rubber tyre","橡胶轮胎","🛞"],
   wok:["b/ba/Wok_cooking.jpg/330px-Wok_cooking.jpg","metal wok","铁锅（炒锅）","🍳"],
   towel:["5/57/Zusammengelegte_Handt%C3%BCcher.jpg/330px-Zusammengelegte_Handt%C3%BCcher.jpg","cotton towels","棉毛巾","🧺"],
@@ -20,6 +21,9 @@ const PICS = {
 };
 // emoji-only things (no photo needed)
 const EMO = {
+  golfclubs:["🏌️","golf clubs","球杆"],
+  golfglove:["🧤","leather golf glove","皮革高尔夫手套"],
+  golfumbrella:["☂️","golf umbrella","高尔夫伞"],
   chair:["🪑","wooden chair","木椅"], pencil:["✏️","pencil","铅笔"], umbrella:["☂️","umbrella","雨伞"],
   tshirt:["👕","cotton T-shirt","棉T恤"], sock:["🧦","cotton sock","棉袜"], tissue:["🧻","tissue paper","纸巾"], newspaper:["📰","newspaper","报纸"],
   pail:["🪣","plastic pail","塑料桶"], balloon:["🎈","rubber balloon","橡胶气球"], glasswindow:["🪟","clear glass window","透明玻璃窗"],
@@ -29,6 +33,14 @@ const EMO = {
 
 /* ---------------- learn cards ---------------- */
 const LEARN = [
+ {sec:"⛳ Golf science 高尔夫里的科学", golf:1},
+ {golf:1, t:"What is your golf gear made of? 球具是什么材料做的", pics:["golfball"], emo:["golfumbrella","golfglove","golfclubs"], facts:[
+  "<b>Umbrella</b>: nylon (a kind of plastic) cloth, because it is <b>waterproof</b> — it keeps you dry in the rain.",
+  "<b>Glove</b>: leather, because it is <b>flexible</b> — your fingers can bend to grip the club.",
+  "<b>Club shaft</b>: steel or graphite, because it is <b>strong</b> — it does not break when you swing hard.",
+  "A golf ball <b>sinks</b> in a pond. That is why balls hit into the water are lost. Some driving ranges with a lake use special balls that <b>float</b>."],
+  zh:"雨伞用尼龙（一种塑料）布，因为防水；手套用皮革，因为柔软能弯曲；杆身用钢或碳纤维，因为结实，用力挥也不会断。高尔夫球掉进水塘会沉下去，所以下水的球就找不回来；有的湖边练习场用会浮起来的专用球。",
+  trap:"⚠️ Name the property AND say why it is needed: \"The umbrella is made of nylon because it is waterproof, so it keeps the golfer dry.\""},
  {sec:"1 · Materials and where they come from 材料和来源"},
  {t:"Objects and materials 物体和材料", pics:["woodsamples"], emo:["chair","pencil","door"], facts:[
   "An <b>object</b> is a thing, e.g. a chair. A <b>material</b> is what the object is made of, e.g. wood.",

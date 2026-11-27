@@ -12,6 +12,7 @@ const PICS = {
 };
 // emoji-only things (no photo needed)
 const EMO = {
+  golfer:["🏌️","golfer","打高尔夫的人"],
   tracingpaper:["📄","tracing paper","描图纸"],
   torch:["🔦","torch (switched on)","打开的手电筒"], fire:["🔥","fire","火"], star:["⭐","star","星星（恒星）"], lightning:["⚡","lightning","闪电"],
   tvon:["📺","TV that is switched on","开着的电视"], mirror:["🪞","mirror","镜子"], book:["📖","book","书"], diamondring:["💍","diamond ring","钻石戒指"],
@@ -21,6 +22,15 @@ const EMO = {
 
 /* ---------------- learn cards ---------------- */
 const LEARN = [
+ {sec:"⛳ Golf science 高尔夫里的科学", golf:1},
+ {golf:1, t:"Shadows on the course 球场上的影子", pics:["sun"], emo:["golfer"], facts:[
+  "Light travels in <b>straight lines</b>. Your body is <b>opaque</b>: it <b>blocks</b> the sunlight, so a <b>shadow</b> forms behind you.",
+  "Your shadow always falls on the side <b>away from the sun</b>.",
+  "Early morning and late afternoon: the sun is <b>low</b>, so shadows are <b>long</b>. Around noon the sun is <b>high</b>, so shadows are <b>short</b>.",
+  "Golf manners: do not let your shadow fall across another player's putting line.",
+  "The peak of your cap <b>blocks</b> sunlight and puts your eyes in the shade, so you can follow the ball more easily."],
+  zh:"光沿直线传播。人是不透光的，挡住阳光，身后就形成影子。影子总在背着太阳的一侧。早上和傍晚太阳低，影子长；中午太阳高，影子短。球场礼仪：别让自己的影子落在别人的推杆线上。帽檐挡住阳光，眼睛在阴影里，更容易看清球。",
+  trap:"⚠️ A shadow forms because light is BLOCKED by an opaque object. Write \"blocks light\", not \"makes a dark shadow\"."},
  {sec:"1 · Light sources 光源"},
  {t:"Light sources 光源", pics:["sun","firefly","candle","litbulb"], emo:["torch","star","lightning"], facts:[
   "A <b>light source</b> is something that <b>gives out light</b> on its own.",

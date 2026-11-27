@@ -55,6 +55,14 @@ const CHARTS = {
 
 /* ---------------- learn cards ---------------- */
 const LEARN = [
+ {sec:"⛳ Golf science 高尔夫里的科学", golf:1},
+ {golf:1, t:"Life cycles around the course 球场上的生命周期", pics:["tadpole","froglet","dfnymph","dragonfly","butterfly"], facts:[
+  "Look for <b>tadpoles</b> in the course ponds. Frog: egg → <b>tadpole</b> → <b>froglet</b> → adult frog.",
+  "Dragonflies over the water hazard lay their eggs in the water. Dragonfly: egg → <b>nymph</b> (lives in water) → adult — <b>3 stages</b>.",
+  "Butterflies on the flowers near the tees: egg → <b>larva</b> (caterpillar) → <b>pupa</b> → adult — <b>4 stages</b>.",
+  "Bare patches are sown with grass <b>seeds</b>: seed → <b>seedling</b> → adult plant. Grass in the rough that is left uncut can grow <b>flowers</b> and make new seeds."],
+  zh:"在球场水塘里找蝌蚪：卵→蝌蚪→幼蛙→成蛙。蜻蜓在水里产卵：卵→若虫（住在水里）→成虫，三个阶段。蝴蝶：卵→幼虫→蛹→成虫，四个阶段。草皮秃了的地方撒草籽：种子→幼苗→成株；长草区没修剪的草会开花、结出新种子。",
+  trap:"⚠️ A dragonfly has NO pupa: its young is a nymph that lives in water (3 stages). A butterfly has a larva AND a pupa (4 stages)."},
  {sec:"1 · What is a life cycle? 什么是生命周期"},
  {t:"Life cycle 生命周期", pics:["hen","chick","henegg"], facts:[
   "A <b>life cycle</b> is the <b>stages</b> a living thing goes through, from the start of its life until it becomes an <b>adult</b> that can <b>reproduce</b>.",

@@ -1,6 +1,7 @@
 /* Topic: Matter (P4 Cycles). Data only - see tools/AUTHORING.md for the format. */
 (function(){
 const PICS = {
+  bunker:["e/e6/18th_Hole_Green.jpg/330px-18th_Hole_Green.jpg","a bunker (sand trap) next to a green","果岭旁的沙坑","⛳"],
   gradcyl:["c/c5/Different_types_of_graduated_cylinder-_10ml%2C_25ml%2C_50ml_and_100_ml_graduated_cylinder.jpg/330px-Different_types_of_graduated_cylinder-_10ml%2C_25ml%2C_50ml_and_100_ml_graduated_cylinder.jpg","measuring cylinders","量筒","🧪"],
   kitchenscale:["4/4f/Escali_digital_kitchen_scale.jpg/330px-Escali_digital_kitchen_scale.jpg","electronic weighing scale","电子秤","⚖️"],
   labsyringes:["f/f2/Laboratory_syringes.jpg/330px-Laboratory_syringes.jpg","syringes","注射筒","💉"],
@@ -16,6 +17,7 @@ const PICS = {
 };
 // emoji-only things (no photo needed). "water", "stone" and "chair" come from classification.js.
 const EMO = {
+  wind:["🌬️","wind","风"],
   balloons:["🎈","balloons","气球"],
   air:["💨","air","空气"], milk:["🥛","milk","牛奶"], helium:["🎈","helium gas in a floating balloon","飘浮气球里的氦气"],
   tyreair:["🛞","air in a bicycle tyre","自行车轮胎里的空气"], fizzco2:["🫧","carbon dioxide (in the bubbles of a fizzy drink)","汽水气泡里的二氧化碳"],
@@ -45,6 +47,15 @@ const CHARTS = {
 
 /* ---------------- learn cards ---------------- */
 const LEARN = [
+ {sec:"⛳ Golf science 高尔夫里的科学", golf:1},
+ {golf:1, t:"Wind, slopes and bunkers 风、斜坡和沙坑", pics:["bunker"], emo:["wind"], facts:[
+  "<b>Wind</b> is moving <b>air</b>. Air is <b>matter</b>: it has <b>mass</b> and <b>occupies space</b>, even though you cannot see it.",
+  "Hitting <b>into the wind</b>, the moving air pushes against the ball, so it carries a <b>shorter</b> distance. <b>Downwind</b>, it carries further.",
+  "Rain on the green is a <b>liquid</b>: it has a <b>definite volume</b> but <b>no definite shape</b>, so it flows downhill and collects in the lowest spot. A putt on a slope also breaks downhill.",
+  "<b>Sand</b> in the bunker can be <b>poured</b>, but each grain is a <b>solid</b> with a <b>definite shape</b> and a <b>definite volume</b>.",
+  "The buggy's tyres are full of air. Air <b>can be compressed</b>: a pump pushes more air into the same tyre."],
+  zh:"风是流动的空气。空气是物质：有质量、占空间，只是看不见。逆风击球，流动的空气顶着球，carry 变短；顺风就飞得更远。果岭上的雨水是液体：体积一定、形状不定，会往低处流、积在最低点；斜坡上推杆，球也往低处拐。沙坑里的沙可以倒，但每一粒沙都是固体，形状和体积一定。球车轮胎里是空气，气体可以被压缩，打气筒能把更多空气压进同一个轮胎。",
+  trap:"⚠️ Sand can be poured, but it is NOT a liquid: each grain keeps its own shape. A liquid takes the shape of its container; a sand grain does not."},
  {sec:"1 · What is matter? 什么是物质"},
  {t:"Matter 物质", emo:["water","stone","air","sunlight","sound"], facts:[
   "<b>Matter</b> is anything that <b>has mass</b> and <b>occupies space</b>.",

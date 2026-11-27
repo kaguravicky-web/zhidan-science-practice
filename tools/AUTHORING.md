@@ -96,6 +96,13 @@ Real photos help a lot (he did not know what moss was). Use Wikimedia Commons th
 <b>keywords</b>, a Chinese summary `zh`, and a `trap` for the commonest exam mistake. Teach exactly what the questions test,
 including the exam keywords ("absorbs water", "attracts magnetic materials", "conducts heat", "occupies space", …).
 
+## Golf science cards
+Every unit starts its learn cards with `{sec:"⛳ Golf science 高尔夫里的科学", golf:1}` and 1–3 cards marked `golf:1`
+(shown green). He plays golf every day and understands wind, carry, slopes and greens, so these cards start the unit
+from things he knows on the course (grass, fungi after rain, pond animals, bunker sand, shadows, clubs, sprinklers)
+and lead into the unit's exam keywords. Same rules as other cards: correct by the syllabus, keywords in <b>, a `zh` and a `trap`.
+Only claim what is true for most gear ("most driver heads are titanium") and invite him to test it himself.
+
 ## Sort games
 1–2 per topic where it makes sense (magnetic / not magnetic; solid / liquid / gas; good / poor conductor of heat;
 transparent / translucent / opaque; 3-stage / 4-stage life cycle). At least 8 items, each with a short reason.
